@@ -11,3 +11,9 @@ data/raw/public/structures/*.cif
 results/tables/*.csv
 results/reports/*.md
 results/figures/*.png
+
+# local staging and build artifacts
+data/incoming/
+*.egg-info/
+__pycache__/
+.pytest_cache/

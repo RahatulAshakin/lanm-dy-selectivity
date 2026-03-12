@@ -1,0 +1,30 @@
+[
+  {
+    "dataset_name": "Lanmodulin / lanthanide protein structures",
+    "type": "Structural biology dataset",
+    "local_file": "lanmodulin_lanthanide_structures.csv",
+    "public_access": "RCSB PDB entry pages and CIF downloads",
+    "notes": "Includes LanM structures with Y, La, Dy, and Nd; ready for structure-based modeling and binder design."
+  },
+  {
+    "dataset_name": "Lanthanide element basic properties",
+    "type": "Element descriptor table",
+    "local_file": "lanthanide_elements_basic_properties.csv",
+    "public_access": "Filtered from public periodic-table CSV source",
+    "notes": "Useful as a starter descriptor table for lanthanide-series encoding."
+  },
+  {
+    "dataset_name": "PXD032828 lanthanide-response proteomics dataset",
+    "type": "Proteomics dataset",
+    "local_file": "not downloaded directly",
+    "public_access": "ftp://ftp.pride.ebi.ac.uk/pride/data/archive/2023/01/PXD032828",
+    "notes": "Peer-reviewed PRIDE dataset on lanthanide response and lanpepsy discovery."
+  },
+  {
+    "dataset_name": "NIST-LANL Lanthanide Opacity Database",
+    "type": "Physics / tabular opacity database",
+    "local_file": "not downloaded directly",
+    "public_access": "https://nlte.nist.gov/OPAC",
+    "notes": "Lanthanides Z=57\u201370; searchable by element, density, temperature, and opacity type."
+  }
+]

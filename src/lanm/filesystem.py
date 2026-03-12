@@ -29,6 +29,15 @@ def atomic_write_text(path: Path, text: str) -> None:
     temp_path.replace(path)
 
 
+def atomic_write_bytes(path: Path, payload: bytes) -> None:
+    """Write bytes atomically for idempotent binary outputs."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with NamedTemporaryFile("wb", delete=False, dir=path.parent) as handle:
+        handle.write(payload)
+        temp_path = Path(handle.name)
+    temp_path.replace(path)
+
+
 def write_csv_rows(path: Path, rows: Iterable[object]) -> None:
     """Write dataclass or dict rows to CSV deterministically."""
     row_list: list[dict[str, object]] = []

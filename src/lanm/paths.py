@@ -16,6 +16,13 @@ RESULTS_REPORTS_DIR = RESULTS_DIR / "reports"
 RESULTS_FIGURES_DIR = RESULTS_DIR / "figures"
 DOCS_DIR = REPO_ROOT / "docs"
 PROJECT_BRIEF_PATH = DOCS_DIR / "project_brief_extracted.md"
+LOCAL_STRUCTURE_MANIFEST_PATH = LOCAL_BUNDLE_DIR / "lanmodulin_lanthanide_structures.csv"
+DATASET_INVENTORY_PATH = RESULTS_TABLES_DIR / "dataset_inventory.csv"
+DATASET_AUDIT_PATH = RESULTS_REPORTS_DIR / "dataset_audit.md"
+PUBLIC_STRUCTURE_FETCH_LOG_PATH = RESULTS_TABLES_DIR / "public_structure_fetch_log.csv"
+METAL_SITE_SUMMARY_PATH = RESULTS_TABLES_DIR / "metal_site_summary.csv"
+SHELL_ANNOTATION_PATH = RESULTS_TABLES_DIR / "shell_annotation.csv"
+SITE_OVERVIEW_FIGURE_PATH = RESULTS_FIGURES_DIR / "template_site_overview.png"
 
 
 def ensure_runtime_directories() -> None:

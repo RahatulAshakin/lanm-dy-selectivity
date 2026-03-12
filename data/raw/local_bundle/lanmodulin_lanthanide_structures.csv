@@ -1,0 +1,5 @@
+pdb_id,title,bound_metal,organism,method,released,rcsb_url,cif_download_url
+6MI5,Lanmodulin complexed with yttrium(III) ions,Y(III),Methylorubrum extorquens AM1,SOLUTION NMR,2018-11-07,https://www.rcsb.org/structure/6MI5,https://files.rcsb.org/download/6MI5.cif
+8DQ2,Hansschlegelia quercus lanmodulin with lanthanum(III) bound at pH 7,La(III),Hansschlegelia quercus,X-RAY DIFFRACTION,2023-06-07,https://www.rcsb.org/structure/8DQ2,https://files.rcsb.org/download/8DQ2.cif
+8FNR,Hansschlegelia quercus lanmodulin with dysprosium(III) bound at pH 7,Dy(III),Hansschlegelia quercus,X-RAY DIFFRACTION,2023-06-07,https://www.rcsb.org/structure/8FNR,https://files.rcsb.org/download/8FNR.cif
+8FNS,Methylorubrum extorquens AM1 lanmodulin with neodymium(III) bound at pH 7,Nd(III),Methylorubrum extorquens AM1,X-RAY DIFFRACTION,2023-06-07,https://www.rcsb.org/structure/8FNS,https://files.rcsb.org/download/8FNS.cif

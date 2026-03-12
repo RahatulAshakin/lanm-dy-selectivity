@@ -89,6 +89,22 @@ class BriefExtractionResult:
 
 
 @dataclass(frozen=True, slots=True)
+class StructureManifestEntry:
+    pdb_id: str
+    title: str
+    bound_metal: str
+    organism: str
+    method: str
+    released: str
+    rcsb_url: str
+    cif_download_url: str
+
+    @property
+    def bound_metal_symbol(self) -> str:
+        return self.bound_metal.split("(", 1)[0].strip().upper()
+
+
+@dataclass(frozen=True, slots=True)
 class FetchRecord:
     pdb_id: str
     bound_metal: str

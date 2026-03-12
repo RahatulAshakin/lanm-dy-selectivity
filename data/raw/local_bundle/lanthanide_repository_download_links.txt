@@ -1,0 +1,27 @@
+Confirmed lanthanide / rare-earth related datasets
+
+1) Zenodo
+Title: Insights into Rare Earth Solvation Energetics in the Organic Phase and Understanding its Impacts on the Separation Performance
+DOI: 10.5281/zenodo.13730351
+Record: https://zenodo.org/records/13730351
+Direct file: https://zenodo.org/records/13730351/files/RE_DOHE_CN_MetaD.tar.gz?download=1
+Contents: AMBER input scripts, parameters, topology files, PLUMED scripts, experimental IR and fluorescence data
+
+2) Zenodo
+Title: Data associated to the article "DFT-based Polarizable Ion Models for Molten Rare-earth Chlorides: from Lanthanum to Europium"
+DOI: 10.5281/zenodo.14212261
+Record: https://zenodo.org/records/14212261
+Direct file: https://zenodo.org/records/14212261/files/inputs.tar.gz?download=1
+Contents: input files used to generate the results for DFT-based polarizable ion models for rare-earth chlorides
+
+3) Mendeley Data
+Title: Data for: Surface Complexation Model of Rare Earth Element Adsorption onto Bacterial Surface with Lanthanide Binding Tags
+DOI: 10.17632/vf98xjc4s5.1
+Record: https://data.mendeley.com/datasets/vf98xjc4s5/1
+Notes: potentiometric titration and terbium adsorption isotherm data for wild type and engineered strains
+
+4) Mendeley Data
+Title: Bent Lanthanide(III) Data
+DOI: 10.17632/fh245wm5nj.1
+Record: https://data.mendeley.com/datasets/fh245wm5nj/1
+Notes: chemistry research data on bent lanthanide(III) systems

@@ -1,0 +1,8 @@
+project_name: lanm-dy-selectivity
+target_metal: Dy
+competitors: [Nd, Y, Al, Fe]
+temperature_K: 298
+first_shell_cutoff_A: 3.2
+second_sphere_cutoff_A: 6.0
+ddg_target_kcal_mol: -1.36
+ore_weights_status: placeholder_needed

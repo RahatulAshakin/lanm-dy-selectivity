@@ -1,0 +1,44 @@
+# lanm-dy-selectivity
+
+Phase 1 builds a deterministic CLI-first scaffold for local dataset normalization, auditing, public structure fetching, and metal-site annotation.
+
+## Phase 1 scope
+
+- Normalize `data/incoming/` into `data/raw/local_bundle/` with stable snake_case filenames.
+- Extract `docs/project_brief_extracted.md` from any DOCX found in `data/incoming/`.
+- Audit the local bundle into `results/reports/dataset_audit.md` and `results/tables/dataset_inventory.csv`.
+- Fetch the public `6MI5.cif` and `8FNR.cif` structures into `data/raw/public/structures/`.
+- Annotate metal-centered shells from `8FNS_atoms.csv` and `8DQ2_atoms.csv`.
+
+The current workspace does not contain the prompt's DOCX input. The extractor writes a deterministic placeholder note until a `.docx` file is added under `data/incoming/`.
+
+## Exact commands
+
+```bash
+python -m pip install -e .[phase1,dev]
+python -m lanm.cli.audit_data
+python -m lanm.cli.fetch_public_structures
+python -m lanm.cli.annotate_metal_sites
+python -m unittest discover -s tests -p 'test_*.py'
+```
+
+## Make targets
+
+```bash
+make setup
+make audit
+make fetch
+make annotate
+make test
+```
+
+## Outputs
+
+- `data/raw/local_bundle/`
+- `docs/project_brief_extracted.md`
+- `results/reports/dataset_audit.md`
+- `results/tables/dataset_inventory.csv`
+- `results/tables/public_structure_fetch_log.csv`
+- `results/tables/metal_site_summary.csv`
+- `results/tables/shell_annotation.csv`
+- `results/figures/template_site_overview.png`

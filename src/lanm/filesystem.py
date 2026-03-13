@@ -10,6 +10,11 @@ from pathlib import Path
 from tempfile import NamedTemporaryFile
 from typing import Iterable
 
+try:
+    import yaml  # type: ignore
+except ModuleNotFoundError:  # pragma: no cover - optional dependency
+    yaml = None
+
 
 def copy_if_changed(source: Path, destination: Path) -> bool:
     """Copy a file only when content differs or the destination is missing."""
@@ -62,3 +67,23 @@ def write_csv_rows(path: Path, rows: Iterable[object]) -> None:
 def write_json(path: Path, payload: object) -> None:
     """Write JSON atomically."""
     atomic_write_text(path, json.dumps(payload, indent=2, sort_keys=True) + "\n")
+
+
+def write_jsonl(path: Path, rows: Iterable[object]) -> None:
+    """Write newline-delimited JSON rows atomically."""
+    payload_lines: list[str] = []
+    for row in rows:
+        if is_dataclass(row):
+            serializable = asdict(row)
+        else:
+            serializable = row
+        payload_lines.append(json.dumps(serializable, sort_keys=True))
+    atomic_write_text(path, "\n".join(payload_lines) + ("\n" if payload_lines else ""))
+
+
+def write_yaml(path: Path, payload: object) -> None:
+    """Write YAML atomically, falling back to JSON-compatible YAML."""
+    if yaml is not None:
+        atomic_write_text(path, yaml.safe_dump(payload, sort_keys=False))
+        return
+    atomic_write_text(path, json.dumps(payload, indent=2) + "\n")

@@ -1,0 +1,11 @@
+template_id,source_type,chain_id,residue_start,residue_end,residue_range,residue_count,metal_identity,metal_site_count,experimental_method
+6MI5,cif,X,23,139,X:23-139,117,Y,3,SOLUTION NMR
+8FNS,csv_atom_table,A,29,133,A:29-133,105,ND,4,X-RAY DIFFRACTION
+8DQ2,csv_atom_table,A,24,133,A:24-133,110,LA,3,X-RAY DIFFRACTION
+8DQ2,csv_atom_table,B,24,133,B:24-133,110,LA,3,X-RAY DIFFRACTION
+8DQ2,csv_atom_table,C,24,133,C:24-133,110,LA,3,X-RAY DIFFRACTION
+8DQ2,csv_atom_table,D,24,133,D:24-133,110,LA,3,X-RAY DIFFRACTION
+8FNR,cif,A,24,133,A:24-133,110,DY,4,X-RAY DIFFRACTION
+8FNR,cif,B,24,133,B:24-133,110,DY,3,X-RAY DIFFRACTION
+8FNR,cif,C,24,133,C:24-133,110,DY,3,X-RAY DIFFRACTION
+8FNR,cif,D,24,133,D:24-133,105,DY,4,X-RAY DIFFRACTION

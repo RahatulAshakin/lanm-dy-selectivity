@@ -151,3 +151,377 @@ class ShellAnnotation:
     record_type: str
     distance_A: float
     is_water: bool
+
+
+@dataclass(frozen=True, slots=True)
+class TemplateChainSummary:
+    structure_id: str
+    source_kind: str
+    input_path: str
+    experimental_method: str
+    chain_id: str
+    residue_start: int
+    residue_end: int
+    residue_count: int
+    sequence_length: int
+    bound_metal_element: str
+    bound_metal_site_count: int
+    is_representative_chain: bool
+
+
+@dataclass(frozen=True, slots=True)
+class TemplateSiteSummaryRow:
+    structure_id: str
+    source_kind: str
+    input_path: str
+    experimental_method: str
+    chain_id: str
+    site_index: int
+    site_label: str
+    metal_site_id: str
+    metal_element: str
+    donor_atom_count: int
+    donor_residue_count: int
+    first_shell_polymer_count: int
+    second_sphere_polymer_count: int
+    solvent_count: int
+    first_shell_residues: str
+    second_sphere_residues: str
+    solvent_residues: str
+
+
+@dataclass(frozen=True, slots=True)
+class CrossTemplateAlignmentRow:
+    template_id: str
+    chain_id: str
+    template_residue_seq: int
+    template_residue_name: str
+    canonical_family_position: int | None
+    am1_mature_position: int | None
+    alignment_status: str
+
+
+@dataclass(frozen=True, slots=True)
+class ResidueRoleAssignment:
+    template_id: str
+    chain_id: str
+    site_index: int | None
+    site_label: str
+    role: str
+    residue_id: str
+    residue_name: str
+    residue_seq: int
+    distance_A: float | None
+    canonical_family_position: int | None
+    am1_mature_position: int | None
+    alignment_status: str
+    note: str
+
+
+@dataclass(frozen=True, slots=True)
+class DesignMaskCandidate:
+    canonical_family_position: int
+    am1_mature_position: int | None
+    am1_reference_residue: str
+    observed_residue_identities: str
+    template_coverage_count: int
+    first_shell_observation_count: int
+    second_sphere_observation_count: int
+    hans_interface_observation_count: int
+    interface_neighborhood: bool
+    fixed_first_shell: bool
+    mutable_second_sphere: bool
+    mutable_interface: bool
+    protected_positions: bool
+    protection_reasons: str
+    rationale: str
+
+
+@dataclass(frozen=True, slots=True)
+class DesignBackboneManifestRow:
+    backbone_id: str
+    structure_id: str
+    source_kind: str
+    source_path: str
+    experimental_method: str
+    selected_chains: str
+    design_chains: str
+    fixed_context_chains: str
+    selected_residue_count: int
+    design_chain_residue_count: int
+    design_chain_metal_site_count: int
+    representative_note: str
+    backbone_pdb_path: str
+
+
+@dataclass(frozen=True, slots=True)
+class DesignCampaignManifestRow:
+    campaign_id: str
+    backbone_id: str
+    design_set_name: str
+    designed_chains: str
+    fixed_context_chains: str
+    exported_pdb_path: str
+    chain_assignment_path: str
+    fixed_positions_path: str
+    designable_residue_count: int
+    fixed_residue_count: int
+    designable_canonical_positions: str
+    designable_am1_positions: str
+
+
+@dataclass(frozen=True, slots=True)
+class DesignCampaignPositionRow:
+    campaign_id: str
+    design_set_name: str
+    backbone_id: str
+    structure_id: str
+    chain_id: str
+    sequence_index: int
+    residue_seq: int
+    insertion_code: str
+    residue_name: str
+    canonical_family_position: int | None
+    am1_mature_position: int | None
+    fixed_first_shell: bool
+    protected_positions: bool
+    mutable_second_sphere: bool
+    mutable_interface: bool
+    hard_fixed: bool
+    designable: bool
+    position_state: str
+    position_reason: str
+    rationale: str
+
+
+@dataclass(frozen=True, slots=True)
+class ProteinMPNNSmokeSummaryRow:
+    campaign_id: str
+    backbone_id: str
+    backbone_structure_id: str
+    design_set_name: str
+    designed_chains: str
+    fixed_context_chains: str
+    generated_sequence_count: int
+    unique_sequence_count: int
+    unique_sequence_fraction: float
+    sequence_length: int
+    native_score: float
+    native_global_score: float
+    mean_pairwise_identity: float | None
+    min_pairwise_identity: float | None
+    max_pairwise_identity: float | None
+    model_name: str
+    git_hash: str
+    seed: int
+    output_fasta_path: str
+
+
+@dataclass(frozen=True, slots=True)
+class ProteinMPNNSequenceCatalogRow:
+    campaign_id: str
+    backbone_id: str
+    design_set_name: str
+    designed_chains: str
+    temperature: float
+    sample_number: int
+    score: float
+    global_score: float
+    seq_recovery: float
+    sequence_id: str
+    designed_sequence: str
+    sequence_length: int
+    output_fasta_path: str
+
+
+@dataclass(frozen=True, slots=True)
+class ProteinMPNNUniqueSequenceRow:
+    candidate_id: str
+    campaign_id: str
+    backbone_id: str
+    design_set_name: str
+    designed_sequence: str
+    representative_sequence_id: str
+    occurrence_count: int
+    campaign_rank: int
+    temperature: float
+    best_score: float
+    best_global_score: float
+    best_seq_recovery: float
+    mutation_count: int
+    mutation_string: str
+    canonical_family_positions_mutated: str
+    am1_mature_positions_mutated: str
+    includes_second_sphere_position: bool
+    includes_interface_position: bool
+
+
+@dataclass(frozen=True, slots=True)
+class ProteinMPNNShortlistRow:
+    shortlist_rank: int
+    candidate_id: str
+    campaign_id: str
+    backbone_id: str
+    design_set_name: str
+    designed_sequence: str
+    representative_sequence_id: str
+    occurrence_count: int
+    campaign_rank: int
+    temperature: float
+    best_score: float
+    best_global_score: float
+    best_seq_recovery: float
+    mutation_count: int
+    mutation_string: str
+    canonical_family_positions_mutated: str
+    am1_mature_positions_mutated: str
+    includes_second_sphere_position: bool
+    includes_interface_position: bool
+    retention_reason: str
+
+
+@dataclass(frozen=True, slots=True)
+class LigandMPNNInputManifestRow:
+    shortlist_rank: int
+    candidate_id: str
+    campaign_id: str
+    backbone_id: str
+    source_structure_id: str
+    source_kind: str
+    source_path: str
+    preserved_chains: str
+    designed_chains: str
+    fixed_context_chains: str
+    preserved_metal_identity: str
+    preserved_metal_site_count: int
+    preserved_solvent_residue_count: int
+    redesigned_residue_count: int
+    pdb_path: str
+    redesigned_residues_path: str
+
+
+@dataclass(frozen=True, slots=True)
+class LigandMPNNRedesignPositionRow:
+    shortlist_rank: int
+    candidate_id: str
+    campaign_id: str
+    backbone_id: str
+    chain_id: str
+    sequence_index: int
+    residue_seq: int
+    insertion_code: str
+    ligandmpnn_residue_id: str
+    residue_name: str
+    native_amino_acid: str
+    designed_amino_acid: str
+    mutation_token: str
+    canonical_family_position: int | None
+    am1_mature_position: int | None
+
+
+@dataclass(frozen=True, slots=True)
+class LigandMPNNSmokeSummaryRow:
+    shortlist_rank: int
+    candidate_id: str
+    campaign_id: str
+    backbone_id: str
+    source_structure_id: str
+    designed_chains: str
+    preserved_metal_identity: str
+    redesigned_residues: str
+    generated_sequence_count: int
+    unique_sequence_count: int
+    unique_sequence_fraction: float
+    sequence_length: int
+    mean_overall_confidence: float | None
+    min_overall_confidence: float | None
+    max_overall_confidence: float | None
+    mean_ligand_confidence: float | None
+    min_ligand_confidence: float | None
+    max_ligand_confidence: float | None
+    mean_pairwise_identity: float | None
+    min_pairwise_identity: float | None
+    max_pairwise_identity: float | None
+    temperature: float
+    seed: int
+    output_fasta_path: str
+
+
+@dataclass(frozen=True, slots=True)
+class LigandMPNNSequenceCatalogRow:
+    shortlist_rank: int
+    candidate_id: str
+    campaign_id: str
+    backbone_id: str
+    source_structure_id: str
+    designed_chains: str
+    preserved_metal_identity: str
+    redesigned_residues: str
+    design_id: int
+    temperature: float
+    seed: int
+    overall_confidence: float
+    ligand_confidence: float
+    seq_recovery: float
+    sequence_id: str
+    designed_sequence: str
+    sequence_length: int
+    output_fasta_path: str
+    backbone_pdb_path: str
+    packed_pdb_path: str
+
+
+@dataclass(frozen=True, slots=True)
+class LigandMPNNUniqueSequenceRow:
+    unique_sequence_rank: int
+    sequence_id: str
+    candidate_id: str
+    campaign_id: str
+    backbone_id: str
+    preserved_metal_identity: str
+    candidate_shortlist_rank: int
+    candidate_unique_rank: int
+    candidate_prefilter_selected: bool
+    design_id: int
+    total_occurrence_count: int
+    source_candidate_count: int
+    source_candidate_ids: str
+    overall_confidence: float
+    ligand_confidence: float
+    seq_recovery: float
+    mutation_count: int
+    mutation_string: str
+    redesigned_residue_identifiers: str
+    designed_chain_sequence: str
+    input_pdb_path: str
+    output_fasta_path: str
+    backbone_pdb_path: str
+    packed_pdb_path: str
+
+
+@dataclass(frozen=True, slots=True)
+class LigandMPNNShortlistRow:
+    shortlist_rank: int
+    sequence_id: str
+    candidate_id: str
+    campaign_id: str
+    backbone_id: str
+    preserved_metal_identity: str
+    candidate_shortlist_rank: int
+    candidate_unique_rank: int
+    design_id: int
+    total_occurrence_count: int
+    source_candidate_count: int
+    source_candidate_ids: str
+    overall_confidence: float
+    ligand_confidence: float
+    seq_recovery: float
+    mutation_count: int
+    mutation_string: str
+    redesigned_residue_identifiers: str
+    designed_chain_sequence: str
+    input_pdb_path: str
+    output_fasta_path: str
+    backbone_pdb_path: str
+    packed_pdb_path: str
+    retention_reason: str

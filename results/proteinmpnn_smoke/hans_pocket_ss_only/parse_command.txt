@@ -1,0 +1,1 @@
+/home/ashak/mambaforge/bin/python /home/ashak/apps/ProteinMPNN/helper_scripts/parse_multiple_chains.py --input_path /home/ashak/projects/lanm-dy-selectivity/results/design_inputs/proteinmpnn/campaigns/hans_pocket_ss_only --output_path /home/ashak/projects/lanm-dy-selectivity/results/proteinmpnn_smoke/hans_pocket_ss_only/parsed_pdbs.jsonl

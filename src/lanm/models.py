@@ -292,3 +292,43 @@ class DesignCampaignPositionRow:
     position_state: str
     position_reason: str
     rationale: str
+
+
+@dataclass(frozen=True, slots=True)
+class ProteinMPNNSmokeSummaryRow:
+    campaign_id: str
+    backbone_id: str
+    backbone_structure_id: str
+    design_set_name: str
+    designed_chains: str
+    fixed_context_chains: str
+    generated_sequence_count: int
+    unique_sequence_count: int
+    unique_sequence_fraction: float
+    sequence_length: int
+    native_score: float
+    native_global_score: float
+    mean_pairwise_identity: float | None
+    min_pairwise_identity: float | None
+    max_pairwise_identity: float | None
+    model_name: str
+    git_hash: str
+    seed: int
+    output_fasta_path: str
+
+
+@dataclass(frozen=True, slots=True)
+class ProteinMPNNSequenceCatalogRow:
+    campaign_id: str
+    backbone_id: str
+    design_set_name: str
+    designed_chains: str
+    temperature: float
+    sample_number: int
+    score: float
+    global_score: float
+    seq_recovery: float
+    sequence_id: str
+    designed_sequence: str
+    sequence_length: int
+    output_fasta_path: str

@@ -14,6 +14,10 @@ RESULTS_DIR = REPO_ROOT / "results"
 RESULTS_TABLES_DIR = RESULTS_DIR / "tables"
 RESULTS_REPORTS_DIR = RESULTS_DIR / "reports"
 RESULTS_FIGURES_DIR = RESULTS_DIR / "figures"
+RESULTS_DESIGN_INPUTS_DIR = RESULTS_DIR / "design_inputs"
+PROTEINMPNN_INPUTS_DIR = RESULTS_DESIGN_INPUTS_DIR / "proteinmpnn"
+PROTEINMPNN_BACKBONES_DIR = PROTEINMPNN_INPUTS_DIR / "backbones"
+PROTEINMPNN_CAMPAIGNS_DIR = PROTEINMPNN_INPUTS_DIR / "campaigns"
 DOCS_DIR = REPO_ROOT / "docs"
 PROJECT_BRIEF_PATH = DOCS_DIR / "project_brief_extracted.md"
 LOCAL_STRUCTURE_MANIFEST_PATH = LOCAL_BUNDLE_DIR / "lanmodulin_lanthanide_structures.csv"
@@ -32,6 +36,11 @@ RESIDUE_ROLE_MAP_PATH = RESULTS_TABLES_DIR / "residue_role_map.csv"
 DESIGN_MASK_CANDIDATES_PATH = RESULTS_TABLES_DIR / "design_mask_candidates.csv"
 TEMPLATE_HARMONIZATION_FIGURE_PATH = RESULTS_FIGURES_DIR / "template_harmonization_overview.png"
 DESIGN_MASKS_PATH = REPO_ROOT / "config" / "design_masks.yaml"
+DESIGN_CAMPAIGNS_PATH = REPO_ROOT / "config" / "design_campaigns.yaml"
+DESIGN_CAMPAIGNS_REPORT_PATH = RESULTS_REPORTS_DIR / "design_campaigns.md"
+DESIGN_CAMPAIGN_POSITIONS_PATH = RESULTS_TABLES_DIR / "design_campaign_positions.csv"
+DESIGN_BACKBONE_MANIFEST_PATH = RESULTS_TABLES_DIR / "design_backbone_manifest.csv"
+DESIGN_CAMPAIGN_MANIFEST_PATH = RESULTS_TABLES_DIR / "design_campaign_manifest.csv"
 
 
 def ensure_runtime_directories() -> None:
@@ -42,6 +51,10 @@ def ensure_runtime_directories() -> None:
         RESULTS_TABLES_DIR,
         RESULTS_REPORTS_DIR,
         RESULTS_FIGURES_DIR,
+        RESULTS_DESIGN_INPUTS_DIR,
+        PROTEINMPNN_INPUTS_DIR,
+        PROTEINMPNN_BACKBONES_DIR,
+        PROTEINMPNN_CAMPAIGNS_DIR,
         DOCS_DIR,
     ):
         path.mkdir(parents=True, exist_ok=True)

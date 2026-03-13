@@ -1,0 +1,445 @@
+version: 1
+phase: 3A
+source_artifacts:
+  design_masks: config/design_masks.yaml
+  design_mask_candidates: results/tables/design_mask_candidates.csv
+  cross_template_alignment: results/tables/cross_template_residue_alignment.csv
+  template_chain_summary: results/tables/template_chain_summary.csv
+design_sets:
+  hard_fixed:
+    canonical_family_positions:
+    - 1
+    - 11
+    - 14
+    - 15
+    - 16
+    - 17
+    - 19
+    - 20
+    - 21
+    - 23
+    - 25
+    - 26
+    - 28
+    - 30
+    - 31
+    - 33
+    - 41
+    - 42
+    - 43
+    - 45
+    - 46
+    - 47
+    - 49
+    - 52
+    - 55
+    - 66
+    - 67
+    - 68
+    - 70
+    - 71
+    - 72
+    - 74
+    - 77
+    - 90
+    - 91
+    - 92
+    - 94
+    - 95
+    - 96
+    - 101
+    - 105
+    - 107
+    - 110
+    am1_mature_positions:
+    - 1
+    - 13
+    - 14
+    - 15
+    - 17
+    - 18
+    - 19
+    - 21
+    - 23
+    - 24
+    - 26
+    - 29
+    - 37
+    - 38
+    - 39
+    - 41
+    - 42
+    - 43
+    - 45
+    - 48
+    - 51
+    - 62
+    - 63
+    - 64
+    - 66
+    - 67
+    - 68
+    - 70
+    - 73
+    - 86
+    - 87
+    - 88
+    - 90
+    - 91
+    - 92
+    - 97
+    - 101
+    - 103
+    definition: fixed_first_shell union protected_positions
+  campaign_ss_only:
+    canonical_family_positions:
+    - 13
+    - 18
+    - 22
+    - 24
+    - 40
+    - 44
+    - 48
+    - 65
+    - 69
+    - 73
+    - 83
+    - 89
+    - 93
+    - 97
+    - 98
+    - 100
+    am1_mature_positions:
+    - 12
+    - 16
+    - 20
+    - 22
+    - 36
+    - 40
+    - 44
+    - 61
+    - 65
+    - 69
+    - 79
+    - 85
+    - 89
+    - 93
+    - 94
+    - 96
+    definition: mutable_second_sphere minus hard_fixed
+  campaign_ss_plus_if:
+    canonical_family_positions:
+    - 13
+    - 18
+    - 22
+    - 24
+    - 27
+    - 38
+    - 39
+    - 40
+    - 44
+    - 48
+    - 65
+    - 69
+    - 73
+    - 75
+    - 76
+    - 79
+    - 80
+    - 83
+    - 89
+    - 93
+    - 97
+    - 98
+    - 100
+    am1_mature_positions:
+    - 12
+    - 16
+    - 20
+    - 22
+    - 25
+    - 34
+    - 35
+    - 36
+    - 40
+    - 44
+    - 61
+    - 65
+    - 69
+    - 71
+    - 72
+    - 75
+    - 76
+    - 79
+    - 85
+    - 89
+    - 93
+    - 94
+    - 96
+    definition: union(mutable_second_sphere, mutable_interface) minus hard_fixed
+  campaign_if_only:
+    canonical_family_positions:
+    - 18
+    - 27
+    - 38
+    - 39
+    - 44
+    - 75
+    - 76
+    - 79
+    - 80
+    - 83
+    am1_mature_positions:
+    - 16
+    - 25
+    - 34
+    - 35
+    - 40
+    - 71
+    - 72
+    - 75
+    - 76
+    - 79
+    definition: mutable_interface minus hard_fixed
+backbones:
+  am1_mex_8fns_chain_a:
+    structure_id: 8FNS
+    source_kind: csv_atom_table
+    source_path: data/raw/local_bundle/8fns_atoms.csv
+    experimental_method: X-RAY DIFFRACTION
+    selected_chains:
+    - A
+    design_chains:
+    - A
+    fixed_context_chains: []
+    design_chain_residue_count: 105
+    design_chain_metal_site_count: 4
+    representative_note: 'Phase 3A default backbone specified by the workflow: 8FNS
+      chain A.'
+    backbone_pdb_path: results/design_inputs/proteinmpnn/backbones/am1_mex_8fns_chain_a.pdb
+  hans_pocket_8fnr_chain_a:
+    structure_id: 8FNR
+    source_kind: cif
+    source_path: data/raw/public/structures/8FNR.cif
+    experimental_method: X-RAY DIFFRACTION
+    selected_chains:
+    - A
+    design_chains:
+    - A
+    fixed_context_chains: []
+    design_chain_residue_count: 110
+    design_chain_metal_site_count: 4
+    representative_note: Deterministic 8FNR representative chain selected by descending
+      metal_site_count, descending residue_count, then ascending chain_id; this chooses
+      chain A.
+    backbone_pdb_path: results/design_inputs/proteinmpnn/backbones/hans_pocket_8fnr_chain_a.pdb
+  hans_interface_8fnr_a_b_c_d:
+    structure_id: 8FNR
+    source_kind: cif
+    source_path: data/raw/public/structures/8FNR.cif
+    experimental_method: X-RAY DIFFRACTION
+    selected_chains:
+    - A
+    - B
+    - C
+    - D
+    design_chains:
+    - A
+    fixed_context_chains:
+    - B
+    - C
+    - D
+    design_chain_residue_count: 110
+    design_chain_metal_site_count: 4
+    representative_note: Full 8FNR assembly exported with representative design chain
+      A and the remaining chains retained as fixed interface context.
+    backbone_pdb_path: results/design_inputs/proteinmpnn/backbones/hans_interface_8fnr_a_b_c_d.pdb
+campaigns:
+  am1_mex_ss_only:
+    backbone_id: am1_mex_8fns_chain_a
+    design_set_name: campaign_ss_only
+    designed_chains:
+    - A
+    fixed_context_chains: []
+    designable_residue_count: 16
+    fixed_residue_count: 89
+    designable_canonical_positions:
+    - 13
+    - 18
+    - 22
+    - 24
+    - 40
+    - 44
+    - 48
+    - 65
+    - 69
+    - 73
+    - 83
+    - 89
+    - 93
+    - 97
+    - 98
+    - 100
+    designable_am1_positions:
+    - 12
+    - 16
+    - 20
+    - 22
+    - 36
+    - 40
+    - 44
+    - 61
+    - 65
+    - 69
+    - 79
+    - 85
+    - 89
+    - 93
+    - 94
+    - 96
+    exported_pdb_path: results/design_inputs/proteinmpnn/campaigns/am1_mex_ss_only/am1_mex_ss_only.pdb
+    chain_assignment_path: results/design_inputs/proteinmpnn/campaigns/am1_mex_ss_only/chain_id.jsonl
+    fixed_positions_path: results/design_inputs/proteinmpnn/campaigns/am1_mex_ss_only/fixed_positions.jsonl
+  hans_pocket_ss_only:
+    backbone_id: hans_pocket_8fnr_chain_a
+    design_set_name: campaign_ss_only
+    designed_chains:
+    - A
+    fixed_context_chains: []
+    designable_residue_count: 16
+    fixed_residue_count: 94
+    designable_canonical_positions:
+    - 13
+    - 18
+    - 22
+    - 24
+    - 40
+    - 44
+    - 48
+    - 65
+    - 69
+    - 73
+    - 83
+    - 89
+    - 93
+    - 97
+    - 98
+    - 100
+    designable_am1_positions:
+    - 12
+    - 16
+    - 20
+    - 22
+    - 36
+    - 40
+    - 44
+    - 61
+    - 65
+    - 69
+    - 79
+    - 85
+    - 89
+    - 93
+    - 94
+    - 96
+    exported_pdb_path: results/design_inputs/proteinmpnn/campaigns/hans_pocket_ss_only/hans_pocket_ss_only.pdb
+    chain_assignment_path: results/design_inputs/proteinmpnn/campaigns/hans_pocket_ss_only/chain_id.jsonl
+    fixed_positions_path: results/design_inputs/proteinmpnn/campaigns/hans_pocket_ss_only/fixed_positions.jsonl
+  hans_interface_ss_plus_if:
+    backbone_id: hans_interface_8fnr_a_b_c_d
+    design_set_name: campaign_ss_plus_if
+    designed_chains:
+    - A
+    fixed_context_chains:
+    - B
+    - C
+    - D
+    designable_residue_count: 23
+    fixed_residue_count: 87
+    designable_canonical_positions:
+    - 13
+    - 18
+    - 22
+    - 24
+    - 27
+    - 38
+    - 39
+    - 40
+    - 44
+    - 48
+    - 65
+    - 69
+    - 73
+    - 75
+    - 76
+    - 79
+    - 80
+    - 83
+    - 89
+    - 93
+    - 97
+    - 98
+    - 100
+    designable_am1_positions:
+    - 12
+    - 16
+    - 20
+    - 22
+    - 25
+    - 34
+    - 35
+    - 36
+    - 40
+    - 44
+    - 61
+    - 65
+    - 69
+    - 71
+    - 72
+    - 75
+    - 76
+    - 79
+    - 85
+    - 89
+    - 93
+    - 94
+    - 96
+    exported_pdb_path: results/design_inputs/proteinmpnn/campaigns/hans_interface_ss_plus_if/hans_interface_ss_plus_if.pdb
+    chain_assignment_path: results/design_inputs/proteinmpnn/campaigns/hans_interface_ss_plus_if/chain_id.jsonl
+    fixed_positions_path: results/design_inputs/proteinmpnn/campaigns/hans_interface_ss_plus_if/fixed_positions.jsonl
+  hans_interface_if_only:
+    backbone_id: hans_interface_8fnr_a_b_c_d
+    design_set_name: campaign_if_only
+    designed_chains:
+    - A
+    fixed_context_chains:
+    - B
+    - C
+    - D
+    designable_residue_count: 10
+    fixed_residue_count: 100
+    designable_canonical_positions:
+    - 18
+    - 27
+    - 38
+    - 39
+    - 44
+    - 75
+    - 76
+    - 79
+    - 80
+    - 83
+    designable_am1_positions:
+    - 16
+    - 25
+    - 34
+    - 35
+    - 40
+    - 71
+    - 72
+    - 75
+    - 76
+    - 79
+    exported_pdb_path: results/design_inputs/proteinmpnn/campaigns/hans_interface_if_only/hans_interface_if_only.pdb
+    chain_assignment_path: results/design_inputs/proteinmpnn/campaigns/hans_interface_if_only/chain_id.jsonl
+    fixed_positions_path: results/design_inputs/proteinmpnn/campaigns/hans_interface_if_only/fixed_positions.jsonl

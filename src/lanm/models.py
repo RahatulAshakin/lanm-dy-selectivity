@@ -235,3 +235,60 @@ class DesignMaskCandidate:
     protected_positions: bool
     protection_reasons: str
     rationale: str
+
+
+@dataclass(frozen=True, slots=True)
+class DesignBackboneManifestRow:
+    backbone_id: str
+    structure_id: str
+    source_kind: str
+    source_path: str
+    experimental_method: str
+    selected_chains: str
+    design_chains: str
+    fixed_context_chains: str
+    selected_residue_count: int
+    design_chain_residue_count: int
+    design_chain_metal_site_count: int
+    representative_note: str
+    backbone_pdb_path: str
+
+
+@dataclass(frozen=True, slots=True)
+class DesignCampaignManifestRow:
+    campaign_id: str
+    backbone_id: str
+    design_set_name: str
+    designed_chains: str
+    fixed_context_chains: str
+    exported_pdb_path: str
+    chain_assignment_path: str
+    fixed_positions_path: str
+    designable_residue_count: int
+    fixed_residue_count: int
+    designable_canonical_positions: str
+    designable_am1_positions: str
+
+
+@dataclass(frozen=True, slots=True)
+class DesignCampaignPositionRow:
+    campaign_id: str
+    design_set_name: str
+    backbone_id: str
+    structure_id: str
+    chain_id: str
+    sequence_index: int
+    residue_seq: int
+    insertion_code: str
+    residue_name: str
+    canonical_family_position: int | None
+    am1_mature_position: int | None
+    fixed_first_shell: bool
+    protected_positions: bool
+    mutable_second_sphere: bool
+    mutable_interface: bool
+    hard_fixed: bool
+    designable: bool
+    position_state: str
+    position_reason: str
+    rationale: str

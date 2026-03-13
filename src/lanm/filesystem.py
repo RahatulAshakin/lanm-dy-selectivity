@@ -69,6 +69,18 @@ def write_json(path: Path, payload: object) -> None:
     atomic_write_text(path, json.dumps(payload, indent=2, sort_keys=True) + "\n")
 
 
+def write_jsonl(path: Path, rows: Iterable[object]) -> None:
+    """Write newline-delimited JSON rows atomically."""
+    payload_lines: list[str] = []
+    for row in rows:
+        if is_dataclass(row):
+            serializable = asdict(row)
+        else:
+            serializable = row
+        payload_lines.append(json.dumps(serializable, sort_keys=True))
+    atomic_write_text(path, "\n".join(payload_lines) + ("\n" if payload_lines else ""))
+
+
 def write_yaml(path: Path, payload: object) -> None:
     """Write YAML atomically, falling back to JSON-compatible YAML."""
     if yaml is not None:

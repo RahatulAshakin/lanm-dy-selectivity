@@ -151,3 +151,88 @@ class ShellAnnotation:
     record_type: str
     distance_A: float
     is_water: bool
+
+
+@dataclass(frozen=True, slots=True)
+class TemplateChainSummary:
+    structure_id: str
+    source_kind: str
+    input_path: str
+    experimental_method: str
+    chain_id: str
+    residue_start: int
+    residue_end: int
+    residue_count: int
+    sequence_length: int
+    bound_metal_element: str
+    bound_metal_site_count: int
+    is_representative_chain: bool
+
+
+@dataclass(frozen=True, slots=True)
+class TemplateSiteSummaryRow:
+    structure_id: str
+    source_kind: str
+    input_path: str
+    experimental_method: str
+    chain_id: str
+    site_index: int
+    site_label: str
+    metal_site_id: str
+    metal_element: str
+    donor_atom_count: int
+    donor_residue_count: int
+    first_shell_polymer_count: int
+    second_sphere_polymer_count: int
+    solvent_count: int
+    first_shell_residues: str
+    second_sphere_residues: str
+    solvent_residues: str
+
+
+@dataclass(frozen=True, slots=True)
+class CrossTemplateAlignmentRow:
+    canonical_am1_position: int
+    canonical_am1_residue: str
+    hans_position: int | None
+    hans_residue: str
+    template_6MI5_residue_id: str
+    template_6MI5_residue_name: str
+    template_8FNS_residue_id: str
+    template_8FNS_residue_name: str
+    template_8DQ2_residue_id: str
+    template_8DQ2_residue_name: str
+    template_8FNR_residue_id: str
+    template_8FNR_residue_name: str
+
+
+@dataclass(frozen=True, slots=True)
+class ResidueRoleAssignment:
+    structure_id: str
+    chain_id: str
+    site_index: int | None
+    site_label: str
+    role: str
+    residue_id: str
+    residue_name: str
+    residue_seq: int
+    distance_A: float | None
+    canonical_am1_position: int | None
+    canonical_am1_residue: str
+    note: str
+
+
+@dataclass(frozen=True, slots=True)
+class DesignMaskCandidate:
+    canonical_am1_position: int
+    canonical_am1_residue: str
+    is_first_shell_source: bool
+    is_second_sphere_source: bool
+    is_interface_source: bool
+    has_full_template_coverage: bool
+    has_hans_mapping: bool
+    fixed_first_shell: bool
+    mutable_second_sphere: bool
+    mutable_interface: bool
+    protected_positions: bool
+    rationale: str

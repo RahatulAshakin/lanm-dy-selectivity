@@ -332,3 +332,49 @@ class ProteinMPNNSequenceCatalogRow:
     designed_sequence: str
     sequence_length: int
     output_fasta_path: str
+
+
+@dataclass(frozen=True, slots=True)
+class ProteinMPNNUniqueSequenceRow:
+    candidate_id: str
+    campaign_id: str
+    backbone_id: str
+    design_set_name: str
+    designed_sequence: str
+    representative_sequence_id: str
+    occurrence_count: int
+    campaign_rank: int
+    temperature: float
+    best_score: float
+    best_global_score: float
+    best_seq_recovery: float
+    mutation_count: int
+    mutation_string: str
+    canonical_family_positions_mutated: str
+    am1_mature_positions_mutated: str
+    includes_second_sphere_position: bool
+    includes_interface_position: bool
+
+
+@dataclass(frozen=True, slots=True)
+class ProteinMPNNShortlistRow:
+    shortlist_rank: int
+    candidate_id: str
+    campaign_id: str
+    backbone_id: str
+    design_set_name: str
+    designed_sequence: str
+    representative_sequence_id: str
+    occurrence_count: int
+    campaign_rank: int
+    temperature: float
+    best_score: float
+    best_global_score: float
+    best_seq_recovery: float
+    mutation_count: int
+    mutation_string: str
+    canonical_family_positions_mutated: str
+    am1_mature_positions_mutated: str
+    includes_second_sphere_position: bool
+    includes_interface_position: bool
+    retention_reason: str

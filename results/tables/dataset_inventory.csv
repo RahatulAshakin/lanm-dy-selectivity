@@ -1,0 +1,12 @@
+relative_path,file_type,file_size_bytes,row_count,column_names,chain_ids,residue_ranges,hetatm_count,missing_fields
+data/raw/local_bundle/8dq2.txt,text,373653,4613,,,,0,
+data/raw/local_bundle/8dq2_atoms.csv,csv,218016,3641,record_type;atom_serial;atom_name;alt_loc;residue_name;chain_id;residue_seq;insertion_code;x;y;z;occupancy;b_factor;element;charge,A;B;C;D,A:24-374;B:24-371;C:24-362;D:24-356,305,alt_loc:3641;insertion_code:3641;charge:3625
+data/raw/local_bundle/8fns.txt,text,177471,2191,,,,0,
+data/raw/local_bundle/8fns_atoms.csv,csv,57165,964,record_type;atom_serial;atom_name;alt_loc;residue_name;chain_id;residue_seq;insertion_code;x;y;z;occupancy;b_factor;element;charge,A,A:29-467,171,alt_loc:934;insertion_code:964;charge:960
+data/raw/local_bundle/lanmodulin_lanthanide_structures.csv,csv,910,4,pdb_id;title;bound_metal;organism;method;released;rcsb_url;cif_download_url,,,0,
+data/raw/local_bundle/lanmodulin_sequences.csv,csv,1242,3,organism;strain;gene_symbol;locus_tag;uniprot_accession;protein_length_aa_reported;sequence_type;sequence_status;sequence;notes,,,0,uniprot_accession:2;sequence:2
+data/raw/local_bundle/lanthanide_dataset_manifest.json,json,1340,4,,,,0,
+data/raw/local_bundle/lanthanide_elements_basic_properties.csv,csv,590,15,atomic_number;symbol;name;atomic_mass;category,,,0,
+data/raw/local_bundle/lanthanide_repository_download_links.txt,text,1415,27,,,,0,
+data/raw/local_bundle/project_description.docx,docx,25081,0,,,,0,
+data/raw/local_bundle/readme.txt,text,917,18,,,,0,

@@ -1,0 +1,5 @@
+pdb_id,bound_metal,source_url,local_path,status,size_bytes,http_status,message
+6MI5,Y(III),https://files.rcsb.org/download/6MI5.cif,data/raw/public/structures/6MI5.cif,present,1933180,200,File already present.
+8DQ2,La(III),https://files.rcsb.org/download/8DQ2.cif,data/raw/public/structures/8DQ2.cif,available_locally,0,0,Local structure assets already cover this entry.
+8FNR,Dy(III),https://files.rcsb.org/download/8FNR.cif,data/raw/public/structures/8FNR.cif,present,831753,200,File already present.
+8FNS,Nd(III),https://files.rcsb.org/download/8FNS.cif,data/raw/public/structures/8FNS.cif,available_locally,0,0,Local structure assets already cover this entry.

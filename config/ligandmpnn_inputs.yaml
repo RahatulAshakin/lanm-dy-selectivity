@@ -1,0 +1,346 @@
+version: 1
+phase: 4A
+source_artifacts:
+  proteinmpnn_shortlist: results/tables/proteinmpnn_shortlist.csv
+  design_backbone_manifest: results/tables/design_backbone_manifest.csv
+  design_campaign_manifest: results/tables/design_campaign_manifest.csv
+  design_campaign_positions: results/tables/design_campaign_positions.csv
+  project_config: config/project.yaml
+ligandmpnn:
+  nearby_solvent_cutoff_A: 6.0
+  redesigned_residue_format: Chain plus residue number with optional insertion code,
+    e.g. A35 or B42D.
+candidates:
+  hans_interface_ss_plus_if_u01:
+    shortlist_rank: 1
+    campaign_id: hans_interface_ss_plus_if
+    backbone_id: hans_interface_8fnr_a_b_c_d
+    source_structure_id: 8FNR
+    source_kind: cif
+    source_path: data/raw/public/structures/8FNR.cif
+    preserved_chains:
+    - A
+    - B
+    - C
+    - D
+    designed_chains:
+    - A
+    fixed_context_chains:
+    - B
+    - C
+    - D
+    preserved_metal_identity: DY
+    preserved_metal_site_count: 14
+    preserved_solvent_residue_count: 40
+    redesigned_residue_count: 7
+    redesigned_residue_ids:
+    - A35
+    - A44
+    - A55
+    - A82
+    - A100
+    - A110
+    - A115
+    pdb_path: results/design_inputs/ligandmpnn/hans_interface_ss_plus_if_u01/hans_interface_ss_plus_if_u01.pdb
+    redesigned_residues_path: results/design_inputs/ligandmpnn/hans_interface_ss_plus_if_u01/redesigned_residues.txt
+  hans_interface_ss_plus_if_u02:
+    shortlist_rank: 2
+    campaign_id: hans_interface_ss_plus_if
+    backbone_id: hans_interface_8fnr_a_b_c_d
+    source_structure_id: 8FNR
+    source_kind: cif
+    source_path: data/raw/public/structures/8FNR.cif
+    preserved_chains:
+    - A
+    - B
+    - C
+    - D
+    designed_chains:
+    - A
+    fixed_context_chains:
+    - B
+    - C
+    - D
+    preserved_metal_identity: DY
+    preserved_metal_site_count: 14
+    preserved_solvent_residue_count: 40
+    redesigned_residue_count: 7
+    redesigned_residue_ids:
+    - A35
+    - A39
+    - A44
+    - A82
+    - A100
+    - A110
+    - A115
+    pdb_path: results/design_inputs/ligandmpnn/hans_interface_ss_plus_if_u02/hans_interface_ss_plus_if_u02.pdb
+    redesigned_residues_path: results/design_inputs/ligandmpnn/hans_interface_ss_plus_if_u02/redesigned_residues.txt
+  am1_mex_ss_only_u01:
+    shortlist_rank: 3
+    campaign_id: am1_mex_ss_only
+    backbone_id: am1_mex_8fns_chain_a
+    source_structure_id: 8FNS
+    source_kind: csv_atom_table
+    source_path: data/raw/local_bundle/8fns_atoms.csv
+    preserved_chains:
+    - A
+    designed_chains:
+    - A
+    fixed_context_chains: []
+    preserved_metal_identity: ND
+    preserved_metal_site_count: 4
+    preserved_solvent_residue_count: 25
+    redesigned_residue_count: 5
+    redesigned_residue_ids:
+    - A38
+    - A83
+    - A87
+    - A111
+    - A118
+    pdb_path: results/design_inputs/ligandmpnn/am1_mex_ss_only_u01/am1_mex_ss_only_u01.pdb
+    redesigned_residues_path: results/design_inputs/ligandmpnn/am1_mex_ss_only_u01/redesigned_residues.txt
+  hans_interface_if_only_u01:
+    shortlist_rank: 4
+    campaign_id: hans_interface_if_only
+    backbone_id: hans_interface_8fnr_a_b_c_d
+    source_structure_id: 8FNR
+    source_kind: cif
+    source_path: data/raw/public/structures/8FNR.cif
+    preserved_chains:
+    - A
+    - B
+    - C
+    - D
+    designed_chains:
+    - A
+    fixed_context_chains:
+    - B
+    - C
+    - D
+    preserved_metal_identity: DY
+    preserved_metal_site_count: 14
+    preserved_solvent_residue_count: 40
+    redesigned_residue_count: 3
+    redesigned_residue_ids:
+    - A35
+    - A44
+    - A100
+    pdb_path: results/design_inputs/ligandmpnn/hans_interface_if_only_u01/hans_interface_if_only_u01.pdb
+    redesigned_residues_path: results/design_inputs/ligandmpnn/hans_interface_if_only_u01/redesigned_residues.txt
+  hans_pocket_ss_only_u01:
+    shortlist_rank: 5
+    campaign_id: hans_pocket_ss_only
+    backbone_id: hans_pocket_8fnr_chain_a
+    source_structure_id: 8FNR
+    source_kind: cif
+    source_path: data/raw/public/structures/8FNR.cif
+    preserved_chains:
+    - A
+    designed_chains:
+    - A
+    fixed_context_chains: []
+    preserved_metal_identity: DY
+    preserved_metal_site_count: 4
+    preserved_solvent_residue_count: 12
+    redesigned_residue_count: 5
+    redesigned_residue_ids:
+    - A35
+    - A82
+    - A100
+    - A110
+    - A115
+    pdb_path: results/design_inputs/ligandmpnn/hans_pocket_ss_only_u01/hans_pocket_ss_only_u01.pdb
+    redesigned_residues_path: results/design_inputs/ligandmpnn/hans_pocket_ss_only_u01/redesigned_residues.txt
+  hans_interface_ss_plus_if_u03:
+    shortlist_rank: 6
+    campaign_id: hans_interface_ss_plus_if
+    backbone_id: hans_interface_8fnr_a_b_c_d
+    source_structure_id: 8FNR
+    source_kind: cif
+    source_path: data/raw/public/structures/8FNR.cif
+    preserved_chains:
+    - A
+    - B
+    - C
+    - D
+    designed_chains:
+    - A
+    fixed_context_chains:
+    - B
+    - C
+    - D
+    preserved_metal_identity: DY
+    preserved_metal_site_count: 14
+    preserved_solvent_residue_count: 40
+    redesigned_residue_count: 6
+    redesigned_residue_ids:
+    - A35
+    - A44
+    - A82
+    - A100
+    - A110
+    - A115
+    pdb_path: results/design_inputs/ligandmpnn/hans_interface_ss_plus_if_u03/hans_interface_ss_plus_if_u03.pdb
+    redesigned_residues_path: results/design_inputs/ligandmpnn/hans_interface_ss_plus_if_u03/redesigned_residues.txt
+  am1_mex_ss_only_u02:
+    shortlist_rank: 7
+    campaign_id: am1_mex_ss_only
+    backbone_id: am1_mex_8fns_chain_a
+    source_structure_id: 8FNS
+    source_kind: csv_atom_table
+    source_path: data/raw/local_bundle/8fns_atoms.csv
+    preserved_chains:
+    - A
+    designed_chains:
+    - A
+    fixed_context_chains: []
+    preserved_metal_identity: ND
+    preserved_metal_site_count: 4
+    preserved_solvent_residue_count: 25
+    redesigned_residue_count: 4
+    redesigned_residue_ids:
+    - A38
+    - A83
+    - A87
+    - A118
+    pdb_path: results/design_inputs/ligandmpnn/am1_mex_ss_only_u02/am1_mex_ss_only_u02.pdb
+    redesigned_residues_path: results/design_inputs/ligandmpnn/am1_mex_ss_only_u02/redesigned_residues.txt
+  hans_interface_if_only_u02:
+    shortlist_rank: 8
+    campaign_id: hans_interface_if_only
+    backbone_id: hans_interface_8fnr_a_b_c_d
+    source_structure_id: 8FNR
+    source_kind: cif
+    source_path: data/raw/public/structures/8FNR.cif
+    preserved_chains:
+    - A
+    - B
+    - C
+    - D
+    designed_chains:
+    - A
+    fixed_context_chains:
+    - B
+    - C
+    - D
+    preserved_metal_identity: DY
+    preserved_metal_site_count: 14
+    preserved_solvent_residue_count: 40
+    redesigned_residue_count: 4
+    redesigned_residue_ids:
+    - A35
+    - A44
+    - A55
+    - A100
+    pdb_path: results/design_inputs/ligandmpnn/hans_interface_if_only_u02/hans_interface_if_only_u02.pdb
+    redesigned_residues_path: results/design_inputs/ligandmpnn/hans_interface_if_only_u02/redesigned_residues.txt
+  hans_pocket_ss_only_u02:
+    shortlist_rank: 9
+    campaign_id: hans_pocket_ss_only
+    backbone_id: hans_pocket_8fnr_chain_a
+    source_structure_id: 8FNR
+    source_kind: cif
+    source_path: data/raw/public/structures/8FNR.cif
+    preserved_chains:
+    - A
+    designed_chains:
+    - A
+    fixed_context_chains: []
+    preserved_metal_identity: DY
+    preserved_metal_site_count: 4
+    preserved_solvent_residue_count: 12
+    redesigned_residue_count: 6
+    redesigned_residue_ids:
+    - A35
+    - A39
+    - A82
+    - A100
+    - A110
+    - A115
+    pdb_path: results/design_inputs/ligandmpnn/hans_pocket_ss_only_u02/hans_pocket_ss_only_u02.pdb
+    redesigned_residues_path: results/design_inputs/ligandmpnn/hans_pocket_ss_only_u02/redesigned_residues.txt
+  hans_interface_ss_plus_if_u04:
+    shortlist_rank: 10
+    campaign_id: hans_interface_ss_plus_if
+    backbone_id: hans_interface_8fnr_a_b_c_d
+    source_structure_id: 8FNR
+    source_kind: cif
+    source_path: data/raw/public/structures/8FNR.cif
+    preserved_chains:
+    - A
+    - B
+    - C
+    - D
+    designed_chains:
+    - A
+    fixed_context_chains:
+    - B
+    - C
+    - D
+    preserved_metal_identity: DY
+    preserved_metal_site_count: 14
+    preserved_solvent_residue_count: 40
+    redesigned_residue_count: 6
+    redesigned_residue_ids:
+    - A35
+    - A44
+    - A55
+    - A82
+    - A110
+    - A115
+    pdb_path: results/design_inputs/ligandmpnn/hans_interface_ss_plus_if_u04/hans_interface_ss_plus_if_u04.pdb
+    redesigned_residues_path: results/design_inputs/ligandmpnn/hans_interface_ss_plus_if_u04/redesigned_residues.txt
+  am1_mex_ss_only_u03:
+    shortlist_rank: 11
+    campaign_id: am1_mex_ss_only
+    backbone_id: am1_mex_8fns_chain_a
+    source_structure_id: 8FNS
+    source_kind: csv_atom_table
+    source_path: data/raw/local_bundle/8fns_atoms.csv
+    preserved_chains:
+    - A
+    designed_chains:
+    - A
+    fixed_context_chains: []
+    preserved_metal_identity: ND
+    preserved_metal_site_count: 4
+    preserved_solvent_residue_count: 25
+    redesigned_residue_count: 6
+    redesigned_residue_ids:
+    - A38
+    - A83
+    - A87
+    - A111
+    - A115
+    - A118
+    pdb_path: results/design_inputs/ligandmpnn/am1_mex_ss_only_u03/am1_mex_ss_only_u03.pdb
+    redesigned_residues_path: results/design_inputs/ligandmpnn/am1_mex_ss_only_u03/redesigned_residues.txt
+  hans_interface_if_only_u03:
+    shortlist_rank: 12
+    campaign_id: hans_interface_if_only
+    backbone_id: hans_interface_8fnr_a_b_c_d
+    source_structure_id: 8FNR
+    source_kind: cif
+    source_path: data/raw/public/structures/8FNR.cif
+    preserved_chains:
+    - A
+    - B
+    - C
+    - D
+    designed_chains:
+    - A
+    fixed_context_chains:
+    - B
+    - C
+    - D
+    preserved_metal_identity: DY
+    preserved_metal_site_count: 14
+    preserved_solvent_residue_count: 40
+    redesigned_residue_count: 4
+    redesigned_residue_ids:
+    - A35
+    - A44
+    - A55
+    - A100
+    pdb_path: results/design_inputs/ligandmpnn/hans_interface_if_only_u03/hans_interface_if_only_u03.pdb
+    redesigned_residues_path: results/design_inputs/ligandmpnn/hans_interface_if_only_u03/redesigned_residues.txt

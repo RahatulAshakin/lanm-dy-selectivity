@@ -59,6 +59,11 @@ LIGANDMPNN_INPUTS_CONFIG_PATH = REPO_ROOT / "config" / "ligandmpnn_inputs.yaml"
 LIGANDMPNN_SMOKE_SUMMARY_PATH = RESULTS_TABLES_DIR / "ligandmpnn_smoke_summary.csv"
 LIGANDMPNN_SEQUENCE_CATALOG_PATH = RESULTS_TABLES_DIR / "ligandmpnn_sequence_catalog.csv"
 LIGANDMPNN_SMOKE_REPORT_PATH = RESULTS_REPORTS_DIR / "ligandmpnn_smoke.md"
+LIGANDMPNN_UNIQUE_SEQUENCES_PATH = RESULTS_TABLES_DIR / "ligandmpnn_unique_sequences.csv"
+LIGANDMPNN_SHORTLIST_PATH = RESULTS_TABLES_DIR / "ligandmpnn_shortlist.csv"
+LIGANDMPNN_SHORTLIST_REPORT_PATH = RESULTS_REPORTS_DIR / "ligandmpnn_shortlist.md"
+LIGANDMPNN_SHORTLIST_FASTA_PATH = RESULTS_FASTA_DIR / "ligandmpnn_shortlist.fa"
+ROSETTA_SHORTLIST_PATH = REPO_ROOT / "config" / "rosetta_shortlist.yaml"
 
 
 def ensure_runtime_directories() -> None:

@@ -469,3 +469,59 @@ class LigandMPNNSequenceCatalogRow:
     output_fasta_path: str
     backbone_pdb_path: str
     packed_pdb_path: str
+
+
+@dataclass(frozen=True, slots=True)
+class LigandMPNNUniqueSequenceRow:
+    unique_sequence_rank: int
+    sequence_id: str
+    candidate_id: str
+    campaign_id: str
+    backbone_id: str
+    preserved_metal_identity: str
+    candidate_shortlist_rank: int
+    candidate_unique_rank: int
+    candidate_prefilter_selected: bool
+    design_id: int
+    total_occurrence_count: int
+    source_candidate_count: int
+    source_candidate_ids: str
+    overall_confidence: float
+    ligand_confidence: float
+    seq_recovery: float
+    mutation_count: int
+    mutation_string: str
+    redesigned_residue_identifiers: str
+    designed_chain_sequence: str
+    input_pdb_path: str
+    output_fasta_path: str
+    backbone_pdb_path: str
+    packed_pdb_path: str
+
+
+@dataclass(frozen=True, slots=True)
+class LigandMPNNShortlistRow:
+    shortlist_rank: int
+    sequence_id: str
+    candidate_id: str
+    campaign_id: str
+    backbone_id: str
+    preserved_metal_identity: str
+    candidate_shortlist_rank: int
+    candidate_unique_rank: int
+    design_id: int
+    total_occurrence_count: int
+    source_candidate_count: int
+    source_candidate_ids: str
+    overall_confidence: float
+    ligand_confidence: float
+    seq_recovery: float
+    mutation_count: int
+    mutation_string: str
+    redesigned_residue_identifiers: str
+    designed_chain_sequence: str
+    input_pdb_path: str
+    output_fasta_path: str
+    backbone_pdb_path: str
+    packed_pdb_path: str
+    retention_reason: str

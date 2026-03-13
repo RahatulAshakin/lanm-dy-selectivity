@@ -192,23 +192,18 @@ class TemplateSiteSummaryRow:
 
 @dataclass(frozen=True, slots=True)
 class CrossTemplateAlignmentRow:
-    canonical_am1_position: int
-    canonical_am1_residue: str
-    hans_position: int | None
-    hans_residue: str
-    template_6MI5_residue_id: str
-    template_6MI5_residue_name: str
-    template_8FNS_residue_id: str
-    template_8FNS_residue_name: str
-    template_8DQ2_residue_id: str
-    template_8DQ2_residue_name: str
-    template_8FNR_residue_id: str
-    template_8FNR_residue_name: str
+    template_id: str
+    chain_id: str
+    template_residue_seq: int
+    template_residue_name: str
+    canonical_family_position: int | None
+    am1_mature_position: int | None
+    alignment_status: str
 
 
 @dataclass(frozen=True, slots=True)
 class ResidueRoleAssignment:
-    structure_id: str
+    template_id: str
     chain_id: str
     site_index: int | None
     site_label: str
@@ -217,8 +212,9 @@ class ResidueRoleAssignment:
     residue_name: str
     residue_seq: int
     distance_A: float | None
-    canonical_am1_position: int | None
-    canonical_am1_residue: str
+    canonical_family_position: int | None
+    am1_mature_position: int | None
+    alignment_status: str
     note: str
 
 

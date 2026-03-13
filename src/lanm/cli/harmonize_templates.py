@@ -8,8 +8,10 @@ from lanm.analysis.template_harmonization import (
 )
 from lanm.logging_utils import configure_logging
 from lanm.paths import (
+    CROSS_TEMPLATE_RESIDUE_ALIGNMENT_PATH,
     LANMODULIN_SEQUENCES_PATH,
     LOCAL_STRUCTURE_MANIFEST_PATH,
+    RESIDUE_ROLE_MAP_PATH,
     TEMPLATE_CHAIN_SUMMARY_PATH,
     TEMPLATE_HARMONIZATION_REPORT_PATH,
     TEMPLATE_SITE_SUMMARY_PATH,
@@ -30,6 +32,8 @@ def main() -> None:
             report_path=TEMPLATE_HARMONIZATION_REPORT_PATH,
             chain_summary_path=TEMPLATE_CHAIN_SUMMARY_PATH,
             site_summary_path=TEMPLATE_SITE_SUMMARY_PATH,
+            cross_template_alignment_path=CROSS_TEMPLATE_RESIDUE_ALIGNMENT_PATH,
+            residue_role_map_path=RESIDUE_ROLE_MAP_PATH,
         )
     except FileNotFoundError as exc:
         raise SystemExit(str(exc)) from exc

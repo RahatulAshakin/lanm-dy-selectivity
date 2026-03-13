@@ -220,15 +220,18 @@ class ResidueRoleAssignment:
 
 @dataclass(frozen=True, slots=True)
 class DesignMaskCandidate:
-    canonical_am1_position: int
-    canonical_am1_residue: str
-    is_first_shell_source: bool
-    is_second_sphere_source: bool
-    is_interface_source: bool
-    has_full_template_coverage: bool
-    has_hans_mapping: bool
+    canonical_family_position: int
+    am1_mature_position: int | None
+    am1_reference_residue: str
+    observed_residue_identities: str
+    template_coverage_count: int
+    first_shell_observation_count: int
+    second_sphere_observation_count: int
+    hans_interface_observation_count: int
+    interface_neighborhood: bool
     fixed_first_shell: bool
     mutable_second_sphere: bool
     mutable_interface: bool
     protected_positions: bool
+    protection_reasons: str
     rationale: str

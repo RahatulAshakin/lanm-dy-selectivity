@@ -43,6 +43,7 @@ def test_build_template_harmonization_artifacts_matches_expected_template_counts
     assert len(artifacts.chain_rows) == 10
     assert len(artifacts.site_rows) == 33
     assert len(artifacts.cross_template_rows) == 1097
+    assert len(artifacts.design_mask_rows) == 66
     assert any(row.role == "interchain_contact" for row in artifacts.residue_role_rows)
     assert any(row.role == "solvent_contact" for row in artifacts.residue_role_rows)
     assert summary_map["6MI5"].source_type == "cif"
@@ -116,13 +117,63 @@ def test_build_template_harmonization_artifacts_matches_expected_template_counts
     assert interchain_row.site_label == ""
     assert interchain_row.note.startswith("partner_chains=")
 
+    assert artifacts.design_masks_config["masks"]["fixed_first_shell"]["canonical_family_positions"] == [
+        14, 16, 17, 19, 21, 23, 25, 26, 28, 41, 43, 45, 47, 49, 52,
+        66, 68, 70, 72, 74, 77, 90, 92, 94, 96, 101,
+    ]
+    assert artifacts.design_masks_config["masks"]["mutable_second_sphere"]["canonical_family_positions"] == [
+        13, 18, 22, 24, 40, 44, 48, 65, 69, 73, 83, 89, 93, 97, 98, 100,
+    ]
+    assert artifacts.design_masks_config["masks"]["mutable_interface"]["canonical_family_positions"] == [
+        18, 27, 38, 39, 44, 75, 76, 79, 80, 83,
+    ]
+    assert artifacts.design_masks_config["masks"]["protected_positions"]["canonical_family_positions"] == [
+        1, 11, 15, 17, 20, 30, 31, 33, 42, 46, 55, 67, 71, 91, 95, 105, 107, 110,
+    ]
+    assert artifacts.template_specific_protected_positions == {
+        "6MI5": {"X": (134, 135, 136, 137, 138, 139)}
+    }
+
+    second_sphere_candidate = next(
+        row for row in artifacts.design_mask_rows
+        if row.canonical_family_position == 73
+    )
+    assert second_sphere_candidate.mutable_second_sphere is True
+    assert second_sphere_candidate.fixed_first_shell is False
+    assert second_sphere_candidate.protected_positions is False
+    assert second_sphere_candidate.second_sphere_observation_count == 10
+    assert "mutable_second_sphere because second-sphere contact observed 10x" in second_sphere_candidate.rationale
+
+    interface_candidate = next(
+        row for row in artifacts.design_mask_rows
+        if row.canonical_family_position == 76
+    )
+    assert interface_candidate.mutable_interface is True
+    assert interface_candidate.hans_interface_observation_count == 8
+    assert interface_candidate.interface_neighborhood is True
+    assert "mutable_interface because Hans interchain contact observed 8x" in interface_candidate.rationale
+
+    protected_candidate = next(
+        row for row in artifacts.design_mask_rows
+        if row.canonical_family_position == 17
+    )
+    assert protected_candidate.fixed_first_shell is True
+    assert protected_candidate.protected_positions is True
+    assert protected_candidate.am1_mature_position is None
+    assert "outside AM1 mature numbering" in protected_candidate.protection_reasons
+    assert "unresolved or gap-only alignment" in protected_candidate.protection_reasons
+
     assert "## AM1/Mex family" in artifacts.report_markdown
     assert "## Hans family" in artifacts.report_markdown
     assert "## Alignment and residue roles" in artifacts.report_markdown
+    assert "## Design mask candidates" in artifacts.report_markdown
+    assert "### Top mutable_second_sphere positions" in artifacts.report_markdown
+    assert "### Top mutable_interface positions" in artifacts.report_markdown
+    assert "### Positions explicitly protected" in artifacts.report_markdown
     assert "`8DQ2` and `8FNR` both resolve chains A, B, C, D" in artifacts.report_markdown
 
 
-def test_write_template_harmonization_outputs_creates_five_files(tmp_path: Path) -> None:
+def test_write_template_harmonization_outputs_creates_phase_2c_outputs(tmp_path: Path) -> None:
     artifacts = build_template_harmonization_artifacts(
         sequences_path=REPO_ROOT / "data" / "raw" / "local_bundle" / "lanmodulin_sequences.csv",
         manifest_path=LOCAL_STRUCTURE_MANIFEST_PATH,
@@ -132,6 +183,9 @@ def test_write_template_harmonization_outputs_creates_five_files(tmp_path: Path)
     site_summary_path = tmp_path / "template_site_summary.csv"
     cross_template_alignment_path = tmp_path / "cross_template_residue_alignment.csv"
     residue_role_map_path = tmp_path / "residue_role_map.csv"
+    design_mask_candidates_path = tmp_path / "design_mask_candidates.csv"
+    design_masks_path = tmp_path / "design_masks.yaml"
+    figure_path = tmp_path / "template_harmonization_overview.png"
 
     write_template_harmonization_outputs(
         artifacts=artifacts,
@@ -140,6 +194,9 @@ def test_write_template_harmonization_outputs_creates_five_files(tmp_path: Path)
         site_summary_path=site_summary_path,
         cross_template_alignment_path=cross_template_alignment_path,
         residue_role_map_path=residue_role_map_path,
+        design_mask_candidates_path=design_mask_candidates_path,
+        design_masks_path=design_masks_path,
+        figure_path=figure_path,
     )
 
     assert report_path.exists()
@@ -147,9 +204,82 @@ def test_write_template_harmonization_outputs_creates_five_files(tmp_path: Path)
     assert site_summary_path.exists()
     assert cross_template_alignment_path.exists()
     assert residue_role_map_path.exists()
+    assert design_mask_candidates_path.exists()
+    assert design_masks_path.exists()
+    assert figure_path.exists()
     assert "template_id,source_type,chain_id" in chain_summary_path.read_text(encoding="utf-8")
     assert "template_id,chain_id,template_residue_seq" in cross_template_alignment_path.read_text(encoding="utf-8")
     assert "template_id,chain_id,site_index,site_label,role" in residue_role_map_path.read_text(encoding="utf-8")
+    assert "canonical_family_position,am1_mature_position" in design_mask_candidates_path.read_text(encoding="utf-8")
+    assert "mutable_second_sphere:" in design_masks_path.read_text(encoding="utf-8")
+    assert figure_path.read_bytes().startswith(b"\x89PNG\r\n\x1a\n")
+
+
+def test_write_template_harmonization_outputs_is_deterministic(tmp_path: Path) -> None:
+    artifacts = build_template_harmonization_artifacts(
+        sequences_path=REPO_ROOT / "data" / "raw" / "local_bundle" / "lanmodulin_sequences.csv",
+        manifest_path=LOCAL_STRUCTURE_MANIFEST_PATH,
+    )
+    report_path = tmp_path / "template_harmonization.md"
+    chain_summary_path = tmp_path / "template_chain_summary.csv"
+    site_summary_path = tmp_path / "template_site_summary.csv"
+    cross_template_alignment_path = tmp_path / "cross_template_residue_alignment.csv"
+    residue_role_map_path = tmp_path / "residue_role_map.csv"
+    design_mask_candidates_path = tmp_path / "design_mask_candidates.csv"
+    design_masks_path = tmp_path / "design_masks.yaml"
+    figure_path = tmp_path / "template_harmonization_overview.png"
+
+    write_template_harmonization_outputs(
+        artifacts=artifacts,
+        report_path=report_path,
+        chain_summary_path=chain_summary_path,
+        site_summary_path=site_summary_path,
+        cross_template_alignment_path=cross_template_alignment_path,
+        residue_role_map_path=residue_role_map_path,
+        design_mask_candidates_path=design_mask_candidates_path,
+        design_masks_path=design_masks_path,
+        figure_path=figure_path,
+    )
+    first_payloads = {
+        path.name: path.read_bytes()
+        for path in (
+            report_path,
+            chain_summary_path,
+            site_summary_path,
+            cross_template_alignment_path,
+            residue_role_map_path,
+            design_mask_candidates_path,
+            design_masks_path,
+            figure_path,
+        )
+    }
+
+    write_template_harmonization_outputs(
+        artifacts=artifacts,
+        report_path=report_path,
+        chain_summary_path=chain_summary_path,
+        site_summary_path=site_summary_path,
+        cross_template_alignment_path=cross_template_alignment_path,
+        residue_role_map_path=residue_role_map_path,
+        design_mask_candidates_path=design_mask_candidates_path,
+        design_masks_path=design_masks_path,
+        figure_path=figure_path,
+    )
+    second_payloads = {
+        path.name: path.read_bytes()
+        for path in (
+            report_path,
+            chain_summary_path,
+            site_summary_path,
+            cross_template_alignment_path,
+            residue_role_map_path,
+            design_mask_candidates_path,
+            design_masks_path,
+            figure_path,
+        )
+    }
+
+    assert first_payloads == second_payloads
 
 
 def test_identify_am1_mature_sequence_reference_returns_confirmed_reference() -> None:

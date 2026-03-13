@@ -6,15 +6,17 @@ import csv
 from collections import Counter, defaultdict
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Any
 
 import gemmi
 
 from lanm.configuration import load_project_config
 from lanm.data.fetch import load_structure_manifest, require_path
-from lanm.filesystem import atomic_write_text, write_csv_rows
+from lanm.filesystem import atomic_write_text, write_csv_rows, write_yaml
 from lanm.models import (
     AtomRecord,
     CrossTemplateAlignmentRow,
+    DesignMaskCandidate,
     DONOR_ELEMENTS,
     ResidueRoleAssignment,
 )
@@ -23,9 +25,14 @@ from lanm.structure.atoms import read_atom_records
 from lanm.structure.geometry import WATER_RESIDUES, collect_atoms_within_cutoff, euclidean_distance
 from lanm.structure.residues import ResidueRecord, collect_polymer_residues
 from lanm.structure.templates import parse_cif_atom_records, read_cif_experimental_method
+from lanm.viz.plots import render_template_harmonization_overview
 
 _METAL_ELEMENTS = {"Y", "ND", "LA", "DY"}
 _INTERCHAIN_CONTACT_CUTOFF_A = 5.0
+_INTERFACE_NEIGHBORHOOD_WINDOW = 3
+_AM1_TEMPLATE_IDS = frozenset({"6MI5", "8FNS"})
+_HANS_TEMPLATE_IDS = frozenset({"8DQ2", "8FNR"})
+_PROTECTED_RESIDUE_NAMES = frozenset({"GLY", "PRO", "CYS"})
 
 
 @dataclass(frozen=True, slots=True)
@@ -119,6 +126,9 @@ class TemplateHarmonizationArtifacts:
     site_rows: tuple[TemplateSiteSummaryRow, ...]
     cross_template_rows: tuple[CrossTemplateAlignmentRow, ...]
     residue_role_rows: tuple[ResidueRoleAssignment, ...]
+    design_mask_rows: tuple[DesignMaskCandidate, ...]
+    design_masks_config: dict[str, Any]
+    template_specific_protected_positions: dict[str, dict[str, tuple[int, ...]]]
     report_markdown: str
     sequence_record_count: int
 
@@ -764,22 +774,309 @@ def _build_residue_role_rows(
     )
 
 
+def _summarize_role_observations(
+    rows: list[ResidueRoleAssignment],
+    *,
+    label: str,
+) -> str:
+    template_ids = ", ".join(sorted({row.template_id for row in rows}))
+    distances = [row.distance_A for row in rows if row.distance_A is not None]
+    if distances:
+        return f"{label} observed {len(rows)}x across {template_ids} (closest {min(distances):.3f} A)"
+    return f"{label} observed {len(rows)}x across {template_ids}"
+
+
+def _build_design_mask_rationale(
+    *,
+    first_shell_rows: list[ResidueRoleAssignment],
+    second_sphere_rows: list[ResidueRoleAssignment],
+    hans_interface_rows: list[ResidueRoleAssignment],
+    fixed_first_shell: bool,
+    mutable_second_sphere: bool,
+    mutable_interface: bool,
+    interface_neighborhood: bool,
+    protection_reasons: list[str],
+) -> str:
+    fragments: list[str] = []
+    if fixed_first_shell:
+        fragments.append(
+            "fixed_first_shell because "
+            + _summarize_role_observations(first_shell_rows, label="first-shell donor")
+        )
+    if mutable_second_sphere:
+        fragments.append(
+            "mutable_second_sphere because "
+            + _summarize_role_observations(second_sphere_rows, label="second-sphere contact")
+        )
+    elif second_sphere_rows and not fixed_first_shell:
+        fragments.append(
+            "second-sphere evidence retained but excluded from mutable_second_sphere"
+        )
+    if mutable_interface:
+        fragments.append(
+            "mutable_interface because "
+            + _summarize_role_observations(hans_interface_rows, label="Hans interchain contact")
+            + f" and the position lies within +/-{_INTERFACE_NEIGHBORHOOD_WINDOW} canonical positions "
+            "of a Hans metal-associated residue"
+        )
+    elif hans_interface_rows and not interface_neighborhood:
+        fragments.append(
+            f"Hans interchain contact observed but outside the +/-{_INTERFACE_NEIGHBORHOOD_WINDOW}-position "
+            "metal-site neighborhood filter"
+        )
+    if protection_reasons:
+        fragments.append("protected_positions because " + "; ".join(protection_reasons))
+    return "; ".join(fragments)
+
+
+def _build_design_mask_candidates(
+    cross_template_rows: tuple[CrossTemplateAlignmentRow, ...],
+    residue_role_rows: tuple[ResidueRoleAssignment, ...],
+) -> tuple[DesignMaskCandidate, ...]:
+    cross_rows_by_position: dict[int, list[CrossTemplateAlignmentRow]] = defaultdict(list)
+    for row in cross_template_rows:
+        if row.canonical_family_position is None:
+            continue
+        cross_rows_by_position[row.canonical_family_position].append(row)
+
+    role_rows_by_key: dict[tuple[int, str], list[ResidueRoleAssignment]] = defaultdict(list)
+    hans_metal_associated_positions: set[int] = set()
+    for row in residue_role_rows:
+        if row.canonical_family_position is None:
+            continue
+        role_rows_by_key[(row.canonical_family_position, row.role)].append(row)
+        if row.template_id in _HANS_TEMPLATE_IDS and row.role in {"first_shell", "second_sphere"}:
+            hans_metal_associated_positions.add(row.canonical_family_position)
+
+    candidates: list[DesignMaskCandidate] = []
+    for canonical_family_position in sorted(cross_rows_by_position):
+        alignment_rows = cross_rows_by_position[canonical_family_position]
+        first_shell_rows = role_rows_by_key.get((canonical_family_position, "first_shell"), [])
+        second_sphere_rows = role_rows_by_key.get((canonical_family_position, "second_sphere"), [])
+        hans_interface_rows = [
+            row
+            for row in role_rows_by_key.get((canonical_family_position, "interchain_contact"), [])
+            if row.template_id in _HANS_TEMPLATE_IDS
+        ]
+        am1_positions = sorted(
+            {
+                row.am1_mature_position
+                for row in alignment_rows
+                if row.am1_mature_position is not None
+            }
+        )
+        am1_reference_row = next(
+            (
+                row
+                for row in alignment_rows
+                if row.template_id == "6MI5" and row.am1_mature_position is not None
+            ),
+            None,
+        )
+        am1_reference_residue = am1_reference_row.template_residue_name if am1_reference_row else ""
+        observed_residue_identities = sorted(
+            {row.template_residue_name for row in alignment_rows}
+        )
+        alignment_statuses = {row.alignment_status for row in alignment_rows}
+        am1_family_identities = {
+            row.template_residue_name
+            for row in alignment_rows
+            if row.template_id in _AM1_TEMPLATE_IDS
+        }
+        hans_family_identities = {
+            row.template_residue_name
+            for row in alignment_rows
+            if row.template_id in _HANS_TEMPLATE_IDS
+        }
+
+        protection_reasons: list[str] = []
+        am1_mature_position = am1_positions[0] if len(am1_positions) == 1 else None
+        if len(am1_positions) > 1:
+            protection_reasons.append("ambiguous AM1 mature mapping")
+        elif am1_mature_position is None:
+            protection_reasons.append("outside AM1 mature numbering")
+        if "aligned_to_am1_gap" in alignment_statuses:
+            protection_reasons.append("unresolved or gap-only alignment")
+        if am1_reference_residue in _PROTECTED_RESIDUE_NAMES:
+            protection_reasons.append(f"AM1 reference residue is {am1_reference_residue}")
+        if len(am1_family_identities) > 1 or len(hans_family_identities) > 1:
+            protection_reasons.append("within-family residue identity conflict")
+
+        interface_neighborhood = bool(hans_interface_rows) and any(
+            abs(canonical_family_position - source_position) <= _INTERFACE_NEIGHBORHOOD_WINDOW
+            for source_position in hans_metal_associated_positions
+        )
+        fixed_first_shell = bool(first_shell_rows)
+        protected_positions = bool(protection_reasons)
+        mutable_second_sphere = bool(second_sphere_rows) and not fixed_first_shell and not protected_positions
+        mutable_interface = interface_neighborhood and not fixed_first_shell and not protected_positions
+
+        if not any((fixed_first_shell, mutable_second_sphere, mutable_interface, protected_positions)):
+            continue
+
+        candidates.append(
+            DesignMaskCandidate(
+                canonical_family_position=canonical_family_position,
+                am1_mature_position=am1_mature_position,
+                am1_reference_residue=am1_reference_residue,
+                observed_residue_identities=",".join(observed_residue_identities),
+                template_coverage_count=len(alignment_rows),
+                first_shell_observation_count=len(first_shell_rows),
+                second_sphere_observation_count=len(second_sphere_rows),
+                hans_interface_observation_count=len(hans_interface_rows),
+                interface_neighborhood=interface_neighborhood,
+                fixed_first_shell=fixed_first_shell,
+                mutable_second_sphere=mutable_second_sphere,
+                mutable_interface=mutable_interface,
+                protected_positions=protected_positions,
+                protection_reasons="; ".join(protection_reasons),
+                rationale=_build_design_mask_rationale(
+                    first_shell_rows=first_shell_rows,
+                    second_sphere_rows=second_sphere_rows,
+                    hans_interface_rows=hans_interface_rows,
+                    fixed_first_shell=fixed_first_shell,
+                    mutable_second_sphere=mutable_second_sphere,
+                    mutable_interface=mutable_interface,
+                    interface_neighborhood=interface_neighborhood,
+                    protection_reasons=protection_reasons,
+                ),
+            )
+        )
+    return tuple(candidates)
+
+
+def _collect_template_specific_protected_positions(
+    cross_template_rows: tuple[CrossTemplateAlignmentRow, ...],
+) -> dict[str, dict[str, tuple[int, ...]]]:
+    protected_positions: dict[str, dict[str, list[int]]] = defaultdict(lambda: defaultdict(list))
+    for row in cross_template_rows:
+        if (
+            row.template_id == "6MI5"
+            and row.alignment_status == "outside_am1_mature_reference"
+            and row.template_residue_name == "HIS"
+        ):
+            protected_positions[row.template_id][row.chain_id].append(row.template_residue_seq)
+    return {
+        template_id: {
+            chain_id: tuple(sorted(residue_positions))
+            for chain_id, residue_positions in sorted(chain_map.items())
+        }
+        for template_id, chain_map in sorted(protected_positions.items())
+    }
+
+
+def _mask_positions(
+    design_mask_rows: tuple[DesignMaskCandidate, ...],
+    attribute_name: str,
+) -> list[int]:
+    return [
+        row.canonical_family_position
+        for row in design_mask_rows
+        if getattr(row, attribute_name)
+    ]
+
+
+def _mask_am1_positions(
+    design_mask_rows: tuple[DesignMaskCandidate, ...],
+    attribute_name: str,
+) -> list[int]:
+    return sorted(
+        {
+            row.am1_mature_position
+            for row in design_mask_rows
+            if getattr(row, attribute_name) and row.am1_mature_position is not None
+        }
+    )
+
+
+def _build_design_masks_config(
+    design_mask_rows: tuple[DesignMaskCandidate, ...],
+    template_specific_protected_positions: dict[str, dict[str, tuple[int, ...]]],
+) -> dict[str, Any]:
+    noncanonical_positions = {
+        template_id: {
+            chain_id: list(positions)
+            for chain_id, positions in chain_map.items()
+        }
+        for template_id, chain_map in template_specific_protected_positions.items()
+    }
+    return {
+        "version": 1,
+        "index": {
+            "primary": "canonical_family_position",
+            "am1_reference": "mature AM1 numbering",
+            "interface_neighborhood_window": _INTERFACE_NEIGHBORHOOD_WINDOW,
+        },
+        "masks": {
+            "fixed_first_shell": {
+                "canonical_family_positions": _mask_positions(design_mask_rows, "fixed_first_shell"),
+                "am1_mature_positions": _mask_am1_positions(design_mask_rows, "fixed_first_shell"),
+            },
+            "mutable_second_sphere": {
+                "canonical_family_positions": _mask_positions(design_mask_rows, "mutable_second_sphere"),
+                "am1_mature_positions": _mask_am1_positions(design_mask_rows, "mutable_second_sphere"),
+            },
+            "mutable_interface": {
+                "canonical_family_positions": _mask_positions(design_mask_rows, "mutable_interface"),
+                "am1_mature_positions": _mask_am1_positions(design_mask_rows, "mutable_interface"),
+            },
+            "protected_positions": {
+                "canonical_family_positions": _mask_positions(design_mask_rows, "protected_positions"),
+                "am1_mature_positions": _mask_am1_positions(design_mask_rows, "protected_positions"),
+                "template_specific_noncanonical": noncanonical_positions,
+            },
+        },
+    }
+
+
+def _candidate_label(row: DesignMaskCandidate) -> str:
+    if row.am1_mature_position is None:
+        return f"{row.canonical_family_position} (gap)"
+    return f"{row.canonical_family_position} / AM1 {row.am1_mature_position}"
+
+
+def _format_residue_positions(positions: tuple[int, ...]) -> str:
+    if not positions:
+        return ""
+    if len(positions) > 1 and positions[-1] - positions[0] + 1 == len(positions):
+        return f"{positions[0]}-{positions[-1]}"
+    return ", ".join(str(position) for position in positions)
+
+
+def _top_mask_rows(
+    design_mask_rows: tuple[DesignMaskCandidate, ...],
+    *,
+    attribute_name: str,
+    observation_count_field: str,
+    limit: int,
+) -> list[DesignMaskCandidate]:
+    return sorted(
+        [row for row in design_mask_rows if getattr(row, attribute_name)],
+        key=lambda row: (
+            -getattr(row, observation_count_field),
+            row.am1_mature_position is None,
+            row.am1_mature_position if row.am1_mature_position is not None else 999,
+            row.canonical_family_position,
+        ),
+    )[:limit]
+
+
 def render_template_harmonization_markdown(
     template_summaries: tuple[TemplateSummary, ...],
     sequence_rows: list[dict[str, str]],
     cross_template_rows: tuple[CrossTemplateAlignmentRow, ...],
     residue_role_rows: tuple[ResidueRoleAssignment, ...],
+    design_mask_rows: tuple[DesignMaskCandidate, ...],
+    template_specific_protected_positions: dict[str, dict[str, tuple[int, ...]]],
     alignment_summary: AlignmentSummary,
 ) -> str:
     summary_map = {summary.template_id: summary for summary in template_summaries}
     lines = [
         "# Template Harmonization",
         "",
-        "Phase 2A/2B deterministic template parsing, cross-template alignment, and residue-role summary for four lanmodulin templates.",
+        "Phase 2A/2B/2C deterministic template parsing, cross-template alignment, residue-role summary, and design-mask generation for four lanmodulin templates.",
         "",
         f"Sequence reference records loaded: {len(sequence_rows)}",
-        "",
-        "Design masks, YAML mask config, and harmonization figures remain out of scope for this phase.",
         "",
     ]
     am1_note = identify_am1_mature_sequence_reference(sequence_rows).note
@@ -896,6 +1193,126 @@ def render_template_harmonization_markdown(
             "",
         ]
     )
+    mask_count_rows = [
+        ("fixed_first_shell", str(sum(1 for row in design_mask_rows if row.fixed_first_shell))),
+        ("mutable_second_sphere", str(sum(1 for row in design_mask_rows if row.mutable_second_sphere))),
+        ("mutable_interface", str(sum(1 for row in design_mask_rows if row.mutable_interface))),
+        (
+            "protected_positions",
+            str(sum(1 for row in design_mask_rows if row.protected_positions)),
+        ),
+    ]
+    top_second_rows = [
+        (
+            _candidate_label(row),
+            row.am1_reference_residue or "-",
+            str(row.second_sphere_observation_count),
+            row.observed_residue_identities,
+            row.rationale,
+        )
+        for row in _top_mask_rows(
+            design_mask_rows,
+            attribute_name="mutable_second_sphere",
+            observation_count_field="second_sphere_observation_count",
+            limit=8,
+        )
+    ]
+    top_interface_rows = [
+        (
+            _candidate_label(row),
+            row.am1_reference_residue or "-",
+            str(row.hans_interface_observation_count),
+            row.observed_residue_identities,
+            row.rationale,
+        )
+        for row in _top_mask_rows(
+            design_mask_rows,
+            attribute_name="mutable_interface",
+            observation_count_field="hans_interface_observation_count",
+            limit=8,
+        )
+    ]
+    protected_rows = [
+        (
+            _candidate_label(row),
+            row.am1_reference_residue or "-",
+            row.observed_residue_identities,
+            row.protection_reasons,
+        )
+        for row in sorted(
+            [row for row in design_mask_rows if row.protected_positions],
+            key=lambda row: (
+                row.am1_mature_position is None,
+                row.am1_mature_position if row.am1_mature_position is not None else 999,
+                row.canonical_family_position,
+            ),
+        )
+    ]
+    lines.extend(
+        [
+            "## Design mask candidates",
+            "",
+            _render_markdown_table(
+                ("category", "canonical_position_count"),
+                mask_count_rows,
+            ),
+            "",
+            f"- `fixed_first_shell` spans {_mask_positions(design_mask_rows, 'fixed_first_shell')}.",
+            f"- `mutable_second_sphere` uses the top-ranked positions below after excluding fixed and protected sites.",
+            f"- `mutable_interface` applies the Hans-family interchain-contact filter within +/-{_INTERFACE_NEIGHBORHOOD_WINDOW} canonical positions of metal-associated residues.",
+            "",
+            "### Top mutable_second_sphere positions",
+            "",
+            _render_markdown_table(
+                (
+                    "canonical_family_position",
+                    "am1_reference_residue",
+                    "second_sphere_obs",
+                    "observed_residue_identities",
+                    "rationale",
+                ),
+                top_second_rows,
+            ) if top_second_rows else "_No mutable_second_sphere positions passed the Phase 2C filter._",
+            "",
+            "### Top mutable_interface positions",
+            "",
+            _render_markdown_table(
+                (
+                    "canonical_family_position",
+                    "am1_reference_residue",
+                    "interface_obs",
+                    "observed_residue_identities",
+                    "rationale",
+                ),
+                top_interface_rows,
+            ) if top_interface_rows else "_No mutable_interface positions passed the Phase 2C filter._",
+            "",
+            "### Positions explicitly protected",
+            "",
+            _render_markdown_table(
+                (
+                    "canonical_family_position",
+                    "am1_reference_residue",
+                    "observed_residue_identities",
+                    "protection_reasons",
+                ),
+                protected_rows,
+            ),
+            "",
+        ]
+    )
+    if template_specific_protected_positions:
+        noncanonical_notes = [
+            f"`{template_id}` chain `{chain_id}` residues {_format_residue_positions(positions)}"
+            for template_id, chain_map in template_specific_protected_positions.items()
+            for chain_id, positions in chain_map.items()
+        ]
+        lines.extend(
+            [
+                "- Additional noncanonical protected positions: " + "; ".join(noncanonical_notes) + ".",
+                "",
+            ]
+        )
     return "\n".join(lines).rstrip() + "\n"
 
 
@@ -936,17 +1353,33 @@ def build_template_harmonization_artifacts(
         first_shell_cutoff_A=config.first_shell_cutoff_A,
         second_sphere_cutoff_A=config.second_sphere_cutoff_A,
     )
+    design_mask_rows = _build_design_mask_candidates(
+        cross_template_rows=cross_template_rows,
+        residue_role_rows=residue_role_rows,
+    )
+    template_specific_protected_positions = _collect_template_specific_protected_positions(
+        cross_template_rows
+    )
+    design_masks_config = _build_design_masks_config(
+        design_mask_rows=design_mask_rows,
+        template_specific_protected_positions=template_specific_protected_positions,
+    )
     return TemplateHarmonizationArtifacts(
         template_summaries=template_summaries,
         chain_rows=chain_rows,
         site_rows=site_rows,
         cross_template_rows=cross_template_rows,
         residue_role_rows=residue_role_rows,
+        design_mask_rows=design_mask_rows,
+        design_masks_config=design_masks_config,
+        template_specific_protected_positions=template_specific_protected_positions,
         report_markdown=render_template_harmonization_markdown(
             template_summaries=template_summaries,
             sequence_rows=sequence_rows,
             cross_template_rows=cross_template_rows,
             residue_role_rows=residue_role_rows,
+            design_mask_rows=design_mask_rows,
+            template_specific_protected_positions=template_specific_protected_positions,
             alignment_summary=alignment_summary,
         ),
         sequence_record_count=len(sequence_rows),
@@ -961,9 +1394,20 @@ def write_template_harmonization_outputs(
     site_summary_path: Path,
     cross_template_alignment_path: Path,
     residue_role_map_path: Path,
+    design_mask_candidates_path: Path,
+    design_masks_path: Path,
+    figure_path: Path,
 ) -> None:
     write_csv_rows(chain_summary_path, artifacts.chain_rows)
     write_csv_rows(site_summary_path, artifacts.site_rows)
     write_csv_rows(cross_template_alignment_path, artifacts.cross_template_rows)
     write_csv_rows(residue_role_map_path, artifacts.residue_role_rows)
+    write_csv_rows(design_mask_candidates_path, artifacts.design_mask_rows)
+    write_yaml(design_masks_path, artifacts.design_masks_config)
+    render_template_harmonization_overview(
+        cross_template_rows=artifacts.cross_template_rows,
+        residue_role_rows=artifacts.residue_role_rows,
+        design_mask_rows=artifacts.design_mask_rows,
+        output_path=figure_path,
+    )
     atomic_write_text(report_path, artifacts.report_markdown)

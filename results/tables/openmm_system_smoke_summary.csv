@@ -1,0 +1,4 @@
+panel_member_id,target_metal,topology_class,success_status,failure_reason,forcefield_files,custom_metal_family,restored_template_waters,atom_count,residue_count,system_xml_path
+am1_mex_ss_only_u02,Dy,am1_monomer,success,,amber19-all.xml;amber19/opc3.xml,generic_12_6_4_highly_charged,25,1608,134,results/openmm_system_smoke/am1_mex_ss_only_u02/Dy/system.xml
+hans_pocket_ss_only_u02,Dy,hans_monomer,success,,amber19-all.xml;amber19/opc3.xml,generic_12_6_4_highly_charged,12,1676,126,results/openmm_system_smoke/hans_pocket_ss_only_u02/Dy/system.xml
+hans_interface_ss_plus_if_u04,Dy,hans_interface_multichain,success,,amber19-all.xml;amber19/opc3.xml,generic_12_6_4_highly_charged,40,6697,489,results/openmm_system_smoke/hans_interface_ss_plus_if_u04/Dy/system.xml

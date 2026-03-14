@@ -1,0 +1,3 @@
+SEQUENCE: 
+SCORE: total_score coordinate_constraint dslf_fa13    fa_atr    fa_dun fa_intra_rep fa_intra_sol_xover4              fa_rep              fa_sol hbond_bb_sc hbond_lr_bb    hbond_sc hbond_sr_bb lk_ball_wtd metalbinding_constraint                   omega                 p_aa_pp pro_close rama_prepro         ref yhh_planarity description 
+SCORE:    -100.899                16.842     0.000  -557.593   112.334        0.953              19.199              52.802             375.385     -23.176      -6.551      -4.586     -48.014     -24.085                   0.000                   9.323                 -20.426     0.312     -20.573      16.956         0.000 hans_pocket_ss_only_u02_packed_2_1_0001

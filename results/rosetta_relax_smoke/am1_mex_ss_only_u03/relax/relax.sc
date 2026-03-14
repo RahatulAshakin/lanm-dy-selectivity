@@ -1,0 +1,3 @@
+SEQUENCE: 
+SCORE: total_score coordinate_constraint dslf_fa13    fa_atr    fa_dun fa_intra_rep fa_intra_sol_xover4              fa_rep              fa_sol hbond_bb_sc hbond_lr_bb    hbond_sc hbond_sr_bb lk_ball_wtd metalbinding_constraint                   omega                 p_aa_pp pro_close rama_prepro         ref yhh_planarity description 
+SCORE:    -113.531                13.300     0.000  -517.703   104.300        0.885              21.025              52.070             359.380     -17.561      -6.205       0.000     -45.848     -27.077                   0.000                   6.515                 -26.798     0.221     -30.504       0.370         0.097 am1_mex_ss_only_u03_packed_1_1_0001

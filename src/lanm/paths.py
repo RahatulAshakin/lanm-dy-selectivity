@@ -76,6 +76,10 @@ ROSETTA_SCORE_SMOKE_REPORT_PATH = RESULTS_REPORTS_DIR / "rosetta_score_smoke.md"
 ROSETTA_RELAX_SMOKE_SUMMARY_PATH = RESULTS_TABLES_DIR / "rosetta_relax_smoke_summary.csv"
 ROSETTA_RELAX_CANDIDATE_RANKING_PATH = RESULTS_TABLES_DIR / "rosetta_relax_candidate_ranking.csv"
 ROSETTA_RELAX_SMOKE_REPORT_PATH = RESULTS_REPORTS_DIR / "rosetta_relax_smoke.md"
+INTEGRATED_CANDIDATE_RANKING_PATH = RESULTS_TABLES_DIR / "integrated_candidate_ranking.csv"
+MD_VALIDATION_PANEL_PATH = RESULTS_TABLES_DIR / "md_validation_panel.csv"
+MD_PANEL_SELECTION_REPORT_PATH = RESULTS_REPORTS_DIR / "md_panel_selection.md"
+MD_PANEL_CONFIG_PATH = REPO_ROOT / "config" / "md_panel.yaml"
 
 
 def ensure_runtime_directories() -> None:

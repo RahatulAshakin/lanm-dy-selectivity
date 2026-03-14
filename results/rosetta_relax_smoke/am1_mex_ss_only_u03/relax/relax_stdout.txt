@@ -1,0 +1,342 @@
+********  (C) Copyright Rosetta Commons Member Institutions.  ***************
+* Use of Rosetta for commercial purposes may require purchase of a license. *
+********  See LICENSE.md or email license@uw.edu for more details. **********
+core.init: Checking for fconfig files in pwd and ./rosetta/flags 
+core.init: Rosetta version: rosetta.source.release-408 r408 2025.37+release.df75a9c df75a9c48e763e52a7aa3f5dfba077f4da88dbf5 https://www.rosettacommons.org 2025-09-09T20:16:19.418486
+core.init: Rosetta extras: []
+core.init: command: /home/ashak/apps/rosetta.source.release-408/main/source/bin/relax.default.linuxgccrelease -database /home/ashak/apps/rosetta.source.release-408/main/database -in:file:fullatom -s /home/ashak/projects/lanm-dy-selectivity/results/ligandmpnn_smoke/am1_mex_ss_only_u03/packed/am1_mex_ss_only_u03_packed_1_1.pdb -out:path:all /home/ashak/projects/lanm-dy-selectivity/results/rosetta_relax_smoke/am1_mex_ss_only_u03/relax -out:file:scorefile /home/ashak/projects/lanm-dy-selectivity/results/rosetta_relax_smoke/am1_mex_ss_only_u03/relax/relax.sc -out:overwrite -nstruct 1 -ignore_waters false -in:auto_setup_metals true -run:preserve_header true -out:file:renumber_pdb false -run:constant_seed true -run:jran 37 -relax:constrain_relax_to_start_coords -relax:ramp_constraints false -score:set_weights fa_elec 0.0
+basic.random.init_random_generator: Constant seed mode, seed=37 seed_offset=0 real_seed=37
+basic.random.init_random_generator: RandomGenerator:init: Normal mode, seed=37 RG_type=mt19937
+core.scoring.ScoreFunctionFactory: SCOREFUNCTION: ref2015
+core.scoring.etable: Starting energy table calculation
+core.scoring.etable: smooth_etable: changing atr/rep split to bottom of energy well
+core.scoring.etable: smooth_etable: spline smoothing lj etables (maxdis = 6)
+core.scoring.etable: smooth_etable: spline smoothing solvation etables (max_dis = 6)
+core.scoring.etable: Finished calculating energy tables.
+basic.io.database: Database file opened: scoring/score_functions/hbonds/ref2015_params/HBPoly1D.csv
+basic.io.database: Database file opened: scoring/score_functions/hbonds/ref2015_params/HBFadeIntervals.csv
+basic.io.database: Database file opened: scoring/score_functions/hbonds/ref2015_params/HBEval.csv
+basic.io.database: Database file opened: scoring/score_functions/hbonds/ref2015_params/DonStrength.csv
+basic.io.database: Database file opened: scoring/score_functions/hbonds/ref2015_params/AccStrength.csv
+core.chemical.GlobalResidueTypeSet: Finished initializing fa_standard residue type set.  Created 985 residue types
+core.chemical.GlobalResidueTypeSet: Total time to initialize 0.363866 seconds.
+basic.io.database: Database file opened: scoring/score_functions/rama/fd/all.ramaProb
+basic.io.database: Database file opened: scoring/score_functions/rama/fd/prepro.ramaProb
+basic.io.database: Database file opened: scoring/score_functions/omega/omega_ppdep.all.txt
+basic.io.database: Database file opened: scoring/score_functions/omega/omega_ppdep.gly.txt
+basic.io.database: Database file opened: scoring/score_functions/omega/omega_ppdep.pro.txt
+basic.io.database: Database file opened: scoring/score_functions/omega/omega_ppdep.valile.txt
+basic.io.database: Database file opened: scoring/score_functions/P_AA_pp/P_AA
+basic.io.database: Database file opened: scoring/score_functions/P_AA_pp/P_AA_n
+core.scoring.P_AA: shapovalov_lib::shap_p_aa_pp_smooth_level of 1( aka low_smooth ) got activated.
+basic.io.database: Database file opened: scoring/score_functions/P_AA_pp/shapovalov/10deg/kappa131/a20.prop
+core.scoring.ScoreFunctionFactory: Setting/modifying scorefxn weight from command line: fa_elec 0
+core.scoring.ScoreFunctionFactory: The -auto_setup_metals flag was used with no metalbinding_constraint weight set in the weights file.  Setting to 1.0.
+protocols.relax.RelaxScriptManager: Reading relax scripts list from database.
+protocols.relax.RelaxScriptManager: Looking for MonomerRelax2019.txt
+protocols.relax.RelaxScriptManager: ================== Reading script file: /home/ashak/apps/rosetta.source.release-408/main/database/sampling/relax_scripts/MonomerRelax2019.txt ==================
+protocols.relax.RelaxScriptManager: repeat %%nrepeats%%
+protocols.relax.RelaxScriptManager: coord_cst_weight 1.0
+protocols.relax.RelaxScriptManager: scale:fa_rep 0.040
+protocols.relax.RelaxScriptManager: repack
+protocols.relax.RelaxScriptManager: scale:fa_rep 0.051
+protocols.relax.RelaxScriptManager: min 0.01
+protocols.relax.RelaxScriptManager: coord_cst_weight 0.5
+protocols.relax.RelaxScriptManager: scale:fa_rep 0.265
+protocols.relax.RelaxScriptManager: repack
+protocols.relax.RelaxScriptManager: scale:fa_rep 0.280
+protocols.relax.RelaxScriptManager: min 0.01
+protocols.relax.RelaxScriptManager: coord_cst_weight 0.0
+protocols.relax.RelaxScriptManager: scale:fa_rep 0.559
+protocols.relax.RelaxScriptManager: repack
+protocols.relax.RelaxScriptManager: scale:fa_rep 0.581
+protocols.relax.RelaxScriptManager: min 0.01
+protocols.relax.RelaxScriptManager: coord_cst_weight 0.0
+protocols.relax.RelaxScriptManager: scale:fa_rep 1
+protocols.relax.RelaxScriptManager: repack
+protocols.relax.RelaxScriptManager: min 0.00001
+protocols.relax.RelaxScriptManager: accept_to_best
+protocols.relax.RelaxScriptManager: endrepeat
+protocols.jd2.PDBJobInputter: Instantiate PDBJobInputter
+protocols.jd2.PDBJobInputter: PDBJobInputter::fill_jobs
+protocols.jd2.PDBJobInputter: pushed /home/ashak/projects/lanm-dy-selectivity/results/ligandmpnn_smoke/am1_mex_ss_only_u03/packed/am1_mex_ss_only_u03_packed_1_1.pdb nstruct index 1
+protocols.evaluation.ChiWellRmsdEvaluatorCreator: Evaluation Creator active ... 
+protocols.jd2.PDBJobInputter: PDBJobInputter::pose_from_job
+protocols.jd2.PDBJobInputter: filling pose from PDB /home/ashak/projects/lanm-dy-selectivity/results/ligandmpnn_smoke/am1_mex_ss_only_u03/packed/am1_mex_ss_only_u03_packed_1_1.pdb
+core.import_pose.import_pose: File '/home/ashak/projects/lanm-dy-selectivity/results/ligandmpnn_smoke/am1_mex_ss_only_u03/packed/am1_mex_ss_only_u03_packed_1_1.pdb' automatically determined to be of type PDB from contents.
+core.chemical.GlobalResidueTypeSet: Loading (but possibly not actually using) 'ND' from the PDB components dictionary for residue type 'pdb_ND'
+core.io.pose_from_sfr.PoseFromSFRBuilder: Adding undetected upper terminus type to residue 105,  133 A
+core.conformation.Conformation: [ WARNING ] missing heavyatom:  OXT on residue ARG:CtermProteinFull 105
+core.util.metalloproteins_util: Automatically setting covalent bonds between metal ions and metal-binding residues.
+core.util.metalloproteins_util: Automatically setting up constraints between metal ions and metal-binding residues.
+core.pack.dunbrack.RotamerLibrary: shapovalov_lib_fixes_enable option is true.
+core.pack.dunbrack.RotamerLibrary: shapovalov_lib::shap_dun10_smooth_level of 1( aka lowest_smooth ) got activated.
+core.pack.dunbrack.RotamerLibrary: Binary rotamer library selected: /home/ashak/apps/rosetta.source.release-408/main/database/rotamer/shapovalov/StpDwn_0-0-0/Dunbrack10.lib.bin
+core.pack.dunbrack.RotamerLibrary: Using Dunbrack library binary file '/home/ashak/apps/rosetta.source.release-408/main/database/rotamer/shapovalov/StpDwn_0-0-0/Dunbrack10.lib.bin'.
+core.pack.dunbrack.RotamerLibrary: Dunbrack 2010 library took 0.080805 seconds to load from binary
+protocols.relax.FastRelax: CMD: repeat  111.951  0  0  0.55
+protocols.relax.FastRelax: CMD: coord_cst_weight  111.951  0  0  0.55
+protocols.relax.FastRelax: CMD: scale:fa_rep  23.2939  0  0  0.022
+core.pack.task: Packer task: initialize from command line() 
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.pack_rotamers: built 1144 rotamers at 110 positions.
+core.pack.interaction_graph.interaction_graph_factory: Instantiating DensePDInteractionGraph
+protocols.relax.FastRelax: CMD: repack  -115.844  0  0  0.022
+protocols.relax.FastRelax: CMD: scale:fa_rep  -112.224  0  0  0.02805
+protocols.relax.FastRelax: CMD: min  -178.215  0.144003  0.144003  0.02805
+protocols.relax.FastRelax: CMD: coord_cst_weight  -178.215  0.144003  0.144003  0.02805
+protocols.relax.FastRelax: CMD: scale:fa_rep  -138.317  0.144003  0.144003  0.14575
+core.pack.task: Packer task: initialize from command line() 
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.pack_rotamers: built 1051 rotamers at 110 positions.
+core.pack.interaction_graph.interaction_graph_factory: Instantiating DensePDInteractionGraph
+protocols.relax.FastRelax: CMD: repack  -140.171  0.144003  0.144003  0.14575
+protocols.relax.FastRelax: CMD: scale:fa_rep  -137.746  0.144003  0.144003  0.154
+protocols.relax.FastRelax: CMD: min  -149.871  0.136598  0.136598  0.154
+protocols.relax.FastRelax: CMD: coord_cst_weight  -149.871  0.136598  0.136598  0.154
+protocols.relax.FastRelax: CMD: scale:fa_rep  -121.995  0.136598  0.136598  0.30745
+core.pack.task: Packer task: initialize from command line() 
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.pack_rotamers: built 1030 rotamers at 110 positions.
+core.pack.interaction_graph.interaction_graph_factory: Instantiating DensePDInteractionGraph
+protocols.relax.FastRelax: CMD: repack  -122.005  0.136598  0.136598  0.30745
+protocols.relax.FastRelax: CMD: scale:fa_rep  -119.807  0.136598  0.136598  0.31955
+protocols.relax.FastRelax: CMD: min  -123.812  0.139271  0.139271  0.31955
+protocols.relax.FastRelax: CMD: coord_cst_weight  -123.812  0.139271  0.139271  0.31955
+protocols.relax.FastRelax: CMD: scale:fa_rep  -88.93  0.139271  0.139271  0.55
+core.pack.task: Packer task: initialize from command line() 
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.pack_rotamers: built 1015 rotamers at 110 positions.
+core.pack.interaction_graph.interaction_graph_factory: Instantiating DensePDInteractionGraph
+protocols.relax.FastRelax: CMD: repack  -89.1784  0.139271  0.139271  0.55
+protocols.relax.FastRelax: CMD: min  -112.152  0.125871  0.125871  0.55
+protocols.relax.FastRelax: MRP: 0  -112.152  -112.152  0.125871  0.125871  
+protocols.relax.FastRelax: CMD: accept_to_best  -112.152  0.125871  0.125871  0.55
+protocols.relax.FastRelax: CMD: endrepeat  -112.152  0.125871  0.125871  0.55
+protocols.relax.FastRelax: CMD: coord_cst_weight  -112.152  0.125871  0.125871  0.55
+protocols.relax.FastRelax: CMD: scale:fa_rep  -162.555  0.125871  0.125871  0.022
+core.pack.task: Packer task: initialize from command line() 
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.pack_rotamers: built 1150 rotamers at 110 positions.
+core.pack.interaction_graph.interaction_graph_factory: Instantiating DensePDInteractionGraph
+protocols.relax.FastRelax: CMD: repack  -167.685  0.125871  0.125871  0.022
+protocols.relax.FastRelax: CMD: scale:fa_rep  -166.509  0.125871  0.125871  0.02805
+protocols.relax.FastRelax: CMD: min  -179.651  0.141266  0.141266  0.02805
+protocols.relax.FastRelax: CMD: coord_cst_weight  -179.651  0.141266  0.141266  0.02805
+protocols.relax.FastRelax: CMD: scale:fa_rep  -145.704  0.141266  0.141266  0.14575
+core.pack.task: Packer task: initialize from command line() 
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.pack_rotamers: built 1053 rotamers at 110 positions.
+core.pack.interaction_graph.interaction_graph_factory: Instantiating DensePDInteractionGraph
+protocols.relax.FastRelax: CMD: repack  -146.182  0.141266  0.141266  0.14575
+protocols.relax.FastRelax: CMD: scale:fa_rep  -144.161  0.141266  0.141266  0.154
+protocols.relax.FastRelax: CMD: min  -154.335  0.131751  0.131751  0.154
+protocols.relax.FastRelax: CMD: coord_cst_weight  -154.335  0.131751  0.131751  0.154
+protocols.relax.FastRelax: CMD: scale:fa_rep  -131.285  0.131751  0.131751  0.30745
+core.pack.task: Packer task: initialize from command line() 
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.pack_rotamers: built 1023 rotamers at 110 positions.
+core.pack.interaction_graph.interaction_graph_factory: Instantiating DensePDInteractionGraph
+protocols.relax.FastRelax: CMD: repack  -131.293  0.131751  0.131751  0.30745
+protocols.relax.FastRelax: CMD: scale:fa_rep  -129.476  0.131751  0.131751  0.31955
+protocols.relax.FastRelax: CMD: min  -132.271  0.130968  0.130968  0.31955
+protocols.relax.FastRelax: CMD: coord_cst_weight  -132.271  0.130968  0.130968  0.31955
+protocols.relax.FastRelax: CMD: scale:fa_rep  -102.457  0.130968  0.130968  0.55
+core.pack.task: Packer task: initialize from command line() 
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.pack_rotamers: built 1008 rotamers at 110 positions.
+core.pack.interaction_graph.interaction_graph_factory: Instantiating DensePDInteractionGraph
+protocols.relax.FastRelax: CMD: repack  -102.457  0.130968  0.130968  0.55
+protocols.relax.FastRelax: CMD: min  -113.297  0.121398  0.121398  0.55
+protocols.relax.FastRelax: MRP: 1  -113.297  -113.297  0.121398  0.121398  
+protocols.relax.FastRelax: CMD: accept_to_best  -113.297  0.121398  0.121398  0.55
+protocols.relax.FastRelax: CMD: endrepeat  -113.297  0.121398  0.121398  0.55
+protocols.relax.FastRelax: CMD: coord_cst_weight  -113.297  0.121398  0.121398  0.55
+protocols.relax.FastRelax: CMD: scale:fa_rep  -163.364  0.121398  0.121398  0.022
+core.pack.task: Packer task: initialize from command line() 
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.pack_rotamers: built 1151 rotamers at 110 positions.
+core.pack.interaction_graph.interaction_graph_factory: Instantiating DensePDInteractionGraph
+protocols.relax.FastRelax: CMD: repack  -167.592  0.121398  0.121398  0.022
+protocols.relax.FastRelax: CMD: scale:fa_rep  -166.545  0.121398  0.121398  0.02805
+protocols.relax.FastRelax: CMD: min  -176.688  0.135893  0.135893  0.02805
+protocols.relax.FastRelax: CMD: coord_cst_weight  -176.688  0.135893  0.135893  0.02805
+protocols.relax.FastRelax: CMD: scale:fa_rep  -146.224  0.135893  0.135893  0.14575
+core.pack.task: Packer task: initialize from command line() 
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.pack_rotamers: built 1050 rotamers at 110 positions.
+core.pack.interaction_graph.interaction_graph_factory: Instantiating DensePDInteractionGraph
+protocols.relax.FastRelax: CMD: repack  -146.28  0.135893  0.135893  0.14575
+protocols.relax.FastRelax: CMD: scale:fa_rep  -144.148  0.135893  0.135893  0.154
+protocols.relax.FastRelax: CMD: min  -154.288  0.130959  0.130959  0.154
+protocols.relax.FastRelax: CMD: coord_cst_weight  -154.288  0.130959  0.130959  0.154
+protocols.relax.FastRelax: CMD: scale:fa_rep  -130.382  0.130959  0.130959  0.30745
+core.pack.task: Packer task: initialize from command line() 
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.pack_rotamers: built 1027 rotamers at 110 positions.
+core.pack.interaction_graph.interaction_graph_factory: Instantiating DensePDInteractionGraph
+protocols.relax.FastRelax: CMD: repack  -130.4  0.130959  0.130959  0.30745
+protocols.relax.FastRelax: CMD: scale:fa_rep  -128.549  0.130959  0.130959  0.31955
+protocols.relax.FastRelax: CMD: min  -131.434  0.130133  0.130133  0.31955
+protocols.relax.FastRelax: CMD: coord_cst_weight  -131.434  0.130133  0.130133  0.31955
+protocols.relax.FastRelax: CMD: scale:fa_rep  -101.571  0.130133  0.130133  0.55
+core.pack.task: Packer task: initialize from command line() 
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.pack_rotamers: built 1012 rotamers at 110 positions.
+core.pack.interaction_graph.interaction_graph_factory: Instantiating DensePDInteractionGraph
+protocols.relax.FastRelax: CMD: repack  -101.571  0.130133  0.130133  0.55
+protocols.relax.FastRelax: CMD: min  -113.531  0.121414  0.121414  0.55
+protocols.relax.FastRelax: MRP: 2  -113.531  -113.531  0.121414  0.121414  
+protocols.relax.FastRelax: CMD: accept_to_best  -113.531  0.121414  0.121414  0.55
+protocols.relax.FastRelax: CMD: endrepeat  -113.531  0.121414  0.121414  0.55
+protocols.relax.FastRelax: CMD: coord_cst_weight  -113.531  0.121414  0.121414  0.55
+protocols.relax.FastRelax: CMD: scale:fa_rep  -163.518  0.121414  0.121414  0.022
+core.pack.task: Packer task: initialize from command line() 
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.pack_rotamers: built 1151 rotamers at 110 positions.
+core.pack.interaction_graph.interaction_graph_factory: Instantiating DensePDInteractionGraph
+protocols.relax.FastRelax: CMD: repack  -167.639  0.121414  0.121414  0.022
+protocols.relax.FastRelax: CMD: scale:fa_rep  -166.236  0.121414  0.121414  0.02805
+protocols.relax.FastRelax: CMD: min  -173.562  0.142745  0.142745  0.02805
+protocols.relax.FastRelax: CMD: coord_cst_weight  -173.562  0.142745  0.142745  0.02805
+protocols.relax.FastRelax: CMD: scale:fa_rep  -140.086  0.142745  0.142745  0.14575
+core.pack.task: Packer task: initialize from command line() 
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.pack_rotamers: built 1054 rotamers at 110 positions.
+core.pack.interaction_graph.interaction_graph_factory: Instantiating DensePDInteractionGraph
+protocols.relax.FastRelax: CMD: repack  -142.941  0.142745  0.142745  0.14575
+protocols.relax.FastRelax: CMD: scale:fa_rep  -140.9  0.142745  0.142745  0.154
+protocols.relax.FastRelax: CMD: min  -153.565  0.131127  0.131127  0.154
+protocols.relax.FastRelax: CMD: coord_cst_weight  -153.565  0.131127  0.131127  0.154
+protocols.relax.FastRelax: CMD: scale:fa_rep  -130.721  0.131127  0.131127  0.30745
+core.pack.task: Packer task: initialize from command line() 
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.pack_rotamers: built 1023 rotamers at 110 positions.
+core.pack.interaction_graph.interaction_graph_factory: Instantiating DensePDInteractionGraph
+protocols.relax.FastRelax: CMD: repack  -130.721  0.131127  0.131127  0.30745
+protocols.relax.FastRelax: CMD: scale:fa_rep  -128.92  0.131127  0.131127  0.31955
+protocols.relax.FastRelax: CMD: min  -132.551  0.130211  0.130211  0.31955
+protocols.relax.FastRelax: CMD: coord_cst_weight  -132.551  0.130211  0.130211  0.31955
+protocols.relax.FastRelax: CMD: scale:fa_rep  -104.937  0.130211  0.130211  0.55
+core.pack.task: Packer task: initialize from command line() 
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.pack_rotamers: built 1006 rotamers at 110 positions.
+core.pack.interaction_graph.interaction_graph_factory: Instantiating DensePDInteractionGraph
+protocols.relax.FastRelax: CMD: repack  -104.937  0.130211  0.130211  0.55
+protocols.relax.FastRelax: CMD: min  -113.496  0.121388  0.121388  0.55
+protocols.relax.FastRelax: MRP: 3  -113.496  -113.531  0.121414  0.121414  
+protocols.relax.FastRelax: CMD: accept_to_best  -113.496  0.121388  0.121388  0.55
+protocols.relax.FastRelax: CMD: endrepeat  -113.496  0.121388  0.121388  0.55
+protocols.relax.FastRelax: CMD: coord_cst_weight  -113.496  0.121388  0.121388  0.55
+protocols.relax.FastRelax: CMD: scale:fa_rep  -163.498  0.121388  0.121388  0.022
+core.pack.task: Packer task: initialize from command line() 
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.pack_rotamers: built 1149 rotamers at 110 positions.
+core.pack.interaction_graph.interaction_graph_factory: Instantiating DensePDInteractionGraph
+protocols.relax.FastRelax: CMD: repack  -166.325  0.121388  0.121388  0.022
+protocols.relax.FastRelax: CMD: scale:fa_rep  -164.451  0.121388  0.121388  0.02805
+protocols.relax.FastRelax: CMD: min  -177.467  0.136235  0.136235  0.02805
+protocols.relax.FastRelax: CMD: coord_cst_weight  -177.467  0.136235  0.136235  0.02805
+protocols.relax.FastRelax: CMD: scale:fa_rep  -141.962  0.136235  0.136235  0.14575
+core.pack.task: Packer task: initialize from command line() 
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.pack_rotamers: built 1054 rotamers at 110 positions.
+core.pack.interaction_graph.interaction_graph_factory: Instantiating DensePDInteractionGraph
+protocols.relax.FastRelax: CMD: repack  -142.218  0.136235  0.136235  0.14575
+protocols.relax.FastRelax: CMD: scale:fa_rep  -139.833  0.136235  0.136235  0.154
+protocols.relax.FastRelax: CMD: min  -148.845  0.136449  0.136449  0.154
+protocols.relax.FastRelax: CMD: coord_cst_weight  -148.845  0.136449  0.136449  0.154
+protocols.relax.FastRelax: CMD: scale:fa_rep  -121.575  0.136449  0.136449  0.30745
+core.pack.task: Packer task: initialize from command line() 
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.pack_rotamers: built 1022 rotamers at 110 positions.
+core.pack.interaction_graph.interaction_graph_factory: Instantiating DensePDInteractionGraph
+protocols.relax.FastRelax: CMD: repack  -121.656  0.136449  0.136449  0.30745
+protocols.relax.FastRelax: CMD: scale:fa_rep  -119.542  0.136449  0.136449  0.31955
+protocols.relax.FastRelax: CMD: min  -128.229  0.133016  0.133016  0.31955
+protocols.relax.FastRelax: CMD: coord_cst_weight  -128.229  0.133016  0.133016  0.31955
+protocols.relax.FastRelax: CMD: scale:fa_rep  -97.9557  0.133016  0.133016  0.55
+core.pack.task: Packer task: initialize from command line() 
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.rotamer_set.RotamerSet_: Using simple Rotamer generation logic for pdb_ND
+core.pack.pack_rotamers: built 1014 rotamers at 110 positions.
+core.pack.interaction_graph.interaction_graph_factory: Instantiating DensePDInteractionGraph
+protocols.relax.FastRelax: CMD: repack  -97.9567  0.133016  0.133016  0.55
+protocols.relax.FastRelax: CMD: min  -105.474  0.134616  0.134616  0.55
+protocols.relax.FastRelax: MRP: 4  -105.474  -113.531  0.121414  0.121414  
+protocols.relax.FastRelax: CMD: accept_to_best  -105.474  0.134616  0.134616  0.55
+protocols.relax.FastRelax: CMD: endrepeat  -105.474  0.134616  0.134616  0.55
+protocols::checkpoint: Deleting checkpoints of FastRelax
+protocols.jd2.JobDistributor: am1_mex_ss_only_u03_packed_1_1_0001 reported success in 10 seconds
+protocols.jd2.JobDistributor: no more batches to process... 
+protocols.jd2.JobDistributor: 1 jobs considered, 1 jobs attempted in 10 seconds
+basic.citation_manager.CitationManager: 
+The following Rosetta modules were used during this run of Rosetta, and should be cited:
+
+FastRelax Mover's citation(s):
+*Tyka MD, *Keedy DA, André I, Dimaio F, Song Y, Richardson DC, Richardson JS, and Baker D.  (2011).  Alternate states of proteins revealed by detailed energy landscape mapping.  J Mol Biol 405(2):607-18.  doi: 10.1016/j.jmb.2010.11.008.  (*Co-primary authors.)
+
+Khatib F, Cooper S, Tyka MD, Xu K, Makedon I, Popovic Z, Baker D, and Players F.  (2011).  Algorithm discovery by protein folding game players.  Proc Natl Acad Sci USA 108(47):18949-53.  doi: 10.1073/pnas.1115898108.
+
+Maguire JB, Haddox HK, Strickland D, Halabiya SF, Coventry B, Griffin JR, Pulavarti SVSRK, Cummins M, Thieker DF, Klavins E, Szyperski T, DiMaio F, Baker D, and Kuhlman B.  (2021).  Perturbing the energy landscape for improved packing during computational protein design.  Proteins 89(4):436-449.  doi: 10.1002/prot.26030.
+
+

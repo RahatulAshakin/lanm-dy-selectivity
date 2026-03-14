@@ -1,0 +1,3 @@
+SEQUENCE: 
+SCORE: total_score       score dslf_fa13    fa_atr    fa_dun fa_intra_rep fa_intra_sol_xover4              fa_rep              fa_sol hbond_bb_sc hbond_lr_bb    hbond_sc hbond_sr_bb linear_chainbreak lk_ball_wtd metalbinding_constraint                   omega overlap_chainbreak            p_aa_pp pro_close rama_prepro         ref        time yhh_planarity description 
+SCORE:     111.315     111.315     0.000  -564.458   163.554        0.978              27.010              92.490             485.385     -23.838      -5.861      -4.287     -43.357             0.000      -9.427                   0.000                  19.856              0.000            -22.738    23.947     -26.172      -1.768       0.000         0.000 am1_mex_ss_only_u02_packed_2_1_0001

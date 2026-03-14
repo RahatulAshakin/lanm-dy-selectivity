@@ -1,0 +1,177 @@
+version: 1
+phase: 5B
+source_artifacts:
+  proteinmpnn_shortlist: results/tables/proteinmpnn_shortlist.csv
+  ligandmpnn_shortlist: results/tables/ligandmpnn_shortlist.csv
+  ligandmpnn_smoke_summary: results/tables/ligandmpnn_smoke_summary.csv
+  rosetta_score_candidate_ranking: results/tables/rosetta_score_candidate_ranking.csv
+  integrated_candidate_ranking: results/tables/integrated_candidate_ranking.csv
+selection_rules:
+  panel_limit: 6
+  rosetta_cross_topology_policy: Raw Rosetta total_score is not a valid cross-topology
+    comparator; only within-backbone/topology rank and normalized score are used across
+    AM1 monomer, Hans monomer, and Hans multichain assemblies.
+  required_designed_coverage:
+    am1_mex_designed_candidate: 1
+    hans_pocket_designed_candidate: 1
+    hans_interface_aware_candidate: 1
+  required_references:
+  - am1_mex_wild_type_reference
+  - hans_wild_type_reference
+integrated_candidates:
+- integrated_rank: 1
+  candidate_id: hans_pocket_ss_only_u02
+  campaign_id: hans_pocket_ss_only
+  topology_class: hans_monomer
+  integrated_priority_score: 0.396541
+  ligandmpnn_representative_ligand_confidence: 0.4251
+  rosetta_score_rank_within_topology: 1
+- integrated_rank: 2
+  candidate_id: am1_mex_ss_only_u02
+  campaign_id: am1_mex_ss_only
+  topology_class: am1_monomer
+  integrated_priority_score: 0.416468
+  ligandmpnn_representative_ligand_confidence: 0.3307
+  rosetta_score_rank_within_topology: 1
+- integrated_rank: 3
+  candidate_id: hans_interface_ss_plus_if_u04
+  campaign_id: hans_interface_ss_plus_if
+  topology_class: hans_interface_multichain
+  integrated_priority_score: 0.430077
+  ligandmpnn_representative_ligand_confidence: 0.3853
+  rosetta_score_rank_within_topology: 1
+- integrated_rank: 4
+  candidate_id: hans_interface_ss_plus_if_u02
+  campaign_id: hans_interface_ss_plus_if
+  topology_class: hans_interface_multichain
+  integrated_priority_score: 0.647513
+  ligandmpnn_representative_ligand_confidence: 0.3879
+  rosetta_score_rank_within_topology: 2
+- integrated_rank: 5
+  candidate_id: hans_interface_ss_plus_if_u01
+  campaign_id: hans_interface_ss_plus_if
+  topology_class: hans_interface_multichain
+  integrated_priority_score: 0.665626
+  ligandmpnn_representative_ligand_confidence: 0.3621
+  rosetta_score_rank_within_topology: 3
+- integrated_rank: 6
+  candidate_id: hans_pocket_ss_only_u01
+  campaign_id: hans_pocket_ss_only
+  topology_class: hans_monomer
+  integrated_priority_score: 0.692345
+  ligandmpnn_representative_ligand_confidence: 0.4244
+  rosetta_score_rank_within_topology: 2
+- integrated_rank: 7
+  candidate_id: hans_interface_if_only_u01
+  campaign_id: hans_interface_if_only
+  topology_class: hans_interface_multichain
+  integrated_priority_score: 0.771759
+  ligandmpnn_representative_ligand_confidence: 0.2383
+  rosetta_score_rank_within_topology: 4
+- integrated_rank: 8
+  candidate_id: am1_mex_ss_only_u03
+  campaign_id: am1_mex_ss_only
+  topology_class: am1_monomer
+  integrated_priority_score: 0.810064
+  ligandmpnn_representative_ligand_confidence: 0.3526
+  rosetta_score_rank_within_topology: 2
+panel:
+- panel_rank: 1
+  panel_member_id: am1_mex_ss_only_u02
+  panel_member_type: designed_candidate
+  panel_role: am1_mex_designed_candidate
+  candidate_id: am1_mex_ss_only_u02
+  campaign_id: am1_mex_ss_only
+  backbone_id: am1_mex_8fns_chain_a
+  topology_class: am1_monomer
+  preserved_metal_identity: ND
+  proteinmpnn_rank: 7
+  ligandmpnn_representative_ligand_confidence: 0.3307
+  rosetta_score_rank_within_topology: 1
+  rosetta_total_score: 111.315
+  starting_structure_path: results/ligandmpnn_smoke/am1_mex_ss_only_u02/packed/am1_mex_ss_only_u02_packed_2_1.pdb
+  selection_reason: Retained as the best AM1/Mex design by integrated Phase 5B ranking;
+    LigandMPNN ligand_confidence=0.3307 and Rosetta within-topology rank=1.
+- panel_rank: 2
+  panel_member_id: am1_mex_wt_reference
+  panel_member_type: wild_type_reference
+  panel_role: am1_mex_wild_type_reference
+  candidate_id: am1_mex_wt_reference
+  campaign_id: am1_mex_wild_type
+  backbone_id: am1_mex_8fns_chain_a
+  topology_class: am1_monomer
+  preserved_metal_identity: ND
+  proteinmpnn_rank: null
+  ligandmpnn_representative_ligand_confidence: null
+  rosetta_score_rank_within_topology: null
+  rosetta_total_score: null
+  starting_structure_path: results/design_inputs/proteinmpnn/backbones/am1_mex_8fns_chain_a.pdb
+  selection_reason: Kept as the AM1/Mex wild-type baseline so later MD can measure
+    whether redesigned AM1 variants improve Dy selectivity relative to the unmodified
+    monomer scaffold.
+- panel_rank: 3
+  panel_member_id: hans_pocket_ss_only_u02
+  panel_member_type: designed_candidate
+  panel_role: hans_pocket_designed_candidate
+  candidate_id: hans_pocket_ss_only_u02
+  campaign_id: hans_pocket_ss_only
+  backbone_id: hans_pocket_8fnr_chain_a
+  topology_class: hans_monomer
+  preserved_metal_identity: DY
+  proteinmpnn_rank: 9
+  ligandmpnn_representative_ligand_confidence: 0.4251
+  rosetta_score_rank_within_topology: 1
+  rosetta_total_score: 150.783
+  starting_structure_path: results/ligandmpnn_smoke/hans_pocket_ss_only_u02/packed/hans_pocket_ss_only_u02_packed_2_1.pdb
+  selection_reason: Retained as the best Hans pocket-focused design; LigandMPNN ligand_confidence=0.4251
+    and Rosetta within-topology rank=1.
+- panel_rank: 4
+  panel_member_id: hans_interface_ss_plus_if_u04
+  panel_member_type: designed_candidate
+  panel_role: hans_interface_aware_candidate
+  candidate_id: hans_interface_ss_plus_if_u04
+  campaign_id: hans_interface_ss_plus_if
+  backbone_id: hans_interface_8fnr_a_b_c_d
+  topology_class: hans_interface_multichain
+  preserved_metal_identity: DY
+  proteinmpnn_rank: 10
+  ligandmpnn_representative_ligand_confidence: 0.3853
+  rosetta_score_rank_within_topology: 1
+  rosetta_total_score: 531.324
+  starting_structure_path: results/ligandmpnn_smoke/hans_interface_ss_plus_if_u04/packed/hans_interface_ss_plus_if_u04_packed_2_1.pdb
+  selection_reason: Retained as the best Hans interface-aware design to preserve the
+    multichain hypothesis; LigandMPNN ligand_confidence=0.3853 and Rosetta within-topology
+    rank=1.
+- panel_rank: 5
+  panel_member_id: hans_interface_wt_reference
+  panel_member_type: wild_type_reference
+  panel_role: hans_wild_type_reference
+  candidate_id: hans_interface_wt_reference
+  campaign_id: hans_wild_type
+  backbone_id: hans_interface_8fnr_a_b_c_d
+  topology_class: hans_interface_multichain
+  preserved_metal_identity: DY
+  proteinmpnn_rank: null
+  ligandmpnn_representative_ligand_confidence: null
+  rosetta_score_rank_within_topology: null
+  rosetta_total_score: null
+  starting_structure_path: results/design_inputs/proteinmpnn/backbones/hans_interface_8fnr_a_b_c_d.pdb
+  selection_reason: Kept as the Hans wild-type baseline so later MD can separate mutation-driven
+    effects from the native Hans scaffold and interface context.
+- panel_rank: 6
+  panel_member_id: hans_interface_ss_plus_if_u02
+  panel_member_type: designed_candidate
+  panel_role: best_remaining_designed_candidate
+  candidate_id: hans_interface_ss_plus_if_u02
+  campaign_id: hans_interface_ss_plus_if
+  backbone_id: hans_interface_8fnr_a_b_c_d
+  topology_class: hans_interface_multichain
+  preserved_metal_identity: DY
+  proteinmpnn_rank: 2
+  ligandmpnn_representative_ligand_confidence: 0.3879
+  rosetta_score_rank_within_topology: 2
+  rosetta_total_score: 599.48
+  starting_structure_path: results/ligandmpnn_smoke/hans_interface_ss_plus_if_u02/packed/hans_interface_ss_plus_if_u02_packed_2_1.pdb
+  selection_reason: Retained as the strongest remaining designed candidate after mandatory
+    scaffold coverage; LigandMPNN ligand_confidence=0.3879 and Rosetta within-topology
+    rank=2.

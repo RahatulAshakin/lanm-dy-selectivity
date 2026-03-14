@@ -1,0 +1,80 @@
+version: 1
+phase: 6A2c
+description: Auditable numeric metal-parameter registry for published OPC3 12-6-4
+  baseline handoff and tuned-family readiness tracking.
+source_artifacts:
+  metal_model_registry: config/metal_models.yaml
+  md_system_build_manifest: results/tables/md_system_build_manifest.csv
+parameter_value_families:
+- source_family_label: generic_12_6_4_highly_charged
+  family_scope: generic_baseline
+  covered_metals:
+  - Dy
+  - Nd
+  - Y
+  - Al
+  - Fe
+  water_model_compatibility:
+  - amber19/opc3.xml
+  numeric_values_present: true
+  parameter_provenance: published_opc3_12_6_4_baseline
+  notes: Published OPC3 12-6-4 baseline coefficients are present in the repo for Dy,
+    Nd, Y, Al, and Fe, so this family is numerically auditable for baseline builds.
+- source_family_label: chelator_tuned_12_6_4_lanmodulin
+  family_scope: lanm_adjacent_chelator_tuned
+  covered_metals:
+  - Dy
+  - Nd
+  - Y
+  water_model_compatibility:
+  - amber19/opc3.xml
+  numeric_values_present: false
+  parameter_provenance: explicit_tuned_numeric_coefficients_in_repo
+  notes: Lanmodulin-adjacent chelator-tuned coefficients remain a future refinement
+    path. No explicit tuned numeric coefficients are present in the repo yet.
+numeric_parameter_values:
+- metal_identity: Dy
+  source_family_label: generic_12_6_4_highly_charged
+  water_model: amber19/opc3.xml
+  formal_charge: 3
+  rmin_half_A: 1.632
+  epsilon_kcal_per_mol: 0.0962022
+  c4_kcal_per_mol_A4: 183
+  parameter_provenance: published_opc3_12_6_4_baseline
+  notes: Published OPC3 12-6-4 baseline coefficients ingested exactly for Dy3+.
+- metal_identity: Nd
+  source_family_label: generic_12_6_4_highly_charged
+  water_model: amber19/opc3.xml
+  formal_charge: 3
+  rmin_half_A: 1.712
+  epsilon_kcal_per_mol: 0.1464093
+  c4_kcal_per_mol_A4: 184
+  parameter_provenance: published_opc3_12_6_4_baseline
+  notes: Published OPC3 12-6-4 baseline coefficients ingested exactly for Nd3+.
+- metal_identity: Y
+  source_family_label: generic_12_6_4_highly_charged
+  water_model: amber19/opc3.xml
+  formal_charge: 3
+  rmin_half_A: 1.626
+  epsilon_kcal_per_mol: 0.09289608
+  c4_kcal_per_mol_A4: 192
+  parameter_provenance: published_opc3_12_6_4_baseline
+  notes: Published OPC3 12-6-4 baseline coefficients ingested exactly for Y3+.
+- metal_identity: Al
+  source_family_label: generic_12_6_4_highly_charged
+  water_model: amber19/opc3.xml
+  formal_charge: 3
+  rmin_half_A: 1.361
+  epsilon_kcal_per_mol: 0.01031847
+  c4_kcal_per_mol_A4: 363
+  parameter_provenance: published_opc3_12_6_4_baseline
+  notes: Published OPC3 12-6-4 baseline coefficients ingested exactly for Al3+.
+- metal_identity: Fe
+  source_family_label: generic_12_6_4_highly_charged
+  water_model: amber19/opc3.xml
+  formal_charge: 3
+  rmin_half_A: 1.455
+  epsilon_kcal_per_mol: 0.02662782
+  c4_kcal_per_mol_A4: 429
+  parameter_provenance: published_opc3_12_6_4_baseline
+  notes: Published OPC3 12-6-4 baseline coefficients ingested exactly for Fe3+.

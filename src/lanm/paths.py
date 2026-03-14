@@ -87,9 +87,11 @@ MD_INPUT_PREPARATION_REPORT_PATH = RESULTS_REPORTS_DIR / "md_input_preparation.m
 MD_PROTOCOL_CONFIG_PATH = REPO_ROOT / "config" / "md_protocol.yaml"
 METAL_MODEL_REGISTRY_PATH = REPO_ROOT / "config" / "metal_models.yaml"
 METAL_PARAMETER_CONFIG_PATH = REPO_ROOT / "config" / "metal_parameters.yaml"
+METAL_PARAMETER_VALUES_PATH = REPO_ROOT / "config" / "metal_parameter_values.yaml"
 MD_SYSTEM_BUILD_MANIFEST_PATH = RESULTS_TABLES_DIR / "md_system_build_manifest.csv"
 MD_SYSTEM_BUILDING_PLAN_REPORT_PATH = RESULTS_REPORTS_DIR / "md_system_building_plan.md"
 METAL_PARAMETER_MAPPING_PATH = RESULTS_TABLES_DIR / "metal_parameter_mapping.csv"
+METAL_BUILD_READINESS_PATH = RESULTS_TABLES_DIR / "metal_build_readiness.csv"
 METAL_PARAMETER_STRATEGY_REPORT_PATH = RESULTS_REPORTS_DIR / "metal_parameter_strategy.md"
 
 

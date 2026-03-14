@@ -1,4 +1,4 @@
-"""Deterministic Phase 6A2b metal-parameter source mapping for the MD panel."""
+"""Deterministic Phase 6A2c metal-parameter mapping and readiness outputs."""
 
 from __future__ import annotations
 
@@ -9,15 +9,25 @@ from typing import Any
 
 import yaml
 
+from lanm.analysis.metal_parameter_values import (
+    CHELATOR_TUNED_12_6_4_LANMODULIN,
+    DEFAULT_OPC3_WATER_MODEL,
+    EXPLICIT_TUNED_NUMERIC_COEFFICIENTS,
+    GENERIC_12_6_4_HIGHLY_CHARGED,
+    PUBLISHED_OPC3_12_6_4_BASELINE,
+    TARGET_METALS,
+    NumericParameterValueRecord,
+    build_default_numeric_parameter_registry,
+    build_numeric_parameter_family_registry,
+    render_metal_parameter_values_payload,
+    validate_numeric_parameter_registry,
+)
 from lanm.data.fetch import require_path
 from lanm.filesystem import atomic_write_text, write_csv_rows, write_yaml
 from lanm.paths import REPO_ROOT
 
-TARGET_METALS = ("Dy", "Nd", "Y", "Al", "Fe")
 PHASE_6A2_REGISTRY_FAMILY = "custom_bound_site_12_6_4_lj_chelator_tuned"
 PHASE_6A2_PARAMETER_SOURCE_STATUS = "custom_parameters_not_present_in_repo"
-GENERIC_12_6_4_HIGHLY_CHARGED = "generic_12_6_4_highly_charged"
-CHELATOR_TUNED_12_6_4_LANMODULIN = "chelator_tuned_12_6_4_lanmodulin"
 DIRECT_SUPPORT_STATUS = "direct"
 PROXY_SUPPORT_STATUS = "proxy"
 NEEDS_DERIVATION_STATUS = "needs_derivation"
@@ -71,6 +81,7 @@ class ParameterSourceFamilyRecord:
     covered_metals: tuple[str, ...]
     water_model_compatibility: tuple[str, ...]
     repo_numeric_parameters_present: bool
+    parameter_provenance: str
     notes: str
 
 
@@ -81,6 +92,10 @@ class MetalParameterRecord:
     intended_parameter_family: str
     source_family_label: str
     direct_support_status: str
+    baseline_parameter_family: str
+    baseline_numeric_values_present: bool
+    tuned_parameter_family: str
+    tuned_numeric_values_present: bool
     water_model_compatibility: tuple[str, ...]
     notes: str
 
@@ -91,8 +106,32 @@ class MetalParameterMappingRow:
     target_metal: str
     chosen_parameter_family: str
     direct_support_status: str
-    ready_for_openmm_system_build: bool
+    baseline_parameter_family: str
+    baseline_numeric_values_present: bool
+    tuned_parameter_family: str
+    tuned_numeric_values_present: bool
+    ready_for_openmm_system_build_baseline: bool
+    ready_for_openmm_system_build_tuned: bool
     rationale: str
+
+
+@dataclass(frozen=True, slots=True)
+class MetalBuildReadinessRow:
+    panel_rank: int
+    panel_member_id: str
+    target_metal: str
+    topology_class: str
+    build_request_path: str
+    chosen_water_model: str
+    generic_protein_water_preparation_ready: bool
+    phase_6a2_custom_metal_parameters_still_required: bool
+    baseline_parameter_family: str
+    baseline_numeric_values_present: bool
+    ready_for_openmm_system_build_baseline: bool
+    tuned_parameter_family: str
+    tuned_numeric_values_present: bool
+    ready_for_openmm_system_build_tuned: bool
+    readiness_summary: str
 
 
 def _display_path(path: Path) -> str:
@@ -233,7 +272,16 @@ def load_md_system_build_manifest(path: Path) -> tuple[MDSystemBuildManifestRow,
         )
     if not rows:
         raise ValueError(f"No rows found in {path}")
-    sorted_rows = tuple(sorted(rows, key=lambda row: (row.panel_rank, row.panel_member_id, TARGET_METALS.index(row.target_metal))))
+    sorted_rows = tuple(
+        sorted(
+            rows,
+            key=lambda row: (
+                row.panel_rank,
+                row.panel_member_id,
+                TARGET_METALS.index(row.target_metal),
+            ),
+        )
+    )
     observed_metals = tuple(sorted({row.target_metal for row in sorted_rows}, key=TARGET_METALS.index))
     if observed_metals != TARGET_METALS:
         raise ValueError(f"Expected manifest metals {TARGET_METALS}, found {observed_metals}")
@@ -245,35 +293,34 @@ def load_md_system_build_manifest(path: Path) -> tuple[MDSystemBuildManifestRow,
 
 def build_parameter_source_family_registry(
     manifest_rows: tuple[MDSystemBuildManifestRow, ...],
+    numeric_parameter_registry: tuple[NumericParameterValueRecord, ...],
 ) -> tuple[ParameterSourceFamilyRecord, ...]:
-    """Build the deterministic conceptual source-family registry for Phase 6A2b."""
-    water_models = tuple(sorted({row.chosen_water_model for row in manifest_rows}))
-    if not water_models:
-        raise ValueError("No water models observed in the build manifest")
-    return (
-        ParameterSourceFamilyRecord(
-            source_family_label=GENERIC_12_6_4_HIGHLY_CHARGED,
-            family_scope="generic_baseline",
-            covered_metals=GENERIC_BASELINE_ONLY_METALS,
-            water_model_compatibility=water_models,
-            repo_numeric_parameters_present=False,
-            notes=(
-                "Conceptual generic 12-6-4 baseline family for highly charged trivalent competitors. "
-                "The repo does not currently store numeric Al or Fe bound-site parameters in this family."
-            ),
-        ),
-        ParameterSourceFamilyRecord(
-            source_family_label=CHELATOR_TUNED_12_6_4_LANMODULIN,
-            family_scope="lanm_adjacent_chelator_tuned",
-            covered_metals=LANM_ADJACENT_DIRECT_METALS,
-            water_model_compatibility=water_models,
-            repo_numeric_parameters_present=False,
-            notes=(
-                "Conceptual LanM-adjacent chelator-tuned 12-6-4 family for bound-site lanthanide models. "
-                "The repo does not currently store numeric Dy, Nd, or Y bound-site parameters in this family."
-            ),
-        ),
+    """Build the Phase 6A2c source-family registry with numeric readiness annotations."""
+    if not manifest_rows:
+        raise ValueError("No manifest rows were provided")
+    observed_water_models = {row.chosen_water_model for row in manifest_rows}
+    family_registry = build_numeric_parameter_family_registry(
+        validate_numeric_parameter_registry(numeric_parameter_registry)
     )
+    output_rows: list[ParameterSourceFamilyRecord] = []
+    for family in family_registry:
+        water_model_compatibility = tuple(
+            model for model in family.water_model_compatibility if model in observed_water_models
+        )
+        if not water_model_compatibility:
+            water_model_compatibility = family.water_model_compatibility
+        output_rows.append(
+            ParameterSourceFamilyRecord(
+                source_family_label=family.source_family_label,
+                family_scope=family.family_scope,
+                covered_metals=family.covered_metals,
+                water_model_compatibility=water_model_compatibility,
+                repo_numeric_parameters_present=family.numeric_values_present,
+                parameter_provenance=family.parameter_provenance,
+                notes=family.notes,
+            )
+        )
+    return tuple(output_rows)
 
 
 def _parameter_source_families_by_label(
@@ -319,27 +366,62 @@ def _choose_source_family_label(metal_identity: str) -> str:
     raise ValueError(f"Unsupported panel metal for source-family mapping: {metal_identity}")
 
 
+def _numeric_parameter_records_by_key(
+    records: tuple[NumericParameterValueRecord, ...],
+) -> dict[tuple[str, str, str], NumericParameterValueRecord]:
+    return {
+        (record.source_family_label, record.metal_identity, record.water_model): record
+        for record in records
+    }
+
+
+def _family_has_numeric_values(
+    *,
+    metal_identity: str,
+    source_family_label: str,
+    water_model: str | None,
+    numeric_parameter_registry: tuple[NumericParameterValueRecord, ...],
+) -> bool:
+    numeric_lookup = _numeric_parameter_records_by_key(numeric_parameter_registry)
+    if water_model is not None:
+        return (source_family_label, metal_identity, water_model) in numeric_lookup
+    return any(
+        record.source_family_label == source_family_label and record.metal_identity == metal_identity
+        for record in numeric_parameter_registry
+    )
+
+
 def _build_metal_parameter_notes(
     *,
     metal_identity: str,
     support_status: str,
     source_family_label: str,
+    baseline_numeric_values_present: bool,
+    tuned_numeric_values_present: bool,
 ) -> str:
+    baseline_note = (
+        "Published generic OPC3 12-6-4 baseline coefficients are present for deterministic baseline builds."
+        if baseline_numeric_values_present
+        else "Published generic OPC3 12-6-4 baseline coefficients are not yet present in the repo."
+    )
+    tuned_note = (
+        "Explicit numeric LanM-tuned coefficients are present for this metal."
+        if tuned_numeric_values_present
+        else "Explicit numeric LanM-tuned coefficients are still absent."
+    )
     if support_status == DIRECT_SUPPORT_STATUS:
         return (
-            f"{metal_identity} maps directly onto the LanM-adjacent chelator-tuned source family "
-            f"{source_family_label!r}, but the repo still lacks numeric parameters for this metal. "
-            "Parameter derivation is still required before OpenMM System creation."
+            f"{metal_identity} retains the conceptual LanM-adjacent family {source_family_label!r} as the "
+            f"direct Phase 6A2b mapping. {baseline_note} {tuned_note}"
         )
     if support_status == PROXY_SUPPORT_STATUS:
         return (
-            f"{metal_identity} currently maps only to the generic highly charged 12-6-4 baseline "
-            f"{source_family_label!r}. Any OpenMM use would require an explicit proxy decision, and the "
-            "repo still lacks numeric bound-site parameters."
+            f"{metal_identity} continues to map conceptually through the generic highly charged family "
+            f"{source_family_label!r}. {baseline_note} {tuned_note}"
         )
     return (
-        f"{metal_identity} does not yet have a usable source family mapping. Parameter derivation remains "
-        "required before OpenMM System creation."
+        f"{metal_identity} does not yet have a usable conceptual source-family mapping. "
+        f"{baseline_note} {tuned_note}"
     )
 
 
@@ -347,9 +429,13 @@ def build_metal_parameter_records(
     *,
     registry: tuple[MetalModelRegistryRecord, ...],
     manifest_rows: tuple[MDSystemBuildManifestRow, ...],
+    numeric_parameter_registry: tuple[NumericParameterValueRecord, ...],
 ) -> tuple[tuple[ParameterSourceFamilyRecord, ...], tuple[MetalParameterRecord, ...]]:
-    """Translate the Phase 6A2 registry into Phase 6A2b metal-parameter mappings."""
-    source_family_registry = build_parameter_source_family_registry(manifest_rows)
+    """Translate the Phase 6A2 registry into Phase 6A2c family mappings and readiness state."""
+    source_family_registry = build_parameter_source_family_registry(
+        manifest_rows=manifest_rows,
+        numeric_parameter_registry=numeric_parameter_registry,
+    )
     family_lookup = _parameter_source_families_by_label(source_family_registry)
     metal_records: list[MetalParameterRecord] = []
     for record in registry:
@@ -361,6 +447,18 @@ def build_metal_parameter_records(
             source_family_label=source_family_label,
             source_family_registry=source_family_registry,
         )
+        baseline_numeric_values_present = _family_has_numeric_values(
+            metal_identity=record.metal_identity,
+            source_family_label=GENERIC_12_6_4_HIGHLY_CHARGED,
+            water_model=None,
+            numeric_parameter_registry=numeric_parameter_registry,
+        )
+        tuned_numeric_values_present = _family_has_numeric_values(
+            metal_identity=record.metal_identity,
+            source_family_label=intended_parameter_family,
+            water_model=None,
+            numeric_parameter_registry=numeric_parameter_registry,
+        )
         family = family_lookup[source_family_label]
         metal_records.append(
             MetalParameterRecord(
@@ -369,11 +467,17 @@ def build_metal_parameter_records(
                 intended_parameter_family=intended_parameter_family,
                 source_family_label=source_family_label,
                 direct_support_status=support_status,
+                baseline_parameter_family=GENERIC_12_6_4_HIGHLY_CHARGED,
+                baseline_numeric_values_present=baseline_numeric_values_present,
+                tuned_parameter_family=intended_parameter_family,
+                tuned_numeric_values_present=tuned_numeric_values_present,
                 water_model_compatibility=family.water_model_compatibility,
                 notes=_build_metal_parameter_notes(
                     metal_identity=record.metal_identity,
                     support_status=support_status,
                     source_family_label=source_family_label,
+                    baseline_numeric_values_present=baseline_numeric_values_present,
+                    tuned_numeric_values_present=tuned_numeric_values_present,
                 ),
             )
         )
@@ -386,42 +490,81 @@ def _metal_parameter_records_by_metal(
     return {record.metal_identity: record for record in records}
 
 
-def _ready_for_openmm_system_build(
+def _ready_for_openmm_system_build_baseline(
     *,
     manifest_row: MDSystemBuildManifestRow,
     metal_record: MetalParameterRecord,
-    source_family_registry: tuple[ParameterSourceFamilyRecord, ...],
+    numeric_parameter_registry: tuple[NumericParameterValueRecord, ...],
 ) -> bool:
-    family = _parameter_source_families_by_label(source_family_registry).get(metal_record.source_family_label)
-    if family is None:
+    if not manifest_row.generic_protein_water_preparation_ready:
         return False
-    if manifest_row.custom_metal_parameters_still_required:
+    return _family_has_numeric_values(
+        metal_identity=manifest_row.target_metal,
+        source_family_label=metal_record.baseline_parameter_family,
+        water_model=manifest_row.chosen_water_model,
+        numeric_parameter_registry=numeric_parameter_registry,
+    )
+
+
+def _ready_for_openmm_system_build_tuned(
+    *,
+    manifest_row: MDSystemBuildManifestRow,
+    metal_record: MetalParameterRecord,
+    numeric_parameter_registry: tuple[NumericParameterValueRecord, ...],
+) -> bool:
+    if not manifest_row.generic_protein_water_preparation_ready:
         return False
-    if metal_record.direct_support_status != DIRECT_SUPPORT_STATUS:
-        return False
-    return family.repo_numeric_parameters_present
+    return _family_has_numeric_values(
+        metal_identity=manifest_row.target_metal,
+        source_family_label=metal_record.tuned_parameter_family,
+        water_model=manifest_row.chosen_water_model,
+        numeric_parameter_registry=numeric_parameter_registry,
+    )
 
 
 def _build_system_rationale(
     *,
     manifest_row: MDSystemBuildManifestRow,
     metal_record: MetalParameterRecord,
+    ready_for_openmm_system_build_baseline: bool,
+    ready_for_openmm_system_build_tuned: bool,
 ) -> str:
     if metal_record.direct_support_status == DIRECT_SUPPORT_STATUS:
+        baseline_phrase = (
+            "baseline OpenMM builds are now numerically ready"
+            if ready_for_openmm_system_build_baseline
+            else "baseline numeric handoff is still incomplete"
+        )
+        tuned_phrase = (
+            "explicit tuned coefficients also exist"
+            if ready_for_openmm_system_build_tuned
+            else "the LanM-tuned refinement path still lacks explicit numeric coefficients"
+        )
         return (
-            "Phase 6A2 kept this system in the custom-parameter-required state because the chosen "
-            f"{metal_record.source_family_label!r} family is only a conceptual LanM-adjacent mapping in "
-            "the repo; numeric parameters still need to be derived."
+            "Phase 6A2b conservatively kept this system custom because the direct "
+            f"{metal_record.tuned_parameter_family!r} family was only conceptual at the time. "
+            f"Phase 6A2c now records published generic OPC3 12-6-4 coefficients for "
+            f"{manifest_row.target_metal}, so {baseline_phrase}, while {tuned_phrase}."
         )
     if metal_record.direct_support_status == PROXY_SUPPORT_STATUS:
+        baseline_phrase = (
+            "baseline OpenMM builds are now numerically ready"
+            if ready_for_openmm_system_build_baseline
+            else "baseline numeric handoff is still incomplete"
+        )
+        tuned_phrase = (
+            "explicit tuned coefficients also exist"
+            if ready_for_openmm_system_build_tuned
+            else "no explicit LanM-tuned coefficients are present in the repo"
+        )
         return (
-            "Phase 6A2 kept this system in the custom-parameter-required state because the current "
-            f"mapping for {manifest_row.target_metal} is a generic 12-6-4 proxy rather than a direct "
-            "LanM-tuned family. An explicit proxy decision plus numeric parameter handoff is still needed."
+            "Phase 6A2b already mapped this system through the generic 12-6-4 proxy family for "
+            f"{manifest_row.target_metal}. Phase 6A2c now records the published OPC3 baseline "
+            f"coefficients for that family, so {baseline_phrase}, while {tuned_phrase}."
         )
     return (
-        f"Phase 6A2 kept this system in the custom-parameter-required state because {manifest_row.target_metal} "
-        "still lacks a mapped source family. Parameter derivation is still required."
+        f"{manifest_row.target_metal} still lacks a usable family mapping, so neither baseline nor tuned "
+        "OpenMM build readiness can be claimed."
     )
 
 
@@ -429,31 +572,114 @@ def build_per_system_parameter_mapping(
     *,
     manifest_rows: tuple[MDSystemBuildManifestRow, ...],
     metal_parameter_records: tuple[MetalParameterRecord, ...],
-    source_family_registry: tuple[ParameterSourceFamilyRecord, ...],
+    numeric_parameter_registry: tuple[NumericParameterValueRecord, ...],
 ) -> tuple[MetalParameterMappingRow, ...]:
-    """Map each MD panel system to its chosen parameter family and readiness status."""
+    """Map each MD panel system to conceptual and numeric baseline-vs-tuned readiness state."""
     metal_lookup = _metal_parameter_records_by_metal(metal_parameter_records)
     rows: list[MetalParameterMappingRow] = []
     for manifest_row in manifest_rows:
         metal_record = metal_lookup[manifest_row.target_metal]
+        ready_for_openmm_system_build_baseline = _ready_for_openmm_system_build_baseline(
+            manifest_row=manifest_row,
+            metal_record=metal_record,
+            numeric_parameter_registry=numeric_parameter_registry,
+        )
+        ready_for_openmm_system_build_tuned = _ready_for_openmm_system_build_tuned(
+            manifest_row=manifest_row,
+            metal_record=metal_record,
+            numeric_parameter_registry=numeric_parameter_registry,
+        )
         rows.append(
             MetalParameterMappingRow(
                 panel_member_id=manifest_row.panel_member_id,
                 target_metal=manifest_row.target_metal,
                 chosen_parameter_family=metal_record.source_family_label,
                 direct_support_status=metal_record.direct_support_status,
-                ready_for_openmm_system_build=_ready_for_openmm_system_build(
-                    manifest_row=manifest_row,
-                    metal_record=metal_record,
-                    source_family_registry=source_family_registry,
+                baseline_parameter_family=metal_record.baseline_parameter_family,
+                baseline_numeric_values_present=_family_has_numeric_values(
+                    metal_identity=manifest_row.target_metal,
+                    source_family_label=metal_record.baseline_parameter_family,
+                    water_model=manifest_row.chosen_water_model,
+                    numeric_parameter_registry=numeric_parameter_registry,
                 ),
+                tuned_parameter_family=metal_record.tuned_parameter_family,
+                tuned_numeric_values_present=_family_has_numeric_values(
+                    metal_identity=manifest_row.target_metal,
+                    source_family_label=metal_record.tuned_parameter_family,
+                    water_model=manifest_row.chosen_water_model,
+                    numeric_parameter_registry=numeric_parameter_registry,
+                ),
+                ready_for_openmm_system_build_baseline=ready_for_openmm_system_build_baseline,
+                ready_for_openmm_system_build_tuned=ready_for_openmm_system_build_tuned,
                 rationale=_build_system_rationale(
                     manifest_row=manifest_row,
                     metal_record=metal_record,
+                    ready_for_openmm_system_build_baseline=ready_for_openmm_system_build_baseline,
+                    ready_for_openmm_system_build_tuned=ready_for_openmm_system_build_tuned,
                 ),
             )
         )
     return tuple(rows)
+
+
+def _readiness_summary(
+    *,
+    ready_for_openmm_system_build_baseline: bool,
+    ready_for_openmm_system_build_tuned: bool,
+) -> str:
+    if ready_for_openmm_system_build_baseline and ready_for_openmm_system_build_tuned:
+        return "baseline_and_tuned_ready"
+    if ready_for_openmm_system_build_baseline:
+        return "baseline_ready_tuned_pending"
+    if ready_for_openmm_system_build_tuned:
+        return "baseline_pending_tuned_ready"
+    return "baseline_and_tuned_pending"
+
+
+def build_metal_build_readiness_rows(
+    *,
+    manifest_rows: tuple[MDSystemBuildManifestRow, ...],
+    system_mapping_rows: tuple[MetalParameterMappingRow, ...],
+) -> tuple[MetalBuildReadinessRow, ...]:
+    """Join manifest scaffolding state with numeric family readiness for audit-friendly output."""
+    mapping_lookup = {
+        (row.panel_member_id, row.target_metal): row
+        for row in system_mapping_rows
+    }
+    readiness_rows: list[MetalBuildReadinessRow] = []
+    for manifest_row in manifest_rows:
+        mapping_row = mapping_lookup[(manifest_row.panel_member_id, manifest_row.target_metal)]
+        readiness_rows.append(
+            MetalBuildReadinessRow(
+                panel_rank=manifest_row.panel_rank,
+                panel_member_id=manifest_row.panel_member_id,
+                target_metal=manifest_row.target_metal,
+                topology_class=manifest_row.topology_class,
+                build_request_path=manifest_row.build_request_path,
+                chosen_water_model=manifest_row.chosen_water_model,
+                generic_protein_water_preparation_ready=manifest_row.generic_protein_water_preparation_ready,
+                phase_6a2_custom_metal_parameters_still_required=(
+                    manifest_row.custom_metal_parameters_still_required
+                ),
+                baseline_parameter_family=mapping_row.baseline_parameter_family,
+                baseline_numeric_values_present=mapping_row.baseline_numeric_values_present,
+                ready_for_openmm_system_build_baseline=(
+                    mapping_row.ready_for_openmm_system_build_baseline
+                ),
+                tuned_parameter_family=mapping_row.tuned_parameter_family,
+                tuned_numeric_values_present=mapping_row.tuned_numeric_values_present,
+                ready_for_openmm_system_build_tuned=mapping_row.ready_for_openmm_system_build_tuned,
+                readiness_summary=_readiness_summary(
+                    ready_for_openmm_system_build_baseline=(
+                        mapping_row.ready_for_openmm_system_build_baseline
+                    ),
+                    ready_for_openmm_system_build_tuned=(
+                        mapping_row.ready_for_openmm_system_build_tuned
+                    ),
+                ),
+            )
+        )
+    return tuple(readiness_rows)
 
 
 def render_metal_parameter_config_payload(
@@ -462,15 +688,20 @@ def render_metal_parameter_config_payload(
     metal_parameter_records: tuple[MetalParameterRecord, ...],
     metal_model_registry_path: Path,
     md_system_build_manifest_path: Path,
+    metal_parameter_values_path: Path,
 ) -> dict[str, Any]:
-    """Render the Phase 6A2b YAML payload."""
+    """Render the Phase 6A2c YAML payload."""
     return {
         "version": 1,
-        "phase": "6A2b",
-        "description": "Deterministic metal-parameter source mapping for the MD validation panel.",
+        "phase": "6A2c",
+        "description": (
+            "Deterministic metal-parameter family mapping plus audited baseline-versus-tuned "
+            "numeric readiness for the MD validation panel."
+        ),
         "source_artifacts": {
             "metal_model_registry": _display_path(metal_model_registry_path),
             "md_system_build_manifest": _display_path(md_system_build_manifest_path),
+            "metal_parameter_values": _display_path(metal_parameter_values_path),
         },
         "parameter_source_families": [
             {
@@ -479,6 +710,7 @@ def render_metal_parameter_config_payload(
                 "covered_metals": list(family.covered_metals),
                 "water_model_compatibility": list(family.water_model_compatibility),
                 "repo_numeric_parameters_present": family.repo_numeric_parameters_present,
+                "parameter_provenance": family.parameter_provenance,
                 "notes": family.notes,
             }
             for family in source_family_registry
@@ -490,6 +722,10 @@ def render_metal_parameter_config_payload(
                 "intended_parameter_family": record.intended_parameter_family,
                 "source_family_label": record.source_family_label,
                 "direct_support_status": record.direct_support_status,
+                "baseline_parameter_family": record.baseline_parameter_family,
+                "baseline_numeric_values_present": record.baseline_numeric_values_present,
+                "tuned_parameter_family": record.tuned_parameter_family,
+                "tuned_numeric_values_present": record.tuned_numeric_values_present,
                 "water_model_compatibility": list(record.water_model_compatibility),
                 "notes": record.notes,
             }
@@ -502,44 +738,74 @@ def render_metal_parameter_strategy_markdown(
     *,
     source_family_registry: tuple[ParameterSourceFamilyRecord, ...],
     metal_parameter_records: tuple[MetalParameterRecord, ...],
+    numeric_parameter_registry: tuple[NumericParameterValueRecord, ...],
     system_mapping_rows: tuple[MetalParameterMappingRow, ...],
+    readiness_rows: tuple[MetalBuildReadinessRow, ...],
     manifest_rows: tuple[MDSystemBuildManifestRow, ...],
 ) -> str:
-    """Render the Phase 6A2b report."""
-    direct_rows = [row for row in system_mapping_rows if row.direct_support_status == DIRECT_SUPPORT_STATUS]
-    proxy_rows = [row for row in system_mapping_rows if row.direct_support_status == PROXY_SUPPORT_STATUS]
-    ready_rows = [row for row in system_mapping_rows if row.ready_for_openmm_system_build]
-    custom_required_rows = [row for row in manifest_rows if row.custom_metal_parameters_still_required]
-    direct_metals = [record.metal_identity for record in metal_parameter_records if record.direct_support_status == DIRECT_SUPPORT_STATUS]
-    proxy_metals = [record.metal_identity for record in metal_parameter_records if record.direct_support_status == PROXY_SUPPORT_STATUS]
-    derivation_metals = [
+    """Render the Phase 6A2c report."""
+    baseline_ready_rows = [
+        row for row in readiness_rows if row.ready_for_openmm_system_build_baseline
+    ]
+    tuned_ready_rows = [
+        row for row in readiness_rows if row.ready_for_openmm_system_build_tuned
+    ]
+    custom_required_rows = [
+        row for row in manifest_rows if row.custom_metal_parameters_still_required
+    ]
+    baseline_ready_metals = [
+        record.metal_identity for record in metal_parameter_records if record.baseline_numeric_values_present
+    ]
+    conceptual_lanm_metals = [
         record.metal_identity
         for record in metal_parameter_records
-        if record.direct_support_status in {DIRECT_SUPPORT_STATUS, NEEDS_DERIVATION_STATUS}
+        if record.source_family_label == CHELATOR_TUNED_12_6_4_LANMODULIN
+    ]
+    proxy_metals = [
+        record.metal_identity
+        for record in metal_parameter_records
+        if record.direct_support_status == PROXY_SUPPORT_STATUS
     ]
     lines = [
         "# Metal Parameter Strategy",
         "",
-        "Phase 6A2b converts the Phase 6A2 metal-model registry and system-build manifest into an explicit parameter-source mapping.",
-        "It does not create numeric metal parameters and it does not build OpenMM `System` objects.",
+        "Phase 6A2c preserves the Phase 6A2b conceptual family mapping, ingests published OPC3 12-6-4 baseline coefficients, and updates per-system baseline-versus-tuned build readiness.",
+        "It does not build OpenMM `System` objects, run minimization, or run MD.",
         "",
-        "## Why Phase 6A2 Marked Every System Custom",
+        "## Why Phase 6A2b Was Conservative",
         "",
-        f"- All `{len(custom_required_rows)}` Phase 6A2 panel systems still carry `custom_metal_parameters_still_required=True` in `results/tables/md_system_build_manifest.csv`.",
-        "- Dy, Nd, Y, Al, and Fe are modeled as pre-bound LanM-site metals rather than ordinary bulk-solvent ions.",
-        "- Phase 6A2 recorded only an intended custom bound-site family in `config/metal_models.yaml`; it did not add numeric Dy/Nd/Y/Al/Fe parameter files to the repo.",
-        "- Result: the protein/water scaffolding is ready to audit, but full OpenMM `System` creation remains blocked until the metal-parameter source is turned into actual numeric inputs.",
+        f"- All `{len(custom_required_rows)}` Phase 6A2 panel systems still carry `custom_metal_parameters_still_required=True` in `results/tables/md_system_build_manifest.csv` because that artifact predated any audited numeric metal registry.",
+        "- Phase 6A2b intentionally stopped at conceptual family mapping in `config/metal_parameters.yaml`; it did not ingest explicit Dy/Nd/Y/Al/Fe coefficient sets into the repo.",
+        "- With only family labels and no auditable coefficient registry, the conservative and correct status in Phase 6A2b was to keep every system out of build-ready state.",
         "",
-        "## Source Family Overview",
+        "## Published OPC3 Baseline Registry",
         "",
-        f"- Metals with only generic baseline support: `{', '.join(proxy_metals)}`",
-        f"- Metals with LanM-adjacent chelator-tuned support: `{', '.join(direct_metals)}`",
-        f"- Metals that still require derivation before OpenMM System creation: `{', '.join(derivation_metals)}`",
-        f"- Metals that still require an explicit proxy decision before OpenMM System creation: `{', '.join(proxy_metals)}`",
+        f"- Published generic OPC3 12-6-4 baseline coefficients are now present for `{', '.join(baseline_ready_metals)}` in `config/metal_parameter_values.yaml`.",
+        f"- The conceptual LanM-tuned family is still the direct refinement path for `{', '.join(conceptual_lanm_metals)}`, while `{', '.join(proxy_metals)}` remain conceptually generic/proxy metals.",
+        "- Result: the generic baseline family is now numerically build-ready for Dy, Nd, Y, Al, and Fe under OPC3, while the LanM-tuned family remains a future refinement path until explicit tuned coefficients are added.",
         "",
-        "| source_family_label | family_scope | covered_metals | repo_numeric_parameters_present | water_model_compatibility |",
-        "| --- | --- | --- | --- | --- |",
+        "| metal | source_family_label | water_model | rmin_half_A | epsilon_kcal_per_mol | c4_kcal_per_mol_A4 |",
+        "| --- | --- | --- | ---: | ---: | ---: |",
     ]
+    for record in numeric_parameter_registry:
+        lines.append(
+            "| "
+            f"{record.metal_identity} | "
+            f"{record.source_family_label} | "
+            f"{record.water_model} | "
+            f"{record.rmin_half_A:.3f} | "
+            f"{record.epsilon_kcal_per_mol:.8f} | "
+            f"{record.c4_kcal_per_mol_A4:d} |"
+        )
+    lines.extend(
+        [
+            "",
+            "## Family Status",
+            "",
+            "| source_family_label | family_scope | covered_metals | repo_numeric_parameters_present | parameter_provenance | water_model_compatibility |",
+            "| --- | --- | --- | --- | --- | --- |",
+        ]
+    )
     for family in source_family_registry:
         lines.append(
             "| "
@@ -547,6 +813,7 @@ def render_metal_parameter_strategy_markdown(
             f"{family.family_scope} | "
             f"{', '.join(family.covered_metals)} | "
             f"{family.repo_numeric_parameters_present} | "
+            f"{family.parameter_provenance} | "
             f"{', '.join(family.water_model_compatibility)} |"
         )
     lines.extend(
@@ -554,45 +821,64 @@ def render_metal_parameter_strategy_markdown(
             "",
             "## Per-Metal Mapping",
             "",
-            "| metal | formal_charge | intended_parameter_family | source_family_label | direct_support_status | water_model_compatibility |",
-            "| --- | ---: | --- | --- | --- | --- |",
+            "| metal | intended_parameter_family | conceptual_source_family | direct_support_status | baseline_parameter_family | baseline_numeric_values_present | tuned_parameter_family | tuned_numeric_values_present |",
+            "| --- | --- | --- | --- | --- | --- | --- | --- |",
         ]
     )
     for record in metal_parameter_records:
         lines.append(
             "| "
             f"{record.metal_identity} | "
-            f"{record.formal_charge:+d} | "
             f"{record.intended_parameter_family} | "
             f"{record.source_family_label} | "
             f"{record.direct_support_status} | "
-            f"{', '.join(record.water_model_compatibility)} |"
+            f"{record.baseline_parameter_family} | "
+            f"{record.baseline_numeric_values_present} | "
+            f"{record.tuned_parameter_family} | "
+            f"{record.tuned_numeric_values_present} |"
         )
     lines.extend(
         [
             "",
-            "## Per-System Mapping",
+            "## Per-System Readiness",
             "",
             f"- systems mapped: `{len(system_mapping_rows)}`",
-            f"- systems with direct family mappings: `{len(direct_rows)}`",
-            f"- systems with proxy family mappings: `{len(proxy_rows)}`",
-            f"- systems ready for OpenMM `System` build: `{len(ready_rows)}`",
+            f"- systems baseline-ready for OpenMM `System` build: `{len(baseline_ready_rows)}`",
+            f"- systems tuned-ready for OpenMM `System` build: `{len(tuned_ready_rows)}`",
+            f"- per-system readiness audit written to `results/tables/metal_build_readiness.csv`.",
             "",
-            "| panel_member_id | target_metal | chosen_parameter_family | direct_support_status | ready_for_openmm_system_build | rationale |",
-            "| --- | --- | --- | --- | --- | --- |",
+            "| panel_member_id | target_metal | chosen_parameter_family | baseline_numeric_values_present | ready_for_openmm_system_build_baseline | tuned_numeric_values_present | ready_for_openmm_system_build_tuned | readiness_summary |",
+            "| --- | --- | --- | --- | --- | --- | --- | --- |",
         ]
     )
+    readiness_lookup = {
+        (row.panel_member_id, row.target_metal): row
+        for row in readiness_rows
+    }
     for row in system_mapping_rows:
+        readiness_row = readiness_lookup[(row.panel_member_id, row.target_metal)]
         lines.append(
             "| "
             f"{row.panel_member_id} | "
             f"{row.target_metal} | "
             f"{row.chosen_parameter_family} | "
-            f"{row.direct_support_status} | "
-            f"{row.ready_for_openmm_system_build} | "
-            f"{row.rationale} |"
+            f"{row.baseline_numeric_values_present} | "
+            f"{row.ready_for_openmm_system_build_baseline} | "
+            f"{row.tuned_numeric_values_present} | "
+            f"{row.ready_for_openmm_system_build_tuned} | "
+            f"{readiness_row.readiness_summary} |"
         )
-    lines.append("")
+    lines.extend(
+        [
+            "",
+            "## Interpretation",
+            "",
+            f"- The published generic OPC3 12-6-4 baseline family `{GENERIC_12_6_4_HIGHLY_CHARGED}` is now numerically ready for all panel metals under `{DEFAULT_OPC3_WATER_MODEL}`.",
+            f"- The LanM-tuned family `{CHELATOR_TUNED_12_6_4_LANMODULIN}` remains intentionally not build-ready because `{EXPLICIT_TUNED_NUMERIC_COEFFICIENTS}` are absent from the repo.",
+            f"- The generic baseline values come from `{PUBLISHED_OPC3_12_6_4_BASELINE}` and are being handed off as the auditable baseline path; tuned coefficients remain a future refinement path rather than a claimed ready state.",
+            "",
+        ]
+    )
     return "\n".join(lines)
 
 
@@ -601,20 +887,28 @@ def prepare_metal_parameter_mapping(
     metal_model_registry_path: Path,
     md_system_build_manifest_path: Path,
     metal_parameter_config_path: Path,
+    metal_parameter_values_path: Path,
     metal_parameter_mapping_path: Path,
+    metal_build_readiness_path: Path,
     metal_parameter_strategy_report_path: Path,
 ) -> tuple[MetalParameterMappingRow, ...]:
-    """Generate the deterministic Phase 6A2b metal-parameter mapping outputs."""
+    """Generate the deterministic Phase 6A2c metal-parameter mapping outputs."""
     registry = load_metal_model_registry(metal_model_registry_path)
     manifest_rows = load_md_system_build_manifest(md_system_build_manifest_path)
+    numeric_parameter_registry = build_default_numeric_parameter_registry()
     source_family_registry, metal_parameter_records = build_metal_parameter_records(
         registry=registry,
         manifest_rows=manifest_rows,
+        numeric_parameter_registry=numeric_parameter_registry,
     )
     system_mapping_rows = build_per_system_parameter_mapping(
         manifest_rows=manifest_rows,
         metal_parameter_records=metal_parameter_records,
-        source_family_registry=source_family_registry,
+        numeric_parameter_registry=numeric_parameter_registry,
+    )
+    readiness_rows = build_metal_build_readiness_rows(
+        manifest_rows=manifest_rows,
+        system_mapping_rows=system_mapping_rows,
     )
     write_yaml(
         metal_parameter_config_path,
@@ -623,15 +917,27 @@ def prepare_metal_parameter_mapping(
             metal_parameter_records=metal_parameter_records,
             metal_model_registry_path=metal_model_registry_path,
             md_system_build_manifest_path=md_system_build_manifest_path,
+            metal_parameter_values_path=metal_parameter_values_path,
+        ),
+    )
+    write_yaml(
+        metal_parameter_values_path,
+        render_metal_parameter_values_payload(
+            numeric_parameter_registry=numeric_parameter_registry,
+            metal_model_registry_path=metal_model_registry_path,
+            md_system_build_manifest_path=md_system_build_manifest_path,
         ),
     )
     write_csv_rows(metal_parameter_mapping_path, system_mapping_rows)
+    write_csv_rows(metal_build_readiness_path, readiness_rows)
     atomic_write_text(
         metal_parameter_strategy_report_path,
         render_metal_parameter_strategy_markdown(
             source_family_registry=source_family_registry,
             metal_parameter_records=metal_parameter_records,
+            numeric_parameter_registry=numeric_parameter_registry,
             system_mapping_rows=system_mapping_rows,
+            readiness_rows=readiness_rows,
             manifest_rows=manifest_rows,
         ),
     )

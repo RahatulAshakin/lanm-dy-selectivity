@@ -1,0 +1,81 @@
+version: 1
+phase: 6A2b
+description: Deterministic metal-parameter source mapping for the MD validation panel.
+source_artifacts:
+  metal_model_registry: config/metal_models.yaml
+  md_system_build_manifest: results/tables/md_system_build_manifest.csv
+parameter_source_families:
+- source_family_label: generic_12_6_4_highly_charged
+  family_scope: generic_baseline
+  covered_metals:
+  - Al
+  - Fe
+  water_model_compatibility:
+  - amber19/opc3.xml
+  repo_numeric_parameters_present: false
+  notes: Conceptual generic 12-6-4 baseline family for highly charged trivalent competitors.
+    The repo does not currently store numeric Al or Fe bound-site parameters in this
+    family.
+- source_family_label: chelator_tuned_12_6_4_lanmodulin
+  family_scope: lanm_adjacent_chelator_tuned
+  covered_metals:
+  - Dy
+  - Nd
+  - Y
+  water_model_compatibility:
+  - amber19/opc3.xml
+  repo_numeric_parameters_present: false
+  notes: Conceptual LanM-adjacent chelator-tuned 12-6-4 family for bound-site lanthanide
+    models. The repo does not currently store numeric Dy, Nd, or Y bound-site parameters
+    in this family.
+metals:
+- metal_identity: Dy
+  formal_charge: 3
+  intended_parameter_family: chelator_tuned_12_6_4_lanmodulin
+  source_family_label: chelator_tuned_12_6_4_lanmodulin
+  direct_support_status: direct
+  water_model_compatibility:
+  - amber19/opc3.xml
+  notes: Dy maps directly onto the LanM-adjacent chelator-tuned source family 'chelator_tuned_12_6_4_lanmodulin',
+    but the repo still lacks numeric parameters for this metal. Parameter derivation
+    is still required before OpenMM System creation.
+- metal_identity: Nd
+  formal_charge: 3
+  intended_parameter_family: chelator_tuned_12_6_4_lanmodulin
+  source_family_label: chelator_tuned_12_6_4_lanmodulin
+  direct_support_status: direct
+  water_model_compatibility:
+  - amber19/opc3.xml
+  notes: Nd maps directly onto the LanM-adjacent chelator-tuned source family 'chelator_tuned_12_6_4_lanmodulin',
+    but the repo still lacks numeric parameters for this metal. Parameter derivation
+    is still required before OpenMM System creation.
+- metal_identity: Y
+  formal_charge: 3
+  intended_parameter_family: chelator_tuned_12_6_4_lanmodulin
+  source_family_label: chelator_tuned_12_6_4_lanmodulin
+  direct_support_status: direct
+  water_model_compatibility:
+  - amber19/opc3.xml
+  notes: Y maps directly onto the LanM-adjacent chelator-tuned source family 'chelator_tuned_12_6_4_lanmodulin',
+    but the repo still lacks numeric parameters for this metal. Parameter derivation
+    is still required before OpenMM System creation.
+- metal_identity: Al
+  formal_charge: 3
+  intended_parameter_family: chelator_tuned_12_6_4_lanmodulin
+  source_family_label: generic_12_6_4_highly_charged
+  direct_support_status: proxy
+  water_model_compatibility:
+  - amber19/opc3.xml
+  notes: Al currently maps only to the generic highly charged 12-6-4 baseline 'generic_12_6_4_highly_charged'.
+    Any OpenMM use would require an explicit proxy decision, and the repo still lacks
+    numeric bound-site parameters.
+- metal_identity: Fe
+  formal_charge: 3
+  intended_parameter_family: chelator_tuned_12_6_4_lanmodulin
+  source_family_label: generic_12_6_4_highly_charged
+  direct_support_status: proxy
+  water_model_compatibility:
+  - amber19/opc3.xml
+  notes: Fe currently maps only to the generic highly charged 12-6-4 baseline 'generic_12_6_4_highly_charged'.
+    Any OpenMM use would require an explicit proxy decision, and the repo still lacks
+    numeric bound-site parameters.

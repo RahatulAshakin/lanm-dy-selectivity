@@ -20,3 +20,7 @@ __pycache__/
 .vscode/
 .vscode/
 scratch/
+
+results/openmm_screening/**/*.dcd
+results/openmm_screening/**/*.xtc
+results/openmm_screening/**/*.chk

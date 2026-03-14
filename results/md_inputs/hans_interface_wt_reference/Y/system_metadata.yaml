@@ -1,0 +1,17 @@
+panel_member_id: hans_interface_wt_reference
+candidate_id: hans_interface_wt_reference
+topology_class: hans_interface_multichain
+target_metal: Y
+source_structure: results/design_inputs/proteinmpnn/backbones/hans_interface_8fnr_a_b_c_d.pdb
+starting_structure_path: results/md_inputs/hans_interface_wt_reference/Y/starting_structure.pdb
+replicate_count: 3
+target_temperature_K: 298
+suggested_collective_variables:
+- coordination_number
+- mean_metal_oxygen_distance
+panel_member_type: wild_type_reference
+panel_role: hans_wild_type_reference
+backbone_id: hans_interface_8fnr_a_b_c_d
+metal_site_count: 14
+preserved_solvent_residue_count: 40
+metal_site_template_source: data/raw/public/structures/8FNR.cif

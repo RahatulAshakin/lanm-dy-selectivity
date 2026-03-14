@@ -1,0 +1,25 @@
+Phase 6A4 OpenMM system build
+panel_member_id: am1_mex_ss_only_u02
+target_metal: Al
+topology_class: am1_monomer
+source_starting_structure_pdb: results/md_inputs/am1_mex_ss_only_u02/Al/starting_structure.pdb
+build_request_path: results/md_system_build/am1_mex_ss_only_u02/Al/build_request.yaml
+forcefield_files: amber19-all.xml, amber19/opc3.xml
+baseline_parameter_family: generic_12_6_4_highly_charged
+metal_parameter_provenance: published_opc3_12_6_4_baseline
+metal_parameter_values: rmin_half_A=1.361, epsilon_kcal_per_mol=0.01031847, c4_kcal_per_mol_A4=363
+replicate_count: 3
+target_temperature_K: 298
+friction_coeff_ps: 1.0
+timestep_fs: 2.0
+nonbonded_method: NoCutoff
+cutoff_nm: 1.0
+hydrogen_mass_repartitioning: False
+restore_template_metal_proximal_waters_before_solvation: True
+template_water_reference_path: results/md_inputs/am1_mex_wt_reference/Al/starting_structure.pdb
+restored_template_waters: 25
+atom_count: 1608
+residue_count: 134
+system_xml_path: results/openmm_system_build/am1_mex_ss_only_u02/Al/system.xml
+simulation_config_path: results/openmm_system_build/am1_mex_ss_only_u02/Al/simulation_config.yaml
+status: success

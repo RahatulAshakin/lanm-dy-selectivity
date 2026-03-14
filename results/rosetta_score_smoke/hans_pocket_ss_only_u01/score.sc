@@ -1,0 +1,3 @@
+SEQUENCE: 
+SCORE: total_score       score dslf_fa13    fa_atr    fa_dun fa_intra_rep fa_intra_sol_xover4              fa_rep              fa_sol hbond_bb_sc hbond_lr_bb    hbond_sc hbond_sr_bb linear_chainbreak lk_ball_wtd metalbinding_constraint                   omega overlap_chainbreak            p_aa_pp pro_close rama_prepro         ref        time yhh_planarity description 
+SCORE:     155.946     155.946     0.000  -602.319   184.449        1.076              27.729             114.191             497.924     -21.759      -5.546      -4.521     -46.131             0.000     -10.502                   0.000                  30.062              0.000            -16.295     3.417     -12.206      16.377       0.000         0.000 hans_pocket_ss_only_u01_packed_1_1_0001

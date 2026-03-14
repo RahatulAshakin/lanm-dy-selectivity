@@ -22,6 +22,7 @@ RESULTS_ROSETTA_SCORE_SMOKE_DIR = RESULTS_DIR / "rosetta_score_smoke"
 RESULTS_ROSETTA_RELAX_SMOKE_DIR = RESULTS_DIR / "rosetta_relax_smoke"
 RESULTS_DESIGN_INPUTS_DIR = RESULTS_DIR / "design_inputs"
 RESULTS_MD_INPUTS_DIR = RESULTS_DIR / "md_inputs"
+RESULTS_MD_SYSTEM_BUILD_DIR = RESULTS_DIR / "md_system_build"
 PROTEINMPNN_INPUTS_DIR = RESULTS_DESIGN_INPUTS_DIR / "proteinmpnn"
 LIGANDMPNN_INPUTS_DIR = RESULTS_DESIGN_INPUTS_DIR / "ligandmpnn"
 PROTEINMPNN_BACKBONES_DIR = PROTEINMPNN_INPUTS_DIR / "backbones"
@@ -84,6 +85,9 @@ MD_PANEL_CONFIG_PATH = REPO_ROOT / "config" / "md_panel.yaml"
 MD_INPUT_MANIFEST_PATH = RESULTS_TABLES_DIR / "md_input_manifest.csv"
 MD_INPUT_PREPARATION_REPORT_PATH = RESULTS_REPORTS_DIR / "md_input_preparation.md"
 MD_PROTOCOL_CONFIG_PATH = REPO_ROOT / "config" / "md_protocol.yaml"
+METAL_MODEL_REGISTRY_PATH = REPO_ROOT / "config" / "metal_models.yaml"
+MD_SYSTEM_BUILD_MANIFEST_PATH = RESULTS_TABLES_DIR / "md_system_build_manifest.csv"
+MD_SYSTEM_BUILDING_PLAN_REPORT_PATH = RESULTS_REPORTS_DIR / "md_system_building_plan.md"
 
 
 def ensure_runtime_directories() -> None:
@@ -102,6 +106,7 @@ def ensure_runtime_directories() -> None:
         RESULTS_ROSETTA_RELAX_SMOKE_DIR,
         RESULTS_DESIGN_INPUTS_DIR,
         RESULTS_MD_INPUTS_DIR,
+        RESULTS_MD_SYSTEM_BUILD_DIR,
         PROTEINMPNN_INPUTS_DIR,
         LIGANDMPNN_INPUTS_DIR,
         PROTEINMPNN_BACKBONES_DIR,

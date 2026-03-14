@@ -1,0 +1,4 @@
+stage_name,status,attempt_index,minimization_max_iterations,step_count,duration_ps,potential_energy_kj_per_mol,temperature_K,box_volume_nm3,notes
+minimization,success,1,200,0,0.0,-102258.95017177981,,,platform=CPU; properties=Threads=16; temperature_target_K=298; pressure_atm=1.0; periodicized_npt_box_nm=8.215x8.040x8.888; nonbonded_periodicized=True
+nvt,success,1,200,10000,20.0,-95979.36118586802,297.31024027924866,,platform=CPU; properties=Threads=16; temperature_target_K=298; pressure_atm=1.0; periodicized_npt_box_nm=8.215x8.040x8.888; nonbonded_periodicized=True
+npt,success,1,200,10000,20.0,-31906.91803171773,296.4916277171038,565.08165521815,platform=CPU; properties=Threads=16; temperature_target_K=298; pressure_atm=1.0; periodicized_npt_box_nm=8.215x8.040x8.888; nonbonded_periodicized=True

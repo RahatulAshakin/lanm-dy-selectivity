@@ -566,6 +566,65 @@ class LigandMPNNRound2RedesignPositionRow:
 
 
 @dataclass(frozen=True, slots=True)
+class LigandMPNNRound2SmokeSummaryRow:
+    shortlist_rank: int
+    candidate_id: str
+    seed_rank: int
+    seed_candidate_id: str
+    campaign_id: str
+    backbone_id: str
+    topology_class: str
+    designed_chains: str
+    fixed_context_chains: str
+    preserved_metal_identity: str
+    preserved_solvent_residue_count: int
+    redesigned_residues: str
+    generated_sequence_count: int
+    unique_sequence_count: int
+    unique_sequence_fraction: float
+    sequence_length: int
+    mean_overall_confidence: float | None
+    min_overall_confidence: float | None
+    max_overall_confidence: float | None
+    mean_ligand_confidence: float | None
+    min_ligand_confidence: float | None
+    max_ligand_confidence: float | None
+    mean_pairwise_identity: float | None
+    min_pairwise_identity: float | None
+    max_pairwise_identity: float | None
+    temperature: float
+    seed: int
+    output_fasta_path: str
+
+
+@dataclass(frozen=True, slots=True)
+class LigandMPNNRound2SequenceCatalogRow:
+    shortlist_rank: int
+    candidate_id: str
+    seed_rank: int
+    seed_candidate_id: str
+    campaign_id: str
+    backbone_id: str
+    topology_class: str
+    designed_chains: str
+    fixed_context_chains: str
+    preserved_metal_identity: str
+    redesigned_residues: str
+    design_id: int
+    temperature: float
+    seed: int
+    overall_confidence: float
+    ligand_confidence: float
+    seq_recovery: float
+    sequence_id: str
+    designed_sequence: str
+    sequence_length: int
+    output_fasta_path: str
+    backbone_pdb_path: str
+    packed_pdb_path: str
+
+
+@dataclass(frozen=True, slots=True)
 class LigandMPNNSmokeSummaryRow:
     shortlist_rank: int
     candidate_id: str

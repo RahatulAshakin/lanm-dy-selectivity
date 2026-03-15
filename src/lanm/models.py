@@ -335,6 +335,61 @@ class ProteinMPNNSequenceCatalogRow:
 
 
 @dataclass(frozen=True, slots=True)
+class ProteinMPNNRound2SummaryRow:
+    seed_rank: int
+    candidate_id: str
+    campaign_id: str
+    backbone_id: str
+    topology_class: str
+    design_set_name: str
+    designed_chains: str
+    fixed_context_chains: str
+    seed_scaffold_path: str
+    seed_scaffold_sequence: str
+    redesignable_position_count: int
+    redesignable_residue_ids: str
+    redesignable_canonical_positions: str
+    redesignable_am1_positions: str
+    generated_sequence_count: int
+    unique_sequence_count: int
+    unique_sequence_fraction: float
+    sequence_length: int
+    native_score: float
+    native_global_score: float
+    mean_pairwise_identity: float | None
+    min_pairwise_identity: float | None
+    max_pairwise_identity: float | None
+    model_name: str
+    git_hash: str
+    seed: int
+    mutation_count_distribution: str
+    output_fasta_path: str
+
+
+@dataclass(frozen=True, slots=True)
+class ProteinMPNNRound2SequenceCatalogRow:
+    seed_rank: int
+    candidate_id: str
+    campaign_id: str
+    backbone_id: str
+    topology_class: str
+    design_set_name: str
+    designed_chains: str
+    temperature: float
+    sample_number: int
+    score: float
+    global_score: float
+    seq_recovery: float
+    sequence_id: str
+    designed_sequence: str
+    sequence_length: int
+    mutation_count_vs_seed: int
+    mutation_string_vs_seed: str
+    mutated_residue_ids: str
+    output_fasta_path: str
+
+
+@dataclass(frozen=True, slots=True)
 class ProteinMPNNUniqueSequenceRow:
     candidate_id: str
     campaign_id: str

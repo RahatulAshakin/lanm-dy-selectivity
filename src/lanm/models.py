@@ -625,6 +625,67 @@ class LigandMPNNRound2SequenceCatalogRow:
 
 
 @dataclass(frozen=True, slots=True)
+class LigandMPNNRound2UniqueSequenceRow:
+    unique_sequence_rank: int
+    sequence_id: str
+    candidate_id: str
+    seed_rank: int
+    seed_candidate_id: str
+    campaign_id: str
+    backbone_id: str
+    topology_class: str
+    preserved_metal_identity: str
+    candidate_shortlist_rank: int
+    candidate_unique_rank: int
+    design_id: int
+    total_occurrence_count: int
+    source_candidate_count: int
+    source_candidate_ids: str
+    mean_ligand_confidence: float
+    mean_overall_confidence: float
+    best_seq_recovery: float
+    mutation_count: int
+    mutation_string: str
+    redesigned_residue_identifiers: str
+    designed_chain_sequence: str
+    input_pdb_path: str
+    output_fasta_path: str
+    backbone_pdb_path: str
+    packed_pdb_path: str
+
+
+@dataclass(frozen=True, slots=True)
+class LigandMPNNRound2ShortlistRow:
+    shortlist_rank: int
+    sequence_id: str
+    candidate_id: str
+    seed_rank: int
+    seed_candidate_id: str
+    campaign_id: str
+    backbone_id: str
+    topology_class: str
+    preserved_metal_identity: str
+    candidate_shortlist_rank: int
+    candidate_unique_rank: int
+    design_id: int
+    total_occurrence_count: int
+    source_candidate_count: int
+    source_candidate_ids: str
+    mean_ligand_confidence: float
+    mean_overall_confidence: float
+    best_seq_recovery: float
+    mutation_count: int
+    mutation_string: str
+    redesigned_residue_identifiers: str
+    designed_chain_sequence: str
+    input_pdb_path: str
+    output_fasta_path: str
+    backbone_pdb_path: str
+    packed_pdb_path: str
+    retention_reason: str
+
+
+@dataclass(frozen=True, slots=True)
 class LigandMPNNSmokeSummaryRow:
     shortlist_rank: int
     candidate_id: str

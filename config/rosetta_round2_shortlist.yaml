@@ -1,0 +1,148 @@
+version: 1
+phase: 7E
+source_artifacts:
+  proteinmpnn_round2_shortlist: results/tables/proteinmpnn_round2_shortlist.csv
+  ligandmpnn_round2_input_manifest: results/tables/ligandmpnn_round2_input_manifest.csv
+  ligandmpnn_round2_redesign_positions: results/tables/ligandmpnn_round2_redesign_positions.csv
+  ligandmpnn_round2_smoke_summary: results/tables/ligandmpnn_round2_smoke_summary.csv
+  ligandmpnn_round2_sequence_catalog: results/tables/ligandmpnn_round2_sequence_catalog.csv
+  ligandmpnn_round2_unique_sequences: results/tables/ligandmpnn_round2_unique_sequences.csv
+  ligandmpnn_round2_shortlist: results/tables/ligandmpnn_round2_shortlist.csv
+shortlist_rules:
+  total_limit: 4
+  required_categories:
+    am1_mex*: 1
+    hans_pocket_ss_only: 1
+    hans_interface_ss_plus_if: 1
+  wildcard_remaining: 1
+  ranking:
+  - mean_ligand_confidence_desc
+  - mean_overall_confidence_desc
+  - candidate_shortlist_rank_asc
+designs:
+- shortlist_rank: 1
+  sequence_id: hans_pocket_ss_only_u02_r2u01_design_01
+  candidate_id: hans_pocket_ss_only_u02_r2u01
+  seed_rank: 2
+  seed_candidate_id: hans_pocket_ss_only_u02
+  campaign_id: hans_pocket_ss_only
+  backbone_id: hans_pocket_8fnr_chain_a
+  topology_class: hans_monomer
+  preserved_metal_identity: DY
+  candidate_shortlist_rank: 2
+  candidate_unique_rank: 1
+  design_id: 1
+  total_occurrence_count: 4
+  source_candidate_count: 2
+  source_candidate_ids:
+  - hans_pocket_ss_only_u02_r2u01
+  - hans_pocket_ss_only_u02_r2u02
+  mean_ligand_confidence: 1.0
+  mean_overall_confidence: 0.33799999999999997
+  best_seq_recovery: 0.0
+  mutation_count: 4
+  mutation_string: A44:A>D,A55:T>W,A92:M>L,A97:K>A
+  redesigned_residue_identifiers:
+  - A44
+  - A55
+  - A92
+  - A97
+  designed_chain_sequence: ASGADALKALNTDNDDSLEIDEVIHAGATTFWAINPDGDTTLESGETKGRLTEKDWARANKDGDQTLELDEWLAILKTRFKRADANGDGKLDAAELDSKAGQGVLVMIMK
+  ligandmpnn_input_pdb_path: results/design_inputs/ligandmpnn_round2/hans_pocket_ss_only_u02_r2u01/hans_pocket_ss_only_u02_r2u01.pdb
+  ligandmpnn_output_fasta_path: results/ligandmpnn_round2_smoke/hans_pocket_ss_only_u02_r2u01/seqs/hans_pocket_ss_only_u02_r2u01.fa
+  ligandmpnn_backbone_pdb_path: results/ligandmpnn_round2_smoke/hans_pocket_ss_only_u02_r2u01/backbones/hans_pocket_ss_only_u02_r2u01_1.pdb
+  ligandmpnn_packed_pdb_path: results/ligandmpnn_round2_smoke/hans_pocket_ss_only_u02_r2u01/packed/hans_pocket_ss_only_u02_r2u01_packed_1_1.pdb
+  rosetta_starting_pdb_path: results/ligandmpnn_round2_smoke/hans_pocket_ss_only_u02_r2u01/packed/hans_pocket_ss_only_u02_r2u01_packed_1_1.pdb
+  retention_reason: top Hans pocket round-2 candidate
+- shortlist_rank: 2
+  sequence_id: hans_interface_ss_plus_if_u04_r2u01_design_02
+  candidate_id: hans_interface_ss_plus_if_u04_r2u01
+  seed_rank: 3
+  seed_candidate_id: hans_interface_ss_plus_if_u04
+  campaign_id: hans_interface_ss_plus_if
+  backbone_id: hans_interface_8fnr_a_b_c_d
+  topology_class: hans_interface_multichain
+  preserved_metal_identity: DY
+  candidate_shortlist_rank: 3
+  candidate_unique_rank: 1
+  design_id: 2
+  total_occurrence_count: 3
+  source_candidate_count: 2
+  source_candidate_ids:
+  - hans_interface_ss_plus_if_u04_r2u01
+  - hans_interface_ss_plus_if_u04_r2u02
+  mean_ligand_confidence: 0.3399666666666667
+  mean_overall_confidence: 0.3331
+  best_seq_recovery: 1.0
+  mutation_count: 0
+  mutation_string: ''
+  redesigned_residue_identifiers: []
+  designed_chain_sequence: ASGADALKALNSDNDDSLEIAEVIHAGATTFWAINPDGDTTLESGETKGRLTEKDWARANKDGDQTLEMDEWLKILRTRFKRADANGDGKLEAAELDSKAGQGVLVMIMK
+  ligandmpnn_input_pdb_path: results/design_inputs/ligandmpnn_round2/hans_interface_ss_plus_if_u04_r2u01/hans_interface_ss_plus_if_u04_r2u01.pdb
+  ligandmpnn_output_fasta_path: results/ligandmpnn_round2_smoke/hans_interface_ss_plus_if_u04_r2u01/seqs/hans_interface_ss_plus_if_u04_r2u01.fa
+  ligandmpnn_backbone_pdb_path: results/ligandmpnn_round2_smoke/hans_interface_ss_plus_if_u04_r2u01/backbones/hans_interface_ss_plus_if_u04_r2u01_2.pdb
+  ligandmpnn_packed_pdb_path: results/ligandmpnn_round2_smoke/hans_interface_ss_plus_if_u04_r2u01/packed/hans_interface_ss_plus_if_u04_r2u01_packed_2_1.pdb
+  rosetta_starting_pdb_path: results/ligandmpnn_round2_smoke/hans_interface_ss_plus_if_u04_r2u01/packed/hans_interface_ss_plus_if_u04_r2u01_packed_2_1.pdb
+  retention_reason: top Hans interface-aware round-2 candidate
+- shortlist_rank: 3
+  sequence_id: hans_interface_ss_plus_if_u04_r2u02_design_01
+  candidate_id: hans_interface_ss_plus_if_u04_r2u02
+  seed_rank: 3
+  seed_candidate_id: hans_interface_ss_plus_if_u04
+  campaign_id: hans_interface_ss_plus_if
+  backbone_id: hans_interface_8fnr_a_b_c_d
+  topology_class: hans_interface_multichain
+  preserved_metal_identity: DY
+  candidate_shortlist_rank: 6
+  candidate_unique_rank: 1
+  design_id: 1
+  total_occurrence_count: 1
+  source_candidate_count: 1
+  source_candidate_ids:
+  - hans_interface_ss_plus_if_u04_r2u02
+  mean_ligand_confidence: 0.33
+  mean_overall_confidence: 0.3361
+  best_seq_recovery: 0.8
+  mutation_count: 1
+  mutation_string: A100:R>K
+  redesigned_residue_identifiers:
+  - A100
+  designed_chain_sequence: ASGADALKALNSDNDDSLEIAEVIHAGATTFWAINPDGDTTLESGETKGRLTEKDWARANKDGDQTLEMDEWLKILKTRFKRADANGDGKLEAAELDSKAGQGVLVMIMK
+  ligandmpnn_input_pdb_path: results/design_inputs/ligandmpnn_round2/hans_interface_ss_plus_if_u04_r2u02/hans_interface_ss_plus_if_u04_r2u02.pdb
+  ligandmpnn_output_fasta_path: results/ligandmpnn_round2_smoke/hans_interface_ss_plus_if_u04_r2u02/seqs/hans_interface_ss_plus_if_u04_r2u02.fa
+  ligandmpnn_backbone_pdb_path: results/ligandmpnn_round2_smoke/hans_interface_ss_plus_if_u04_r2u02/backbones/hans_interface_ss_plus_if_u04_r2u02_1.pdb
+  ligandmpnn_packed_pdb_path: results/ligandmpnn_round2_smoke/hans_interface_ss_plus_if_u04_r2u02/packed/hans_interface_ss_plus_if_u04_r2u02_packed_1_1.pdb
+  rosetta_starting_pdb_path: results/ligandmpnn_round2_smoke/hans_interface_ss_plus_if_u04_r2u02/packed/hans_interface_ss_plus_if_u04_r2u02_packed_1_1.pdb
+  retention_reason: best remaining unique candidate
+- shortlist_rank: 4
+  sequence_id: am1_mex_ss_only_u02_r2u02_design_01
+  candidate_id: am1_mex_ss_only_u02_r2u02
+  seed_rank: 1
+  seed_candidate_id: am1_mex_ss_only_u02
+  campaign_id: am1_mex_ss_only
+  backbone_id: am1_mex_8fns_chain_a
+  topology_class: am1_monomer
+  preserved_metal_identity: ND
+  candidate_shortlist_rank: 4
+  candidate_unique_rank: 1
+  design_id: 1
+  total_occurrence_count: 2
+  source_candidate_count: 1
+  source_candidate_ids:
+  - am1_mex_ss_only_u02_r2u02
+  mean_ligand_confidence: 0.20965
+  mean_overall_confidence: 0.29935
+  best_seq_recovery: 0.5
+  mutation_count: 3
+  mutation_string: A57:K>A,A93:K>R,A94:K>A
+  redesigned_residue_identifiers:
+  - A57
+  - A93
+  - A94
+  designed_chain_sequence: VDIAAFDPDDDGTIDLKEALAAGSAAFDALDPDKDGTLDAKELKGRVSEADLKKYDPDKDGTLDRAEYLAAVEAQFKAANPDNDGTIDAAELASPAGSALVNLIR
+  ligandmpnn_input_pdb_path: results/design_inputs/ligandmpnn_round2/am1_mex_ss_only_u02_r2u02/am1_mex_ss_only_u02_r2u02.pdb
+  ligandmpnn_output_fasta_path: results/ligandmpnn_round2_smoke/am1_mex_ss_only_u02_r2u02/seqs/am1_mex_ss_only_u02_r2u02.fa
+  ligandmpnn_backbone_pdb_path: results/ligandmpnn_round2_smoke/am1_mex_ss_only_u02_r2u02/backbones/am1_mex_ss_only_u02_r2u02_1.pdb
+  ligandmpnn_packed_pdb_path: results/ligandmpnn_round2_smoke/am1_mex_ss_only_u02_r2u02/packed/am1_mex_ss_only_u02_r2u02_packed_1_1.pdb
+  rosetta_starting_pdb_path: results/ligandmpnn_round2_smoke/am1_mex_ss_only_u02_r2u02/packed/am1_mex_ss_only_u02_r2u02_packed_1_1.pdb
+  retention_reason: top AM1/Mex round-2 candidate

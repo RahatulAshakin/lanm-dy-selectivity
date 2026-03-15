@@ -7,6 +7,8 @@ from dataclasses import dataclass
 from io import StringIO
 from typing import Iterator
 
+from lanm.md.openmm_forcefields import resolve_openmm_forcefield_files
+
 
 @dataclass(frozen=True, slots=True)
 class OpenMMSerializedSystem:
@@ -78,7 +80,8 @@ def build_openmm_serialized_system(
         raise RuntimeError("OpenMM is required for Phase 6A3 system-build smoke tests") from exc
 
     pdb = app.PDBFile(StringIO(prepared_structure_pdb_text))
-    forcefield = app.ForceField(*forcefield_files)
+    resolved_forcefield_files = resolve_openmm_forcefield_files(forcefield_files)
+    forcefield = app.ForceField(*resolved_forcefield_files)
     modeller = app.Modeller(pdb.topology, pdb.positions)
     with _patch_forcefield_create_system_for_truncated_chains(forcefield) as original_create_system:
         modeller.addHydrogens(forcefield)
@@ -107,4 +110,3 @@ def build_openmm_serialized_system(
         atom_count=modeller.topology.getNumAtoms(),
         residue_count=modeller.topology.getNumResidues(),
     )
-

@@ -7,6 +7,8 @@ from dataclasses import dataclass
 from io import StringIO
 from typing import Iterator
 
+from lanm.md.openmm_forcefields import resolve_openmm_forcefield_files
+
 
 DEFAULT_NONBONDED_METHOD = "NoCutoff"
 DEFAULT_CUTOFF_NM = 1.0
@@ -148,7 +150,8 @@ def build_openmm_serialized_system(
 
     nonbonded_method_value = getattr(app, normalized_nonbonded_method)
     pdb = app.PDBFile(StringIO(prepared_structure_pdb_text))
-    forcefield = app.ForceField(*forcefield_files)
+    resolved_forcefield_files = resolve_openmm_forcefield_files(forcefield_files)
+    forcefield = app.ForceField(*resolved_forcefield_files)
     modeller = app.Modeller(pdb.topology, pdb.positions)
     hydrogen_mass = hydrogen_mass_da * unit.amu if hydrogen_mass_repartitioning else None
     input_residue_templates = _build_explicit_residue_templates(pdb.topology)

@@ -24,3 +24,7 @@ scratch/
 results/openmm_screening/**/*.dcd
 results/openmm_screening/**/*.xtc
 results/openmm_screening/**/*.chk
+logs/
+tmp_screen_bench/
+tmp_metadyn_bench/
+tmp_metadyn_bench_t3/

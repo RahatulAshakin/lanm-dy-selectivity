@@ -1,0 +1,26 @@
+Phase 6C1 OpenMM metadynamics smoke
+panel_member_id: hans_interface_wt_reference
+target_metal: Al
+topology_class: hans_interface_multichain
+seed: 61504
+target_temperature_K: 298
+timestep_fs: 2.0
+cutoff_nm: 1.00
+duration_ps: 500.0
+report_stride_steps: 500
+deposition_frequency_steps: 250
+bias_factor: 8.0
+gaussian_height_kj_per_mol: 1.00
+donor_cutoff_A: 3.2
+coordination_switch_distance_A: 3.2
+status: success
+platform_name: CUDA
+platform_properties: Precision=mixed, DeviceIndex=0, DeterministicForces=true, UseCpuPme=false
+metal_atom_count: 14
+pocket_oxygen_atom_count: 93
+time_series_frame_count: 501
+minimum_coordination_number: 6.332740
+maximum_mean_metal_oxygen_distance_A: 1.890833
+escape_event_detected: FALSE
+final_coordination_number: 6.425909
+final_mean_metal_oxygen_distance_A: 1.875584

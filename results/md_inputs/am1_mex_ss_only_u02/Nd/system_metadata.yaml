@@ -1,0 +1,16 @@
+panel_member_id: am1_mex_ss_only_u02
+candidate_id: am1_mex_ss_only_u02
+topology_class: am1_monomer
+target_metal: Nd
+source_structure: results/ligandmpnn_smoke/am1_mex_ss_only_u02/packed/am1_mex_ss_only_u02_packed_2_1.pdb
+starting_structure_path: results/md_inputs/am1_mex_ss_only_u02/Nd/starting_structure.pdb
+replicate_count: 3
+target_temperature_K: 298
+suggested_collective_variables:
+- coordination_number
+- mean_metal_oxygen_distance
+panel_member_type: designed_candidate
+panel_role: am1_mex_designed_candidate
+backbone_id: am1_mex_8fns_chain_a
+metal_site_count: 4
+preserved_solvent_residue_count: 0

@@ -1,0 +1,17 @@
+panel_member_id: am1_mex_wt_reference
+candidate_id: am1_mex_wt_reference
+topology_class: am1_monomer
+target_metal: Y
+source_structure: results/design_inputs/proteinmpnn/backbones/am1_mex_8fns_chain_a.pdb
+starting_structure_path: results/md_inputs/am1_mex_wt_reference/Y/starting_structure.pdb
+replicate_count: 3
+target_temperature_K: 298
+suggested_collective_variables:
+- coordination_number
+- mean_metal_oxygen_distance
+panel_member_type: wild_type_reference
+panel_role: am1_mex_wild_type_reference
+backbone_id: am1_mex_8fns_chain_a
+metal_site_count: 4
+preserved_solvent_residue_count: 25
+metal_site_template_source: data/raw/local_bundle/8fns_atoms.csv

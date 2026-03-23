@@ -1,0 +1,111 @@
+version: 1
+phase: 6A2c
+description: Deterministic metal-parameter family mapping plus audited baseline-versus-tuned
+  numeric readiness for the MD validation panel.
+source_artifacts:
+  metal_model_registry: config/metal_models.yaml
+  md_system_build_manifest: results/tables/md_system_build_manifest.csv
+  metal_parameter_values: config/metal_parameter_values.yaml
+parameter_source_families:
+- source_family_label: generic_12_6_4_highly_charged
+  family_scope: generic_baseline
+  covered_metals:
+  - Dy
+  - Nd
+  - Y
+  - Al
+  - Fe
+  water_model_compatibility:
+  - amber19/opc3.xml
+  repo_numeric_parameters_present: true
+  parameter_provenance: published_opc3_12_6_4_baseline
+  notes: Published OPC3 12-6-4 baseline coefficients are present in the repo for Dy,
+    Nd, Y, Al, and Fe, so this family is numerically auditable for baseline builds.
+- source_family_label: chelator_tuned_12_6_4_lanmodulin
+  family_scope: lanm_adjacent_chelator_tuned
+  covered_metals:
+  - Dy
+  - Nd
+  - Y
+  water_model_compatibility:
+  - amber19/opc3.xml
+  repo_numeric_parameters_present: false
+  parameter_provenance: explicit_tuned_numeric_coefficients_in_repo
+  notes: Lanmodulin-adjacent chelator-tuned coefficients remain a future refinement
+    path. No explicit tuned numeric coefficients are present in the repo yet.
+metals:
+- metal_identity: Dy
+  formal_charge: 3
+  intended_parameter_family: chelator_tuned_12_6_4_lanmodulin
+  source_family_label: chelator_tuned_12_6_4_lanmodulin
+  direct_support_status: direct
+  baseline_parameter_family: generic_12_6_4_highly_charged
+  baseline_numeric_values_present: true
+  tuned_parameter_family: chelator_tuned_12_6_4_lanmodulin
+  tuned_numeric_values_present: false
+  water_model_compatibility:
+  - amber19/opc3.xml
+  notes: Dy retains the conceptual LanM-adjacent family 'chelator_tuned_12_6_4_lanmodulin'
+    as the direct Phase 6A2b mapping. Published generic OPC3 12-6-4 baseline coefficients
+    are present for deterministic baseline builds. Explicit numeric LanM-tuned coefficients
+    are still absent.
+- metal_identity: Nd
+  formal_charge: 3
+  intended_parameter_family: chelator_tuned_12_6_4_lanmodulin
+  source_family_label: chelator_tuned_12_6_4_lanmodulin
+  direct_support_status: direct
+  baseline_parameter_family: generic_12_6_4_highly_charged
+  baseline_numeric_values_present: true
+  tuned_parameter_family: chelator_tuned_12_6_4_lanmodulin
+  tuned_numeric_values_present: false
+  water_model_compatibility:
+  - amber19/opc3.xml
+  notes: Nd retains the conceptual LanM-adjacent family 'chelator_tuned_12_6_4_lanmodulin'
+    as the direct Phase 6A2b mapping. Published generic OPC3 12-6-4 baseline coefficients
+    are present for deterministic baseline builds. Explicit numeric LanM-tuned coefficients
+    are still absent.
+- metal_identity: Y
+  formal_charge: 3
+  intended_parameter_family: chelator_tuned_12_6_4_lanmodulin
+  source_family_label: chelator_tuned_12_6_4_lanmodulin
+  direct_support_status: direct
+  baseline_parameter_family: generic_12_6_4_highly_charged
+  baseline_numeric_values_present: true
+  tuned_parameter_family: chelator_tuned_12_6_4_lanmodulin
+  tuned_numeric_values_present: false
+  water_model_compatibility:
+  - amber19/opc3.xml
+  notes: Y retains the conceptual LanM-adjacent family 'chelator_tuned_12_6_4_lanmodulin'
+    as the direct Phase 6A2b mapping. Published generic OPC3 12-6-4 baseline coefficients
+    are present for deterministic baseline builds. Explicit numeric LanM-tuned coefficients
+    are still absent.
+- metal_identity: Al
+  formal_charge: 3
+  intended_parameter_family: chelator_tuned_12_6_4_lanmodulin
+  source_family_label: generic_12_6_4_highly_charged
+  direct_support_status: proxy
+  baseline_parameter_family: generic_12_6_4_highly_charged
+  baseline_numeric_values_present: true
+  tuned_parameter_family: chelator_tuned_12_6_4_lanmodulin
+  tuned_numeric_values_present: false
+  water_model_compatibility:
+  - amber19/opc3.xml
+  notes: Al continues to map conceptually through the generic highly charged family
+    'generic_12_6_4_highly_charged'. Published generic OPC3 12-6-4 baseline coefficients
+    are present for deterministic baseline builds. Explicit numeric LanM-tuned coefficients
+    are still absent.
+- metal_identity: Fe
+  formal_charge: 3
+  intended_parameter_family: chelator_tuned_12_6_4_lanmodulin
+  source_family_label: generic_12_6_4_highly_charged
+  direct_support_status: proxy
+  baseline_parameter_family: generic_12_6_4_highly_charged
+  baseline_numeric_values_present: true
+  tuned_parameter_family: chelator_tuned_12_6_4_lanmodulin
+  tuned_numeric_values_present: false
+  water_model_compatibility:
+  - amber19/opc3.xml
+  notes: Fe continues to map conceptually through the generic highly charged family
+    'generic_12_6_4_highly_charged'. Published generic OPC3 12-6-4 baseline coefficients
+    are present for deterministic baseline builds. Explicit numeric LanM-tuned coefficients
+    are still absent.

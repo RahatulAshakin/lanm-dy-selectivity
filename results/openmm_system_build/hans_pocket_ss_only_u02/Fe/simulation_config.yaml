@@ -1,0 +1,14 @@
+panel_member_id: hans_pocket_ss_only_u02
+target_metal: Fe
+topology_class: hans_monomer
+replicate_count: 3
+target_temperature_K: 298
+friction_coeff_ps: 1.0
+timestep_fs: 2.0
+nonbonded_method: NoCutoff
+cutoff_nm: 1.0
+hydrogen_mass_repartitioning: false
+protein_forcefield: amber19-all.xml
+water_model: amber19/opc3.xml
+metal_parameter_family: generic_12_6_4_highly_charged
+metal_parameter_provenance: published_opc3_12_6_4_baseline

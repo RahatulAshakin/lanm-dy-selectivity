@@ -1,0 +1,15 @@
+candidate_id: hans_interface_ss_plus_if_u04_r2u01
+panel_role: best_hans_interface_aware_round2_candidate
+campaign_id: hans_interface_ss_plus_if
+backbone_id: hans_interface_8fnr_a_b_c_d
+topology_class: hans_interface_multichain
+target_metal: Y
+source_structure: results/ligandmpnn_round2_smoke/hans_interface_ss_plus_if_u04_r2u01/packed/hans_interface_ss_plus_if_u04_r2u01_packed_2_1.pdb
+starting_structure_path: results/round2_openmm_screening/hans_interface_ss_plus_if_u04_r2u01/Y/starting_structure.pdb
+replicate_count: 3
+target_temperature_K: 298
+suggested_collective_variables:
+- coordination_number
+- mean_metal_oxygen_distance
+metal_site_count: 14
+preserved_solvent_residue_count: 0

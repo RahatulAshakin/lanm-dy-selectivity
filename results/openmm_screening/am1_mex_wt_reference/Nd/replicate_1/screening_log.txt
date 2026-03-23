@@ -1,0 +1,24 @@
+Phase 6B2 OpenMM screening replicate
+panel_member_id: am1_mex_wt_reference
+target_metal: Nd
+topology_class: am1_monomer
+replicate_id: 1
+seed: 101
+target_temperature_K: 298
+pressure_atm: 1.0
+timestep_fs: 2.0
+production_duration_ps: 100.0
+report_stride_steps: 500
+inner_sphere_cutoff_A: 3.2
+status: success
+state_data_frame_count: 100
+mean_temperature_K: 296.875250
+final_temperature_K: 313.382759
+mean_box_volume_nm3: 209.663349
+platform_name: CPU
+platform_properties: Threads=2
+metal_atom_count: 4
+oxygen_atom_count: 193
+screened_frame_count: 100
+mean_min_metal_oxygen_distance_A: 2.301683
+inner_sphere_occupancy_fraction: 1.000000

@@ -1,0 +1,24 @@
+Phase 7G1 round-2 OpenMM screening replicate
+candidate_id: hans_pocket_ss_only_u02_r2u01
+target_metal: Al
+topology_class: hans_monomer
+replicate_id: 2
+seed: 102
+target_temperature_K: 298
+pressure_atm: 1.0
+timestep_fs: 2.0
+production_duration_ps: 100.0
+report_stride_steps: 500
+inner_sphere_cutoff_A: 3.2
+status: success
+state_data_frame_count: 100
+mean_temperature_K: 299.102721
+final_temperature_K: 298.095944
+mean_box_volume_nm3: 199.323966
+platform_name: CPU
+platform_properties: Threads=2
+metal_atom_count: 4
+oxygen_atom_count: 176
+screened_frame_count: 100
+mean_min_metal_oxygen_distance_A: 1.723088
+inner_sphere_occupancy_fraction: 1.000000

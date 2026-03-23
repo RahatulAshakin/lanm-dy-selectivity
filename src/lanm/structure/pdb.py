@@ -3,8 +3,77 @@
 from __future__ import annotations
 
 from collections.abc import Iterable
+from pathlib import Path
 
 from lanm.models import AtomRecord
+
+
+def _parse_structure_id(path: Path) -> str:
+    return path.stem.upper()
+
+
+def _parse_optional_float(value: str) -> float | None:
+    stripped = value.strip()
+    return float(stripped) if stripped else None
+
+
+def _infer_pdb_element(*, atom_name: str, residue_name: str, record_type: str) -> str:
+    normalized_atom = "".join(character for character in atom_name if character.isalpha()).upper()
+    normalized_residue = residue_name.strip().upper()
+    if record_type == "HETATM" and normalized_residue:
+        if len(normalized_residue) <= 2:
+            return normalized_residue
+    if not normalized_atom:
+        return ""
+    if record_type == "ATOM":
+        return normalized_atom[0]
+    if len(normalized_atom) <= 2:
+        return normalized_atom
+    return normalized_atom[0]
+
+
+def parse_pdb_atom_line(line: str, *, structure_id: str) -> AtomRecord | None:
+    """Parse an ATOM/HETATM PDB line into an AtomRecord."""
+    record_type = line[0:6].strip().upper()
+    if record_type not in {"ATOM", "HETATM"}:
+        return None
+    atom_name = line[12:16].strip()
+    residue_name = line[17:20].strip().upper()
+    element = line[76:78].strip().upper() or _infer_pdb_element(
+        atom_name=atom_name,
+        residue_name=residue_name,
+        record_type=record_type,
+    )
+    return AtomRecord(
+        structure_id=structure_id,
+        record_type=record_type,
+        atom_serial=int(line[6:11].strip()),
+        atom_name=atom_name,
+        alt_loc=line[16:17].strip(),
+        residue_name=residue_name,
+        chain_id=line[21:22].strip(),
+        residue_seq=int(line[22:26].strip()),
+        insertion_code=line[26:27].strip(),
+        x=float(line[30:38].strip()),
+        y=float(line[38:46].strip()),
+        z=float(line[46:54].strip()),
+        occupancy=_parse_optional_float(line[54:60]),
+        b_factor=_parse_optional_float(line[60:66]),
+        element=element,
+        charge=line[78:80].strip(),
+    )
+
+
+def read_pdb_atom_records(path: Path, structure_id: str | None = None) -> list[AtomRecord]:
+    """Read ATOM/HETATM records from a PDB file."""
+    resolved_structure_id = structure_id or _parse_structure_id(path)
+    atoms: list[AtomRecord] = []
+    with path.open("r", encoding="utf-8") as handle:
+        for line in handle:
+            atom = parse_pdb_atom_line(line.rstrip("\n"), structure_id=resolved_structure_id)
+            if atom is not None:
+                atoms.append(atom)
+    return atoms
 
 
 def _preferred_alt_loc_sort_key(atom: AtomRecord) -> tuple[int, float, str, int]:

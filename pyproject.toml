@@ -17,6 +17,7 @@ phase1 = [
     "numpy",
     "scipy",
     "gemmi",
+    "openmm",
     "matplotlib",
     "pyyaml",
     "pydantic",

@@ -1,0 +1,40 @@
+version: 1
+phase: 6A2
+panel_member_id: am1_mex_wt_reference
+panel_member_type: wild_type_reference
+panel_role: am1_mex_wild_type_reference
+candidate_id: am1_mex_wt_reference
+source_starting_structure_pdb: results/md_inputs/am1_mex_wt_reference/Dy/starting_structure.pdb
+source_system_metadata: results/md_inputs/am1_mex_wt_reference/Dy/system_metadata.yaml
+source_artifacts:
+  md_input_manifest: results/tables/md_input_manifest.csv
+  md_protocol: config/md_protocol.yaml
+  metal_model_registry: config/metal_models.yaml
+topology_class: am1_monomer
+target_metal: Dy
+chosen_protein_forcefield: amber19-all.xml
+chosen_water_model: amber19/opc3.xml
+box_padding_target_nm: 1.2
+ionic_strength_target_M: 0.15
+neutralization_ion_policy: monovalent_background_ions_only_excluding_panel_metals
+custom_metal_parameters_still_required: true
+generic_protein_water_preparation_ready: true
+restore_template_metal_proximal_waters_before_solvation: false
+template_metal_proximal_waters_available: true
+template_water_restoration_reference:
+  comparison_panel_member_id: am1_mex_wt_reference
+  comparison_source: results/md_inputs/am1_mex_wt_reference/Dy/starting_structure.pdb
+  comparison_preserved_solvent_residue_count: 25
+metal_model:
+  metal_identity: Dy
+  formal_charge: 3
+  intended_model_family: custom_bound_site_12_6_4_lj_chelator_tuned
+  standard_forcefield_supported: false
+  custom_required: true
+  parameter_source_status: custom_parameters_not_present_in_repo
+  notes: Dy remains a pre-bound LanM-site species in the Phase 6A2 build scaffold.
+    The repo does not yet contain numeric OpenMM/AMBER bound-site parameters.
+notes:
+- This Phase 6A2 artifact plans deterministic OpenMM system-building inputs only.
+- No OpenMM System object, minimization, MD, metadynamics, QM, or quantum step is
+  executed here.

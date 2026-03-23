@@ -1,0 +1,25 @@
+Phase 6A4 OpenMM system build
+panel_member_id: hans_pocket_ss_only_u02
+target_metal: Fe
+topology_class: hans_monomer
+source_starting_structure_pdb: results/md_inputs/hans_pocket_ss_only_u02/Fe/starting_structure.pdb
+build_request_path: results/md_system_build/hans_pocket_ss_only_u02/Fe/build_request.yaml
+forcefield_files: amber19-all.xml, amber19/opc3.xml
+baseline_parameter_family: generic_12_6_4_highly_charged
+metal_parameter_provenance: published_opc3_12_6_4_baseline
+metal_parameter_values: rmin_half_A=1.455, epsilon_kcal_per_mol=0.02662782, c4_kcal_per_mol_A4=429
+replicate_count: 3
+target_temperature_K: 298
+friction_coeff_ps: 1.0
+timestep_fs: 2.0
+nonbonded_method: NoCutoff
+cutoff_nm: 1.0
+hydrogen_mass_repartitioning: False
+restore_template_metal_proximal_waters_before_solvation: True
+template_water_reference_path: results/md_inputs/hans_interface_wt_reference/Fe/starting_structure.pdb
+restored_template_waters: 12
+atom_count: 1676
+residue_count: 126
+system_xml_path: results/openmm_system_build/hans_pocket_ss_only_u02/Fe/system.xml
+simulation_config_path: results/openmm_system_build/hans_pocket_ss_only_u02/Fe/simulation_config.yaml
+status: success

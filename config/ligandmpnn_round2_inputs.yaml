@@ -1,0 +1,169 @@
+version: 1
+phase: 7C
+source_artifacts:
+  redesign_round2_config: config/redesign_round2.yaml
+  redesign_round2_seeds: results/tables/redesign_round2_seeds.csv
+  redesign_round2_positions: results/tables/redesign_round2_positions.csv
+  proteinmpnn_round2_summary: results/tables/proteinmpnn_round2_summary.csv
+  proteinmpnn_round2_sequence_catalog: results/tables/proteinmpnn_round2_sequence_catalog.csv
+  proteinmpnn_round2_unique_sequences: results/tables/proteinmpnn_round2_unique_sequences.csv
+  proteinmpnn_round2_shortlist: results/tables/proteinmpnn_round2_shortlist.csv
+selection_policy:
+  per_seed_campaign_limit: 2
+  shortlist_total_limit: 6
+  include_each_seed_scaffold_if_available: true
+  avoid_exact_duplicate_sequences_across_campaigns: true
+  external_execution_started: false
+candidates:
+  am1_mex_ss_only_u02_r2u01:
+    shortlist_rank: 1
+    seed_rank: 1
+    seed_candidate_id: am1_mex_ss_only_u02
+    campaign_id: am1_mex_ss_only
+    backbone_id: am1_mex_8fns_chain_a
+    topology_class: am1_monomer
+    source_pdb_path: results/design_inputs/proteinmpnn_round2/campaigns/am1_mex_ss_only_u02/am1_mex_ss_only_u02.pdb
+    designed_chains:
+    - A
+    fixed_context_chains: []
+    redesigned_residue_count: 3
+    redesigned_residue_ids:
+    - A38
+    - A56
+    - A93
+    best_score: 0.7243
+    best_global_score: 0.942
+    best_seq_recovery: 0.8333
+    mutation_count: 3
+    mutation_string: A38:D>N,A56:D>K,A93:K>E
+    pdb_path: results/design_inputs/ligandmpnn_round2/am1_mex_ss_only_u02_r2u01/am1_mex_ss_only_u02_r2u01.pdb
+    redesigned_residues_path: results/design_inputs/ligandmpnn_round2/am1_mex_ss_only_u02_r2u01/redesigned_residues.txt
+  hans_pocket_ss_only_u02_r2u01:
+    shortlist_rank: 2
+    seed_rank: 2
+    seed_candidate_id: hans_pocket_ss_only_u02
+    campaign_id: hans_pocket_ss_only
+    backbone_id: hans_pocket_8fnr_chain_a
+    topology_class: hans_monomer
+    source_pdb_path: results/design_inputs/proteinmpnn_round2/campaigns/hans_pocket_ss_only_u02/hans_pocket_ss_only_u02.pdb
+    designed_chains:
+    - A
+    fixed_context_chains: []
+    redesigned_residue_count: 4
+    redesigned_residue_ids:
+    - A44
+    - A55
+    - A92
+    - A97
+    best_score: 0.8822
+    best_global_score: 1.4167
+    best_seq_recovery: 0.7647
+    mutation_count: 4
+    mutation_string: A44:A>D,A55:T>K,A92:M>L,A97:K>A
+    pdb_path: results/design_inputs/ligandmpnn_round2/hans_pocket_ss_only_u02_r2u01/hans_pocket_ss_only_u02_r2u01.pdb
+    redesigned_residues_path: results/design_inputs/ligandmpnn_round2/hans_pocket_ss_only_u02_r2u01/redesigned_residues.txt
+  hans_interface_ss_plus_if_u04_r2u01:
+    shortlist_rank: 3
+    seed_rank: 3
+    seed_candidate_id: hans_interface_ss_plus_if_u04
+    campaign_id: hans_interface_ss_plus_if
+    backbone_id: hans_interface_8fnr_a_b_c_d
+    topology_class: hans_interface_multichain
+    source_pdb_path: results/design_inputs/proteinmpnn_round2/campaigns/hans_interface_ss_plus_if_u04/hans_interface_ss_plus_if_u04.pdb
+    designed_chains:
+    - A
+    fixed_context_chains:
+    - B
+    - C
+    - D
+    redesigned_residue_count: 4
+    redesigned_residue_ids:
+    - A35
+    - A44
+    - A55
+    - A115
+    best_score: 0.558
+    best_global_score: 1.3632
+    best_seq_recovery: 0.7647
+    mutation_count: 4
+    mutation_string: A35:S>T,A44:A>D,A55:W>V,A115:E>D
+    pdb_path: results/design_inputs/ligandmpnn_round2/hans_interface_ss_plus_if_u04_r2u01/hans_interface_ss_plus_if_u04_r2u01.pdb
+    redesigned_residues_path: results/design_inputs/ligandmpnn_round2/hans_interface_ss_plus_if_u04_r2u01/redesigned_residues.txt
+  am1_mex_ss_only_u02_r2u02:
+    shortlist_rank: 4
+    seed_rank: 1
+    seed_candidate_id: am1_mex_ss_only_u02
+    campaign_id: am1_mex_ss_only
+    backbone_id: am1_mex_8fns_chain_a
+    topology_class: am1_monomer
+    source_pdb_path: results/design_inputs/proteinmpnn_round2/campaigns/am1_mex_ss_only_u02/am1_mex_ss_only_u02.pdb
+    designed_chains:
+    - A
+    fixed_context_chains: []
+    redesigned_residue_count: 6
+    redesigned_residue_ids:
+    - A38
+    - A56
+    - A57
+    - A83
+    - A93
+    - A94
+    best_score: 0.7261
+    best_global_score: 0.9915
+    best_seq_recovery: 0.6667
+    mutation_count: 6
+    mutation_string: A38:D>N,A56:D>K,A57:K>A,A83:Y>W,A93:K>E,A94:K>A
+    pdb_path: results/design_inputs/ligandmpnn_round2/am1_mex_ss_only_u02_r2u02/am1_mex_ss_only_u02_r2u02.pdb
+    redesigned_residues_path: results/design_inputs/ligandmpnn_round2/am1_mex_ss_only_u02_r2u02/redesigned_residues.txt
+  hans_pocket_ss_only_u02_r2u02:
+    shortlist_rank: 5
+    seed_rank: 2
+    seed_candidate_id: hans_pocket_ss_only_u02
+    campaign_id: hans_pocket_ss_only
+    backbone_id: hans_pocket_8fnr_chain_a
+    topology_class: hans_monomer
+    source_pdb_path: results/design_inputs/proteinmpnn_round2/campaigns/hans_pocket_ss_only_u02/hans_pocket_ss_only_u02.pdb
+    designed_chains:
+    - A
+    fixed_context_chains: []
+    redesigned_residue_count: 4
+    redesigned_residue_ids:
+    - A44
+    - A55
+    - A92
+    - A97
+    best_score: 0.8902
+    best_global_score: 1.4679
+    best_seq_recovery: 0.7647
+    mutation_count: 4
+    mutation_string: A44:A>D,A55:T>W,A92:M>L,A97:K>A
+    pdb_path: results/design_inputs/ligandmpnn_round2/hans_pocket_ss_only_u02_r2u02/hans_pocket_ss_only_u02_r2u02.pdb
+    redesigned_residues_path: results/design_inputs/ligandmpnn_round2/hans_pocket_ss_only_u02_r2u02/redesigned_residues.txt
+  hans_interface_ss_plus_if_u04_r2u02:
+    shortlist_rank: 6
+    seed_rank: 3
+    seed_candidate_id: hans_interface_ss_plus_if_u04
+    campaign_id: hans_interface_ss_plus_if
+    backbone_id: hans_interface_8fnr_a_b_c_d
+    topology_class: hans_interface_multichain
+    source_pdb_path: results/design_inputs/proteinmpnn_round2/campaigns/hans_interface_ss_plus_if_u04/hans_interface_ss_plus_if_u04.pdb
+    designed_chains:
+    - A
+    fixed_context_chains:
+    - B
+    - C
+    - D
+    redesigned_residue_count: 5
+    redesigned_residue_ids:
+    - A35
+    - A44
+    - A55
+    - A100
+    - A115
+    best_score: 0.563
+    best_global_score: 1.3628
+    best_seq_recovery: 0.7059
+    mutation_count: 5
+    mutation_string: A35:S>T,A44:A>D,A55:W>T,A100:R>K,A115:E>D
+    pdb_path: results/design_inputs/ligandmpnn_round2/hans_interface_ss_plus_if_u04_r2u02/hans_interface_ss_plus_if_u04_r2u02.pdb
+    redesigned_residues_path: results/design_inputs/ligandmpnn_round2/hans_interface_ss_plus_if_u04_r2u02/redesigned_residues.txt

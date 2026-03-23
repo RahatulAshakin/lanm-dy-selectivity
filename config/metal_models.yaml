@@ -1,0 +1,49 @@
+version: 1
+phase: 6A2
+description: Deterministic metal-model registry for OpenMM system-build scaffolding
+  only.
+source_artifacts:
+  md_protocol: config/md_protocol.yaml
+  md_input_manifest: results/tables/md_input_manifest.csv
+metals:
+- metal_identity: Dy
+  formal_charge: 3
+  intended_model_family: custom_bound_site_12_6_4_lj_chelator_tuned
+  standard_forcefield_supported: false
+  custom_required: true
+  parameter_source_status: custom_parameters_not_present_in_repo
+  notes: Dy remains a pre-bound LanM-site species in the Phase 6A2 build scaffold.
+    The repo does not yet contain numeric OpenMM/AMBER bound-site parameters.
+- metal_identity: Nd
+  formal_charge: 3
+  intended_model_family: custom_bound_site_12_6_4_lj_chelator_tuned
+  standard_forcefield_supported: false
+  custom_required: true
+  parameter_source_status: custom_parameters_not_present_in_repo
+  notes: Nd is handled as the same bound-site metal-model family used for Dy screening.
+    No numeric bound-site parameters are present in the repo yet.
+- metal_identity: Y
+  formal_charge: 3
+  intended_model_family: custom_bound_site_12_6_4_lj_chelator_tuned
+  standard_forcefield_supported: false
+  custom_required: true
+  parameter_source_status: custom_parameters_not_present_in_repo
+  notes: Y is tracked as a bound-site competitor rather than an ordinary solvent ion.
+    Phase 6A2 records only the registry entry because custom numeric parameters are
+    absent.
+- metal_identity: Al
+  formal_charge: 3
+  intended_model_family: custom_bound_site_12_6_4_lj_chelator_tuned
+  standard_forcefield_supported: false
+  custom_required: true
+  parameter_source_status: custom_parameters_not_present_in_repo
+  notes: Al is treated as an off-target bound-site competitor in the LanM pocket.
+    No numeric bound-site parameters are stored in the repo at this phase.
+- metal_identity: Fe
+  formal_charge: 3
+  intended_model_family: custom_bound_site_12_6_4_lj_chelator_tuned
+  standard_forcefield_supported: false
+  custom_required: true
+  parameter_source_status: custom_parameters_not_present_in_repo
+  notes: Fe is carried as an Fe(III)-style trivalent competitor assumption for the
+    validation panel. Phase 6A2 does not invent any numeric bound-site parameters.

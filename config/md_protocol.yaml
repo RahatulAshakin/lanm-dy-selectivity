@@ -1,0 +1,151 @@
+version: 1
+phase: 6A1
+description: Prepare OpenMM-ready multi-metal starting structures and metadata only;
+  no systems or simulations are built in this phase.
+source_artifacts:
+  md_validation_panel: results/tables/md_validation_panel.csv
+  md_panel_config: config/md_panel.yaml
+target_metals:
+- Dy
+- Nd
+- Y
+- Al
+- Fe
+replicate_count: 3
+target_temperature_K: 298
+suggested_collective_variables:
+- coordination_number
+- mean_metal_oxygen_distance
+panel_members:
+- panel_rank: 1
+  panel_member_id: am1_mex_ss_only_u02
+  candidate_id: am1_mex_ss_only_u02
+  panel_member_type: designed_candidate
+  panel_role: am1_mex_designed_candidate
+  topology_class: am1_monomer
+  systems:
+  - target_metal: Dy
+    starting_structure_path: results/md_inputs/am1_mex_ss_only_u02/Dy/starting_structure.pdb
+    system_metadata_path: results/md_inputs/am1_mex_ss_only_u02/Dy/system_metadata.yaml
+  - target_metal: Nd
+    starting_structure_path: results/md_inputs/am1_mex_ss_only_u02/Nd/starting_structure.pdb
+    system_metadata_path: results/md_inputs/am1_mex_ss_only_u02/Nd/system_metadata.yaml
+  - target_metal: Y
+    starting_structure_path: results/md_inputs/am1_mex_ss_only_u02/Y/starting_structure.pdb
+    system_metadata_path: results/md_inputs/am1_mex_ss_only_u02/Y/system_metadata.yaml
+  - target_metal: Al
+    starting_structure_path: results/md_inputs/am1_mex_ss_only_u02/Al/starting_structure.pdb
+    system_metadata_path: results/md_inputs/am1_mex_ss_only_u02/Al/system_metadata.yaml
+  - target_metal: Fe
+    starting_structure_path: results/md_inputs/am1_mex_ss_only_u02/Fe/starting_structure.pdb
+    system_metadata_path: results/md_inputs/am1_mex_ss_only_u02/Fe/system_metadata.yaml
+- panel_rank: 2
+  panel_member_id: am1_mex_wt_reference
+  candidate_id: am1_mex_wt_reference
+  panel_member_type: wild_type_reference
+  panel_role: am1_mex_wild_type_reference
+  topology_class: am1_monomer
+  systems:
+  - target_metal: Dy
+    starting_structure_path: results/md_inputs/am1_mex_wt_reference/Dy/starting_structure.pdb
+    system_metadata_path: results/md_inputs/am1_mex_wt_reference/Dy/system_metadata.yaml
+  - target_metal: Nd
+    starting_structure_path: results/md_inputs/am1_mex_wt_reference/Nd/starting_structure.pdb
+    system_metadata_path: results/md_inputs/am1_mex_wt_reference/Nd/system_metadata.yaml
+  - target_metal: Y
+    starting_structure_path: results/md_inputs/am1_mex_wt_reference/Y/starting_structure.pdb
+    system_metadata_path: results/md_inputs/am1_mex_wt_reference/Y/system_metadata.yaml
+  - target_metal: Al
+    starting_structure_path: results/md_inputs/am1_mex_wt_reference/Al/starting_structure.pdb
+    system_metadata_path: results/md_inputs/am1_mex_wt_reference/Al/system_metadata.yaml
+  - target_metal: Fe
+    starting_structure_path: results/md_inputs/am1_mex_wt_reference/Fe/starting_structure.pdb
+    system_metadata_path: results/md_inputs/am1_mex_wt_reference/Fe/system_metadata.yaml
+- panel_rank: 3
+  panel_member_id: hans_pocket_ss_only_u02
+  candidate_id: hans_pocket_ss_only_u02
+  panel_member_type: designed_candidate
+  panel_role: hans_pocket_designed_candidate
+  topology_class: hans_monomer
+  systems:
+  - target_metal: Dy
+    starting_structure_path: results/md_inputs/hans_pocket_ss_only_u02/Dy/starting_structure.pdb
+    system_metadata_path: results/md_inputs/hans_pocket_ss_only_u02/Dy/system_metadata.yaml
+  - target_metal: Nd
+    starting_structure_path: results/md_inputs/hans_pocket_ss_only_u02/Nd/starting_structure.pdb
+    system_metadata_path: results/md_inputs/hans_pocket_ss_only_u02/Nd/system_metadata.yaml
+  - target_metal: Y
+    starting_structure_path: results/md_inputs/hans_pocket_ss_only_u02/Y/starting_structure.pdb
+    system_metadata_path: results/md_inputs/hans_pocket_ss_only_u02/Y/system_metadata.yaml
+  - target_metal: Al
+    starting_structure_path: results/md_inputs/hans_pocket_ss_only_u02/Al/starting_structure.pdb
+    system_metadata_path: results/md_inputs/hans_pocket_ss_only_u02/Al/system_metadata.yaml
+  - target_metal: Fe
+    starting_structure_path: results/md_inputs/hans_pocket_ss_only_u02/Fe/starting_structure.pdb
+    system_metadata_path: results/md_inputs/hans_pocket_ss_only_u02/Fe/system_metadata.yaml
+- panel_rank: 4
+  panel_member_id: hans_interface_ss_plus_if_u04
+  candidate_id: hans_interface_ss_plus_if_u04
+  panel_member_type: designed_candidate
+  panel_role: hans_interface_aware_candidate
+  topology_class: hans_interface_multichain
+  systems:
+  - target_metal: Dy
+    starting_structure_path: results/md_inputs/hans_interface_ss_plus_if_u04/Dy/starting_structure.pdb
+    system_metadata_path: results/md_inputs/hans_interface_ss_plus_if_u04/Dy/system_metadata.yaml
+  - target_metal: Nd
+    starting_structure_path: results/md_inputs/hans_interface_ss_plus_if_u04/Nd/starting_structure.pdb
+    system_metadata_path: results/md_inputs/hans_interface_ss_plus_if_u04/Nd/system_metadata.yaml
+  - target_metal: Y
+    starting_structure_path: results/md_inputs/hans_interface_ss_plus_if_u04/Y/starting_structure.pdb
+    system_metadata_path: results/md_inputs/hans_interface_ss_plus_if_u04/Y/system_metadata.yaml
+  - target_metal: Al
+    starting_structure_path: results/md_inputs/hans_interface_ss_plus_if_u04/Al/starting_structure.pdb
+    system_metadata_path: results/md_inputs/hans_interface_ss_plus_if_u04/Al/system_metadata.yaml
+  - target_metal: Fe
+    starting_structure_path: results/md_inputs/hans_interface_ss_plus_if_u04/Fe/starting_structure.pdb
+    system_metadata_path: results/md_inputs/hans_interface_ss_plus_if_u04/Fe/system_metadata.yaml
+- panel_rank: 5
+  panel_member_id: hans_interface_wt_reference
+  candidate_id: hans_interface_wt_reference
+  panel_member_type: wild_type_reference
+  panel_role: hans_wild_type_reference
+  topology_class: hans_interface_multichain
+  systems:
+  - target_metal: Dy
+    starting_structure_path: results/md_inputs/hans_interface_wt_reference/Dy/starting_structure.pdb
+    system_metadata_path: results/md_inputs/hans_interface_wt_reference/Dy/system_metadata.yaml
+  - target_metal: Nd
+    starting_structure_path: results/md_inputs/hans_interface_wt_reference/Nd/starting_structure.pdb
+    system_metadata_path: results/md_inputs/hans_interface_wt_reference/Nd/system_metadata.yaml
+  - target_metal: Y
+    starting_structure_path: results/md_inputs/hans_interface_wt_reference/Y/starting_structure.pdb
+    system_metadata_path: results/md_inputs/hans_interface_wt_reference/Y/system_metadata.yaml
+  - target_metal: Al
+    starting_structure_path: results/md_inputs/hans_interface_wt_reference/Al/starting_structure.pdb
+    system_metadata_path: results/md_inputs/hans_interface_wt_reference/Al/system_metadata.yaml
+  - target_metal: Fe
+    starting_structure_path: results/md_inputs/hans_interface_wt_reference/Fe/starting_structure.pdb
+    system_metadata_path: results/md_inputs/hans_interface_wt_reference/Fe/system_metadata.yaml
+- panel_rank: 6
+  panel_member_id: hans_interface_ss_plus_if_u02
+  candidate_id: hans_interface_ss_plus_if_u02
+  panel_member_type: designed_candidate
+  panel_role: best_remaining_designed_candidate
+  topology_class: hans_interface_multichain
+  systems:
+  - target_metal: Dy
+    starting_structure_path: results/md_inputs/hans_interface_ss_plus_if_u02/Dy/starting_structure.pdb
+    system_metadata_path: results/md_inputs/hans_interface_ss_plus_if_u02/Dy/system_metadata.yaml
+  - target_metal: Nd
+    starting_structure_path: results/md_inputs/hans_interface_ss_plus_if_u02/Nd/starting_structure.pdb
+    system_metadata_path: results/md_inputs/hans_interface_ss_plus_if_u02/Nd/system_metadata.yaml
+  - target_metal: Y
+    starting_structure_path: results/md_inputs/hans_interface_ss_plus_if_u02/Y/starting_structure.pdb
+    system_metadata_path: results/md_inputs/hans_interface_ss_plus_if_u02/Y/system_metadata.yaml
+  - target_metal: Al
+    starting_structure_path: results/md_inputs/hans_interface_ss_plus_if_u02/Al/starting_structure.pdb
+    system_metadata_path: results/md_inputs/hans_interface_ss_plus_if_u02/Al/system_metadata.yaml
+  - target_metal: Fe
+    starting_structure_path: results/md_inputs/hans_interface_ss_plus_if_u02/Fe/starting_structure.pdb
+    system_metadata_path: results/md_inputs/hans_interface_ss_plus_if_u02/Fe/system_metadata.yaml

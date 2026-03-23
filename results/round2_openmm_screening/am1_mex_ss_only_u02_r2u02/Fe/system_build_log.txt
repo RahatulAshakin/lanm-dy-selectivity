@@ -1,0 +1,20 @@
+Phase 7G1 round-2 OpenMM system build
+candidate_id: am1_mex_ss_only_u02_r2u02
+target_metal: Fe
+topology_class: am1_monomer
+source_starting_structure_pdb: results/round2_openmm_screening/am1_mex_ss_only_u02_r2u02/Fe/starting_structure.pdb
+forcefield_files: amber19-all.xml, amber19/opc3.xml
+metal_parameter_family: generic_12_6_4_highly_charged
+metal_parameter_provenance: published_opc3_12_6_4_baseline
+replicate_count: 3
+target_temperature_K: 298
+friction_coeff_ps: 1.0
+timestep_fs: 2.0
+nonbonded_method: NoCutoff
+cutoff_nm: 1.0
+hydrogen_mass_repartitioning: False
+atom_count: 1511
+residue_count: 109
+system_xml_path: results/round2_openmm_screening/am1_mex_ss_only_u02_r2u02/Fe/system.xml
+simulation_config_path: results/round2_openmm_screening/am1_mex_ss_only_u02_r2u02/Fe/simulation_config.yaml
+status: success

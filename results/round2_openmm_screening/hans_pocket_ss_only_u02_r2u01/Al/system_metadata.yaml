@@ -1,0 +1,15 @@
+candidate_id: hans_pocket_ss_only_u02_r2u01
+panel_role: top_hans_pocket_round2_candidate
+campaign_id: hans_pocket_ss_only
+backbone_id: hans_pocket_8fnr_chain_a
+topology_class: hans_monomer
+target_metal: Al
+source_structure: results/ligandmpnn_round2_smoke/hans_pocket_ss_only_u02_r2u01/packed/hans_pocket_ss_only_u02_r2u01_packed_1_1.pdb
+starting_structure_path: results/round2_openmm_screening/hans_pocket_ss_only_u02_r2u01/Al/starting_structure.pdb
+replicate_count: 3
+target_temperature_K: 298
+suggested_collective_variables:
+- coordination_number
+- mean_metal_oxygen_distance
+metal_site_count: 4
+preserved_solvent_residue_count: 0

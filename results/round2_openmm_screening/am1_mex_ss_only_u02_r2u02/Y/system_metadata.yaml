@@ -1,0 +1,15 @@
+candidate_id: am1_mex_ss_only_u02_r2u02
+panel_role: top_am1_mex_round2_candidate
+campaign_id: am1_mex_ss_only
+backbone_id: am1_mex_8fns_chain_a
+topology_class: am1_monomer
+target_metal: Y
+source_structure: results/ligandmpnn_round2_smoke/am1_mex_ss_only_u02_r2u02/packed/am1_mex_ss_only_u02_r2u02_packed_1_1.pdb
+starting_structure_path: results/round2_openmm_screening/am1_mex_ss_only_u02_r2u02/Y/starting_structure.pdb
+replicate_count: 3
+target_temperature_K: 298
+suggested_collective_variables:
+- coordination_number
+- mean_metal_oxygen_distance
+metal_site_count: 4
+preserved_solvent_residue_count: 0

@@ -148,6 +148,21 @@ REDESIGN_ROUND2_CONFIG_PATH = REPO_ROOT / "config" / "redesign_round2.yaml"
 REDESIGN_ROUND2_SEEDS_PATH = RESULTS_TABLES_DIR / "redesign_round2_seeds.csv"
 REDESIGN_ROUND2_POSITIONS_PATH = RESULTS_TABLES_DIR / "redesign_round2_positions.csv"
 REDESIGN_ROUND2_REPORT_PATH = RESULTS_REPORTS_DIR / "redesign_round2_plan.md"
+FINAL_PROJECT_REPORT_PATH = RESULTS_REPORTS_DIR / "final_project_report.md"
+PROJECT_SUMMARY_REPORT_PATH = RESULTS_REPORTS_DIR / "project_summary_report.md"
+PROJECT_DETAILED_REPORT_PATH = RESULTS_REPORTS_DIR / "project_detailed_report.md"
+PROJECT_README_PATH = REPO_ROOT / "README.md"
+PAPER_SHORT_PATH = DOCS_DIR / "paper_short.md"
+PAPER_LONG_PATH = DOCS_DIR / "paper_long.md"
+FINAL_TABLE_1_TEMPLATE_SUMMARY_PATH = RESULTS_TABLES_DIR / "final_table_1_template_summary.csv"
+FINAL_TABLE_2_CANDIDATE_PROGRESSION_PATH = RESULTS_TABLES_DIR / "final_table_2_candidate_progression.csv"
+FINAL_TABLE_3_SPECIFIC_POCKET_THERMODYNAMICS_PATH = (
+    RESULTS_TABLES_DIR / "final_table_3_specific_pocket_thermodynamics.csv"
+)
+FINAL_FIGURE_1_TEMPLATE_HARMONIZATION_PATH = RESULTS_FIGURES_DIR / "final_figure_1_template_harmonization.png"
+FINAL_FIGURE_2_DESIGN_FUNNEL_PATH = RESULTS_FIGURES_DIR / "final_figure_2_design_funnel.png"
+FINAL_FIGURE_3_MULTIMETAL_VALIDATION_PATH = RESULTS_FIGURES_DIR / "final_figure_3_multimetal_validation.png"
+FINAL_FIGURE_4_QUANTUM_POCKET_SUMMARY_PATH = RESULTS_FIGURES_DIR / "final_figure_4_quantum_pocket_summary.png"
 
 
 def ensure_runtime_directories() -> None:

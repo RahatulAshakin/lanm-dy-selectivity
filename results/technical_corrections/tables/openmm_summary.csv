@@ -1,0 +1,16 @@
+candidate_id,candidate_label,metal,replicate_count,mean_distance_A,sample_sd_A,minimum_replica_mean_A,maximum_replica_mean_A,interpretation
+hans_pocket_ss_only_u02_r2u01,Hans pocket,Dy,3,2.215052,0.000741,2.214204,2.215573,Model-dependent geometry screening; not binding free energy or selectivity
+hans_pocket_ss_only_u02_r2u01,Hans pocket,Nd,3,2.316268,0.000371,2.315862,2.316589,Model-dependent geometry screening; not binding free energy or selectivity
+hans_pocket_ss_only_u02_r2u01,Hans pocket,Y,3,2.192570,0.005519,2.186353,2.196893,Model-dependent geometry screening; not binding free energy or selectivity
+hans_pocket_ss_only_u02_r2u01,Hans pocket,Al,3,1.724884,0.001671,1.723088,1.726393,Model-dependent geometry screening; not binding free energy or selectivity
+hans_pocket_ss_only_u02_r2u01,Hans pocket,Fe,3,1.927958,0.004966,1.923926,1.933505,Model-dependent geometry screening; not binding free energy or selectivity
+hans_interface_ss_plus_if_u04_r2u01,Hans interface,Dy,3,2.204878,0.002276,2.203308,2.207488,Model-dependent geometry screening; not binding free energy or selectivity
+hans_interface_ss_plus_if_u04_r2u01,Hans interface,Nd,3,2.309981,0.001713,2.308004,2.310995,Model-dependent geometry screening; not binding free energy or selectivity
+hans_interface_ss_plus_if_u04_r2u01,Hans interface,Y,3,2.190454,0.001268,2.189468,2.191884,Model-dependent geometry screening; not binding free energy or selectivity
+hans_interface_ss_plus_if_u04_r2u01,Hans interface,Al,3,1.720713,0.000476,1.720404,1.721261,Model-dependent geometry screening; not binding free energy or selectivity
+hans_interface_ss_plus_if_u04_r2u01,Hans interface,Fe,3,1.931083,0.000616,1.930395,1.931583,Model-dependent geometry screening; not binding free energy or selectivity
+am1_mex_ss_only_u02_r2u02,AM1/Mex,Dy,3,2.200297,0.003223,2.196603,2.202536,Model-dependent geometry screening; not binding free energy or selectivity
+am1_mex_ss_only_u02_r2u02,AM1/Mex,Nd,3,2.302164,0.002071,2.300359,2.304425,Model-dependent geometry screening; not binding free energy or selectivity
+am1_mex_ss_only_u02_r2u02,AM1/Mex,Y,3,2.185889,0.002214,2.183940,2.188296,Model-dependent geometry screening; not binding free energy or selectivity
+am1_mex_ss_only_u02_r2u02,AM1/Mex,Al,3,1.714791,0.000617,1.714316,1.715489,Model-dependent geometry screening; not binding free energy or selectivity
+am1_mex_ss_only_u02_r2u02,AM1/Mex,Fe,3,1.926780,0.003446,1.923507,1.930376,Model-dependent geometry screening; not binding free energy or selectivity

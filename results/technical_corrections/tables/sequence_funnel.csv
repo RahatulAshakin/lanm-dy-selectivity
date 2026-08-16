@@ -1,0 +1,9 @@
+phase,method,raw_generated,unique_sequences,retained,unit,evidence
+Mask inventory,Residue-role map,,,66,unique positions,results/tables/design_mask_candidates.csv
+Round 1,ProteinMPNN,160,44,12,sequences,results/proteinmpnn_smoke/** and results/tables/proteinmpnn_shortlist.csv
+Round 1,LigandMPNN,24,16,8,sequences,results/ligandmpnn_smoke/** and results/tables/ligandmpnn_shortlist.csv
+Round 1,Integrated seeds,,,3,candidates,results/tables/integrated_candidate_ranking.csv
+Round 2,ProteinMPNN,120,74,6,sequences,results/proteinmpnn_round2_smoke/** and results/tables/proteinmpnn_round2_shortlist.csv
+Round 2,LigandMPNN,12,6,4,sequences,results/ligandmpnn_round2_smoke/** and results/tables/ligandmpnn_round2_shortlist.csv
+Round 2,Rosetta score-only triage,4,4,4,scored candidates,results/tables/rosetta_round2_candidate_ranking.csv
+Round 2,OpenMM reduced panel,,,3,finalists,results/round2_openmm_screening/**

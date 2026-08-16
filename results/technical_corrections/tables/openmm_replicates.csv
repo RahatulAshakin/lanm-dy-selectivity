@@ -1,0 +1,46 @@
+candidate_id,candidate_label,metal,replica_id,seed,production_duration_ps,screened_frame_count,metal_atom_count,mean_min_metal_oxygen_distance_A,inner_sphere_cutoff_A,inner_sphere_occupancy_fraction,source_path
+hans_pocket_ss_only_u02_r2u01,Hans pocket,Dy,1,101,100.0,100,4,2.214204,3.2,1.000000,results/round2_openmm_screening/hans_pocket_ss_only_u02_r2u01/Dy/replicate_1/screening_log.txt
+hans_pocket_ss_only_u02_r2u01,Hans pocket,Dy,2,102,100.0,100,4,2.215379,3.2,1.000000,results/round2_openmm_screening/hans_pocket_ss_only_u02_r2u01/Dy/replicate_2/screening_log.txt
+hans_pocket_ss_only_u02_r2u01,Hans pocket,Dy,3,103,100.0,100,4,2.215573,3.2,1.000000,results/round2_openmm_screening/hans_pocket_ss_only_u02_r2u01/Dy/replicate_3/screening_log.txt
+hans_pocket_ss_only_u02_r2u01,Hans pocket,Nd,1,101,100.0,100,4,2.316352,3.2,1.000000,results/round2_openmm_screening/hans_pocket_ss_only_u02_r2u01/Nd/replicate_1/screening_log.txt
+hans_pocket_ss_only_u02_r2u01,Hans pocket,Nd,2,102,100.0,100,4,2.316589,3.2,1.000000,results/round2_openmm_screening/hans_pocket_ss_only_u02_r2u01/Nd/replicate_2/screening_log.txt
+hans_pocket_ss_only_u02_r2u01,Hans pocket,Nd,3,103,100.0,100,4,2.315862,3.2,1.000000,results/round2_openmm_screening/hans_pocket_ss_only_u02_r2u01/Nd/replicate_3/screening_log.txt
+hans_pocket_ss_only_u02_r2u01,Hans pocket,Y,1,101,100.0,100,4,2.194464,3.2,1.000000,results/round2_openmm_screening/hans_pocket_ss_only_u02_r2u01/Y/replicate_1/screening_log.txt
+hans_pocket_ss_only_u02_r2u01,Hans pocket,Y,2,102,100.0,100,4,2.196893,3.2,1.000000,results/round2_openmm_screening/hans_pocket_ss_only_u02_r2u01/Y/replicate_2/screening_log.txt
+hans_pocket_ss_only_u02_r2u01,Hans pocket,Y,3,103,100.0,100,4,2.186353,3.2,1.000000,results/round2_openmm_screening/hans_pocket_ss_only_u02_r2u01/Y/replicate_3/screening_log.txt
+hans_pocket_ss_only_u02_r2u01,Hans pocket,Al,1,101,100.0,100,4,1.726393,3.2,1.000000,results/round2_openmm_screening/hans_pocket_ss_only_u02_r2u01/Al/replicate_1/screening_log.txt
+hans_pocket_ss_only_u02_r2u01,Hans pocket,Al,2,102,100.0,100,4,1.723088,3.2,1.000000,results/round2_openmm_screening/hans_pocket_ss_only_u02_r2u01/Al/replicate_2/screening_log.txt
+hans_pocket_ss_only_u02_r2u01,Hans pocket,Al,3,103,100.0,100,4,1.725170,3.2,1.000000,results/round2_openmm_screening/hans_pocket_ss_only_u02_r2u01/Al/replicate_3/screening_log.txt
+hans_pocket_ss_only_u02_r2u01,Hans pocket,Fe,1,101,100.0,100,4,1.926443,3.2,1.000000,results/round2_openmm_screening/hans_pocket_ss_only_u02_r2u01/Fe/replicate_1/screening_log.txt
+hans_pocket_ss_only_u02_r2u01,Hans pocket,Fe,2,102,100.0,100,4,1.933505,3.2,1.000000,results/round2_openmm_screening/hans_pocket_ss_only_u02_r2u01/Fe/replicate_2/screening_log.txt
+hans_pocket_ss_only_u02_r2u01,Hans pocket,Fe,3,103,100.0,100,4,1.923926,3.2,1.000000,results/round2_openmm_screening/hans_pocket_ss_only_u02_r2u01/Fe/replicate_3/screening_log.txt
+hans_interface_ss_plus_if_u04_r2u01,Hans interface,Dy,1,101,100.0,100,4,2.207488,3.2,1.000000,results/round2_openmm_screening/hans_interface_ss_plus_if_u04_r2u01/Dy/replicate_1/screening_log.txt
+hans_interface_ss_plus_if_u04_r2u01,Hans interface,Dy,2,102,100.0,100,4,2.203839,3.2,1.000000,results/round2_openmm_screening/hans_interface_ss_plus_if_u04_r2u01/Dy/replicate_2/screening_log.txt
+hans_interface_ss_plus_if_u04_r2u01,Hans interface,Dy,3,103,100.0,100,4,2.203308,3.2,1.000000,results/round2_openmm_screening/hans_interface_ss_plus_if_u04_r2u01/Dy/replicate_3/screening_log.txt
+hans_interface_ss_plus_if_u04_r2u01,Hans interface,Nd,1,101,100.0,100,4,2.310945,3.2,1.000000,results/round2_openmm_screening/hans_interface_ss_plus_if_u04_r2u01/Nd/replicate_1/screening_log.txt
+hans_interface_ss_plus_if_u04_r2u01,Hans interface,Nd,2,102,100.0,100,4,2.308004,3.2,1.000000,results/round2_openmm_screening/hans_interface_ss_plus_if_u04_r2u01/Nd/replicate_2/screening_log.txt
+hans_interface_ss_plus_if_u04_r2u01,Hans interface,Nd,3,103,100.0,100,4,2.310995,3.2,1.000000,results/round2_openmm_screening/hans_interface_ss_plus_if_u04_r2u01/Nd/replicate_3/screening_log.txt
+hans_interface_ss_plus_if_u04_r2u01,Hans interface,Y,1,101,100.0,100,4,2.189468,3.2,1.000000,results/round2_openmm_screening/hans_interface_ss_plus_if_u04_r2u01/Y/replicate_1/screening_log.txt
+hans_interface_ss_plus_if_u04_r2u01,Hans interface,Y,2,102,100.0,100,4,2.190009,3.2,1.000000,results/round2_openmm_screening/hans_interface_ss_plus_if_u04_r2u01/Y/replicate_2/screening_log.txt
+hans_interface_ss_plus_if_u04_r2u01,Hans interface,Y,3,103,100.0,100,4,2.191884,3.2,1.000000,results/round2_openmm_screening/hans_interface_ss_plus_if_u04_r2u01/Y/replicate_3/screening_log.txt
+hans_interface_ss_plus_if_u04_r2u01,Hans interface,Al,1,101,100.0,100,4,1.720404,3.2,1.000000,results/round2_openmm_screening/hans_interface_ss_plus_if_u04_r2u01/Al/replicate_1/screening_log.txt
+hans_interface_ss_plus_if_u04_r2u01,Hans interface,Al,2,102,100.0,100,4,1.720473,3.2,1.000000,results/round2_openmm_screening/hans_interface_ss_plus_if_u04_r2u01/Al/replicate_2/screening_log.txt
+hans_interface_ss_plus_if_u04_r2u01,Hans interface,Al,3,103,100.0,100,4,1.721261,3.2,1.000000,results/round2_openmm_screening/hans_interface_ss_plus_if_u04_r2u01/Al/replicate_3/screening_log.txt
+hans_interface_ss_plus_if_u04_r2u01,Hans interface,Fe,1,101,100.0,100,4,1.930395,3.2,1.000000,results/round2_openmm_screening/hans_interface_ss_plus_if_u04_r2u01/Fe/replicate_1/screening_log.txt
+hans_interface_ss_plus_if_u04_r2u01,Hans interface,Fe,2,102,100.0,100,4,1.931583,3.2,1.000000,results/round2_openmm_screening/hans_interface_ss_plus_if_u04_r2u01/Fe/replicate_2/screening_log.txt
+hans_interface_ss_plus_if_u04_r2u01,Hans interface,Fe,3,103,100.0,100,4,1.931271,3.2,1.000000,results/round2_openmm_screening/hans_interface_ss_plus_if_u04_r2u01/Fe/replicate_3/screening_log.txt
+am1_mex_ss_only_u02_r2u02,AM1/Mex,Dy,1,101,100.0,100,4,2.201751,3.2,1.000000,results/round2_openmm_screening/am1_mex_ss_only_u02_r2u02/Dy/replicate_1/screening_log.txt
+am1_mex_ss_only_u02_r2u02,AM1/Mex,Dy,2,102,100.0,100,4,2.202536,3.2,1.000000,results/round2_openmm_screening/am1_mex_ss_only_u02_r2u02/Dy/replicate_2/screening_log.txt
+am1_mex_ss_only_u02_r2u02,AM1/Mex,Dy,3,103,100.0,100,4,2.196603,3.2,1.000000,results/round2_openmm_screening/am1_mex_ss_only_u02_r2u02/Dy/replicate_3/screening_log.txt
+am1_mex_ss_only_u02_r2u02,AM1/Mex,Nd,1,101,100.0,100,4,2.300359,3.2,1.000000,results/round2_openmm_screening/am1_mex_ss_only_u02_r2u02/Nd/replicate_1/screening_log.txt
+am1_mex_ss_only_u02_r2u02,AM1/Mex,Nd,2,102,100.0,100,4,2.301707,3.2,1.000000,results/round2_openmm_screening/am1_mex_ss_only_u02_r2u02/Nd/replicate_2/screening_log.txt
+am1_mex_ss_only_u02_r2u02,AM1/Mex,Nd,3,103,100.0,100,4,2.304425,3.2,1.000000,results/round2_openmm_screening/am1_mex_ss_only_u02_r2u02/Nd/replicate_3/screening_log.txt
+am1_mex_ss_only_u02_r2u02,AM1/Mex,Y,1,101,100.0,100,4,2.188296,3.2,1.000000,results/round2_openmm_screening/am1_mex_ss_only_u02_r2u02/Y/replicate_1/screening_log.txt
+am1_mex_ss_only_u02_r2u02,AM1/Mex,Y,2,102,100.0,100,4,2.183940,3.2,1.000000,results/round2_openmm_screening/am1_mex_ss_only_u02_r2u02/Y/replicate_2/screening_log.txt
+am1_mex_ss_only_u02_r2u02,AM1/Mex,Y,3,103,100.0,100,4,2.185430,3.2,1.000000,results/round2_openmm_screening/am1_mex_ss_only_u02_r2u02/Y/replicate_3/screening_log.txt
+am1_mex_ss_only_u02_r2u02,AM1/Mex,Al,1,101,100.0,100,4,1.714569,3.2,1.000000,results/round2_openmm_screening/am1_mex_ss_only_u02_r2u02/Al/replicate_1/screening_log.txt
+am1_mex_ss_only_u02_r2u02,AM1/Mex,Al,2,102,100.0,100,4,1.715489,3.2,1.000000,results/round2_openmm_screening/am1_mex_ss_only_u02_r2u02/Al/replicate_2/screening_log.txt
+am1_mex_ss_only_u02_r2u02,AM1/Mex,Al,3,103,100.0,100,4,1.714316,3.2,1.000000,results/round2_openmm_screening/am1_mex_ss_only_u02_r2u02/Al/replicate_3/screening_log.txt
+am1_mex_ss_only_u02_r2u02,AM1/Mex,Fe,1,101,100.0,100,4,1.930376,3.2,1.000000,results/round2_openmm_screening/am1_mex_ss_only_u02_r2u02/Fe/replicate_1/screening_log.txt
+am1_mex_ss_only_u02_r2u02,AM1/Mex,Fe,2,102,100.0,100,4,1.926456,3.2,1.000000,results/round2_openmm_screening/am1_mex_ss_only_u02_r2u02/Fe/replicate_2/screening_log.txt
+am1_mex_ss_only_u02_r2u02,AM1/Mex,Fe,3,103,100.0,100,4,1.923507,3.2,1.000000,results/round2_openmm_screening/am1_mex_ss_only_u02_r2u02/Fe/replicate_3/screening_log.txt

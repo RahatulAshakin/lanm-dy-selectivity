@@ -1,0 +1,8 @@
+component,exact_setting,interpretation_limit
+ProteinMPNN round 1,20 sequences/target at temperatures 0.10 and 0.15; seed 37; batch size 1,Generative sequence sampling; not deterministic in the mathematical sense despite fixed seed.
+ProteinMPNN round 2,20 sequences/target at temperatures 0.10 and 0.15; seed 37; batch size 1,Same fixed-seed sampling settings.
+LigandMPNN rounds 1/2,Temperature 0.10; seed 37; 2 designs per candidate; one batch; side-chain and ligand context enabled,Model confidence is not a probability of thermodynamic binding.
+Rosetta round 2,score_jd2; nstruct=1; seed 37; fa_elec weight=0; waters retained; auto metal setup; rank within topology,"Score-only triage. No relaxation, no structural-realism acceptance cutoff, and no cross-topology score comparison."
+OpenMM round 2,"298 K; 1 atm; 2 fs; friction 1 ps^-1; 100 ps production; 3 replicas, seeds 101-103; 500-step reporting",Short reduced rescreen; not a binding free-energy calculation.
+OpenMM metric,Mean over frames of the minimum distance from each retained metal atom to any oxygen; 3.2 A inner-sphere cutoff,Occupancy=1.0 at this cutoff does not establish selectivity or experimentally persistent binding.
+Force field,amber19-all.xml + amber19/opc3.xml; generic published OPC3-compatible 12-6-4 metal family,LanM-chelator-tuned numeric parameters are absent; Al/Fe short distances require sensitivity analysis.

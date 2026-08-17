@@ -1,0 +1,5 @@
+pdb_id,deposited_chains,deposited_metal_inventory,author_biological_assembly,technical_use,source
+8FNR,"A,B,C,D","Dy: A=4, B=3, C=3, D=4 (14 total)",A2 homodimer (C2); two author/PISA assemblies are listed,Pocket model uses chain A; interface model keeps A-D crystallographic context,https://www.rcsb.org/structure/8FNR
+8DQ2,"A,B,C,D",La: 3 per chain (12 total),A2 homodimer (C2); author/PISA; gel-filtration evidence for assembly 1,Reference only; do not call A-D the biological tetramer,https://www.rcsb.org/structure/8DQ2
+8FNS,A,Nd: 4,Monomeric reference in repository workflow,AM1/Mex chain-A model,results/tables/template_chain_summary.csv
+6MI5,X,Y: 3,Monomeric reference in repository workflow,AM1/Mex reference,results/tables/template_chain_summary.csv

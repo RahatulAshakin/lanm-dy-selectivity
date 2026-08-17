@@ -1,0 +1,8 @@
+required_artifact,minimum_content,repository_status,affected_claim_or_figure
+Dy CASSCF input and full output,"Coordinates, charge/multiplicity, Hamiltonian/ECP, basis sets, CAS(9,7), roots, convergence, occupations",Absent,Dy active-space claims; Figures 6-7
+Nd CASSCF input and full output,"Coordinates, charge/multiplicity, Hamiltonian/ECP, basis sets, CAS(3,7), roots, convergence, occupations",Absent,Nd active-space claims; Figures 6-7
+Dy/Nd CASPT2 inputs and outputs,"State count, imaginary and IPEA shifts, intruder-state diagnostics, energies and convergence",Absent,CASPT2 comparison
+SOC calculation files,"SOC method, states mixed, spin-free roots, matrices/energies, convergence",Absent,Electronic-state ordering and anisotropy claims
+Reduced-cluster coordinate and definition files,"Atom/residue inventory, caps, constraints, charge/multiplicity, retained waters, cluster size",Absent,Environmental-scope claims
+Natural occupation tables for every root,Seven active-orbital occupations per root with orbital identities,Absent,Active-space appropriateness
+Orbital image source data,Molden/gbw or equivalent files plus orbital indices and plotting settings,Absent,Figure 7

@@ -1,0 +1,4 @@
+finalist,model_scope,seed_mutations_source_notation,seed_mutations_unambiguous,round2_additional_mutations,arg100_status
+hans_pocket_ss_only_u02_r2u01,Hans chain-A pocket model,K12T; R77K; K87G; T92D,Chain A: K35T; R100K; K110G; T115D,Chain A: A44D; T55W; M92L; K97A,Template Arg100 becomes Lys100 in seed
+hans_interface_ss_plus_if_u04_r2u01,Hans chain A designed; chains B-D retained as fixed crystallographic context,K12S; T32W; K87G; T92E,Chain A: K35S; T55W; K110G; T115E,None in selected LigandMPNN design,Template Arg100 retained
+am1_mex_ss_only_u02_r2u02,AM1/Mex chain-A monomer model,K10D; L55Y; N59K; R90A,Chain A: K38D; L83Y; N87K; R118A,Chain A: K57A; K93R; K94A,Not the Hans Arg100 comparison

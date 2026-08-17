@@ -1,0 +1,4 @@
+candidate_id,candidate_label,ligand_confidence,overall_confidence,composite_quality_index,rank,interpretation
+hans_pocket_ss_only_u02_r2u01,Hans pocket,1.0000,0.3399,0.801970,1,Dimensionless model-based prioritization; not thermodynamic free energy
+hans_interface_ss_plus_if_u04_r2u01,Hans interface,0.3454,0.3303,0.340870,2,Dimensionless model-based prioritization; not thermodynamic free energy
+am1_mex_ss_only_u02_r2u02,AM1/Mex,0.2213,0.3023,0.245600,3,Dimensionless model-based prioritization; not thermodynamic free energy

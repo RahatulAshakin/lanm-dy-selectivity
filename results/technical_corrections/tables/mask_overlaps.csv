@@ -1,0 +1,5 @@
+canonical_position,am1_position,residue,roles,membership_excess
+17,,ASN,first-shell; protected,1
+18,16,LYS,second-sphere; interface,1
+44,40,GLY/LYS,second-sphere; interface,1
+83,79,ARG/GLU,second-sphere; interface,1

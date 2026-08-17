@@ -1,0 +1,29 @@
+<module value="gateway">
+</module>
+<module value="seward">
+</module>
+<module value="scf">
+<method> "rhf"</method>
+<energy appear="Total SCF energy" units="a.u." level="1" type="real"> -1.12276546</energy>
+<kinetic appear="Kinetic energy" units="a.u." level="2" type="real"> 1.13002576</kinetic>
+<virial appear="Virial coefficient" units="a.u." level="2" type="real"> 0.99357510</virial>
+<spin appear="UHF spin" level="1" type="real"> 0.00000000</spin>
+<potnuc appear="Nuclear repulsion energy" units="a.u." level="1" type="real"> 0.75596744</potnuc>
+<energy1el appear="One electron energy" units="a.u." level="1" type="real"> -2.54590458</energy1el>
+<energy2el appear="Two electron energy" units="a.u." level="1" type="real"> 0.66717168</energy2el>
+<nsym appear="Number of irreps" level="1" type="int"> 8</nsym>
+<nbas appear="Number of basis functions" level="1" type="int" nx="8"><v> 2</v><v> 2</v><v> 0</v><v> 0</v><v> 0</v><v> 0</v><v> 0</v><v> 0</v></nbas>
+<norb appear="Number of orbitals" level="1" type="int" nx="8"><v> 2</v><v> 2</v><v> 0</v><v> 0</v><v> 0</v><v> 0</v><v> 0</v><v> 0</v></norb>
+<nocc appear="Number of occupied orbitals" level="1" type="int" nx="8"><v> 1</v><v> 0</v><v> 0</v><v> 0</v><v> 0</v><v> 0</v><v> 0</v><v> 0</v></nocc>
+<FormalCharge appear="Total charge" units="a.u" type="real"> -0.00000000</FormalCharge>
+</module>
+<module value="rasscf">
+<FormalCharge appear="Total charge" units="a.u" type="real"> 0.00000000</FormalCharge>
+</module>
+<module value="alaska">
+</module>
+<module value="slapaf">
+</module>
+<module value="caspt2">
+<FormalCharge appear="Total charge" units="a.u" type="real"> 0.00000000</FormalCharge>
+</module>

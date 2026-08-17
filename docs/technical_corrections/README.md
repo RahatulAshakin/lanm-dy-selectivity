@@ -1,12 +1,28 @@
 # LanM technical corrections
 
-This directory contains the reviewer-driven technical correction package for manuscript `JMGM-D-26-01758`. The main manuscript is intentionally unchanged.
+This directory contains the reviewer-driven technical correction reports for manuscript `JMGM-D-26-01758`. The main manuscript is intentionally unchanged.
+
+## Updated v2.0 package
+
+`LanM_Updated_Technical_Corrections_Report.docx` and its PDF add genuine, independently repeated OpenMolcas prototype evidence to the original correction report. The original report is retained for audit history.
+
+The v2.0 update includes:
+
+- all five corrected technical figures and original correction/source-audit tables;
+- revised reviewer-response and quantum-evidence status tables;
+- an H2 RASSCF/CASPT2 reference validation;
+- an atomic Dy(III) CAS(9,7) -> RASSI/SOC -> SINGLE_ANISO prototype completed twice;
+- exact prototype figures, tables, inputs, logs, provenance, and selected source artifacts.
 
 ## Corrected technical result
 
-The repository supports a **model-prioritized Hans pocket candidate for further QM and experimental testing**. It does not currently establish thermodynamic binding free energy, Dy selectivity, zero-waste separation, or a validated CASSCF/CASPT2 mechanism.
+The repository supports a **model-prioritized Hans pocket candidate for further QM and experimental testing** and an **authentic OpenMolcas execution prototype**. It does not establish thermodynamic binding free energy, Dy selectivity, zero-waste separation, or a project-specific CASSCF/CASPT2 mechanism.
 
-## Corrections included
+## Quantum evidence boundary
+
+The atomic-Dy prototype is not a Dy-LanM cluster and there is no project-specific Nd-LanM production run. It must not be used to replace or authenticate manuscript Figures 6-7. See `OPENMOLCAS_PROTOTYPE_STATUS.md` and `SOURCE_DATA_GAPS.md`.
+
+## Original technical corrections retained
 
 - 70 design-role memberships reconciled to 66 unique residue positions.
 - Sequence funnel separated into generated, unique, shortlisted, scored, and final units.
@@ -15,27 +31,7 @@ The repository supports a **model-prioritized Hans pocket candidate for further 
 - OpenMM protocol, all 45 replica-level geometry results, and generic OPC3-compatible 12-6-4 parameters reported.
 - Hans chain-A pocket and A-D crystallographic-context models distinguished; Arg100 lineage labeled.
 - Invalid `Delta G` transformation replaced by a dimensionless Composite Quality Index.
-- Missing ORCA/CASSCF/CASPT2 source data recorded as a submission blocker rather than reconstructed.
 
-## Rebuild
+## Provenance
 
-```bash
-python -m pip install -r requirements-technical-corrections.txt
-python scripts/build_technical_corrections.py --output-root results/technical_corrections --report-path docs/technical_corrections/LanM_Technical_Corrections_Report.docx
-```
-
-The build is reporting-only. It does not rerun ProteinMPNN, LigandMPNN, Rosetta, OpenMM, or quantum chemistry.
-
-## Primary provenance
-
-- `results/tables/design_mask_candidates.csv`
-- `results/proteinmpnn_smoke/**/run_command.txt`
-- `results/proteinmpnn_round2_smoke/**/run_command.txt`
-- `results/ligandmpnn_smoke/**/run_command.txt`
-- `results/ligandmpnn_round2_smoke/**/run_command.txt`
-- `results/tables/rosetta_round2_candidate_ranking.csv`
-- `results/round2_openmm_screening/**/simulation_config.yaml`
-- `results/round2_openmm_screening/**/screening_log.txt`
-- `config/metal_parameter_values.yaml`
-
-Structure scope is cross-checked against [RCSB 8FNR](https://www.rcsb.org/structure/8FNR) and [RCSB 8DQ2](https://www.rcsb.org/structure/8DQ2).
+The original correction is anchored at commit `549b22918e1edf409e0c75831cb9af7069468275`; the v2.0 update was prepared from `main` commit `e425926d3b22de50beef9dda92a657767b52df66`. Prototype OpenMolcas source commit: `8355057f32d65706a35996b5ab07cac2962bb728`.

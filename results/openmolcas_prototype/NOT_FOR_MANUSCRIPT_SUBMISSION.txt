@@ -1,0 +1,10 @@
+PROTOTYPE-ONLY EVIDENCE — NOT A SUBSTITUTE FOR THE LANM CALCULATIONS
+
+This package contains genuine OpenMolcas executions on official test systems.
+It does not contain calculations on the manuscript's Dy-LanM or Nd-LanM
+structures. It must not be cited as repository reproduction of manuscript
+Figures 6–7, project natural occupations, project CASPT2 ordering, project
+spin–orbit/anisotropy conclusions, or reduced-cluster sensitivity.
+
+The plots and tables are labeled “prototype only.” Renaming or removing that
+qualification would misrepresent their scientific scope.

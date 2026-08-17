@@ -1,0 +1,5 @@
+quantity,max_absolute_difference_at_printed_precision,identical_at_printed_precision
+RASSCF root energies (Eh),0,TRUE
+natural occupations,0,TRUE
+spin-orbit relative energies (cm-1),0,TRUE
+ground-doublet g values,0,TRUE

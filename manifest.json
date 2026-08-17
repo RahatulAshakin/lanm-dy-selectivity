@@ -1,0 +1,204 @@
+{
+  "package": "LanM GitHub correction update",
+  "created": "2026-08-16",
+  "original_audit_commit": "549b22918e1edf409e0c75831cb9af7069468275",
+  "pre_update_main_commit": "e425926d3b22de50beef9dda92a657767b52df66",
+  "openmolcas_source_commit": "8355057f32d65706a35996b5ab07cac2962bb728",
+  "files": [
+    {
+      "path": "README.md",
+      "size_bytes": 3390,
+      "sha256": "b49960d492ebd7aefca30e008539dc56448bd84474e7bc3b16469587cac6274c"
+    },
+    {
+      "path": "docs/technical_corrections/LanM_Updated_Technical_Corrections_Report.docx",
+      "size_bytes": 548234,
+      "sha256": "6ede24ef15e49f8e5759bb4d6337675e6d46ea65852030c6f7f18c3a6807cdb1"
+    },
+    {
+      "path": "docs/technical_corrections/LanM_Updated_Technical_Corrections_Report.pdf",
+      "size_bytes": 569236,
+      "sha256": "ab0a1576efbcdd3a21d523015be99cccbde091bf4a344ab8f2f0f25c98517738"
+    },
+    {
+      "path": "docs/technical_corrections/OPENMOLCAS_PROTOTYPE_STATUS.md",
+      "size_bytes": 1499,
+      "sha256": "f6ac13dce053d10cc6a64f62ca3a741fe5b85099cd4f69a6178bb7d34bdd6a1d"
+    },
+    {
+      "path": "docs/technical_corrections/README.md",
+      "size_bytes": 2390,
+      "sha256": "4bf62f9490c825d093ab908b0fdead53f5923a3eb61f4f96fbf0a5dae1c250e9"
+    },
+    {
+      "path": "docs/technical_corrections/SOURCE_DATA_GAPS.md",
+      "size_bytes": 2153,
+      "sha256": "d2a412be22fdff60a7b560bb32657028b108b66bc7515bf77f736a5d08c8ec9e"
+    },
+    {
+      "path": "inputs/openmolcas_prototype/dy3_cas97_soc_single_aniso_core.input",
+      "size_bytes": 78905,
+      "sha256": "5a1da6d022630f565c72558b2c9933d9c8de962e28fe412e98b85052bfe0ff18"
+    },
+    {
+      "path": "inputs/openmolcas_prototype/dy3_official_test321_original.input",
+      "size_bytes": 78927,
+      "sha256": "45c246d1c5ff2dc50fd44ba011dd9426de45b1cdd4355ad97dd62501d374c165"
+    },
+    {
+      "path": "inputs/openmolcas_prototype/h2_casscf_caspt2.input",
+      "size_bytes": 1952,
+      "sha256": "1a757b679b114028c0921f5e18119d29d947cf019768ba406662799644cc62d0"
+    },
+    {
+      "path": "results/openmolcas_prototype/NOT_FOR_MANUSCRIPT_SUBMISSION.txt",
+      "size_bytes": 581,
+      "sha256": "56242ffb986109338109576a874c83e532ccba02d21677b47a37579bd9526288"
+    },
+    {
+      "path": "results/openmolcas_prototype/README.md",
+      "size_bytes": 2051,
+      "sha256": "7945045b21c9eb9bc309662728af5bd0bc1823f827513c68273312cc61ed5533"
+    },
+    {
+      "path": "results/openmolcas_prototype/anisotropy/dy3_cas97_soc_single_aniso_core.aniso.gz",
+      "size_bytes": 557610,
+      "sha256": "9573d53596cf562eb0428506a9862b1b918178238f3e5094fcc32c488495a2bb"
+    },
+    {
+      "path": "results/openmolcas_prototype/figures/prototype_dy3_kramers_doublet_energies.pdf",
+      "size_bytes": 31371,
+      "sha256": "daeb44d73b5a998cc3635f8203d0b911da34132b2e63f36b8a40b3280592d1f1"
+    },
+    {
+      "path": "results/openmolcas_prototype/figures/prototype_dy3_kramers_doublet_energies.png",
+      "size_bytes": 233815,
+      "sha256": "30edaf038b0b23665636b1fc69cba598c72e5147b226b3e5a3f45408631e420e"
+    },
+    {
+      "path": "results/openmolcas_prototype/figures/prototype_dy3_natural_occupations.pdf",
+      "size_bytes": 30404,
+      "sha256": "59b805f18bef367a71ab9a5d00a5235647d9c6412df68fec690aaee73042e327"
+    },
+    {
+      "path": "results/openmolcas_prototype/figures/prototype_dy3_natural_occupations.png",
+      "size_bytes": 219872,
+      "sha256": "55267c4ba016c50329429a9af1bb90d9efde425a23aa36f740d848b77dbb2573"
+    },
+    {
+      "path": "results/openmolcas_prototype/orbitals/dy3/dy3_cas97_soc_single_aniso_core.RasOrb",
+      "size_bytes": 56258,
+      "sha256": "eca36ec73fb0d0b4c0e5efbbe988b22123d3f49faa504c6fb69524a426f9aa1e"
+    },
+    {
+      "path": "results/openmolcas_prototype/orbitals/dy3/dy3_cas97_soc_single_aniso_core.rasscf.molden",
+      "size_bytes": 129211,
+      "sha256": "caad4fe669cf179d52f62b61913c0a129faa08af97a687da11ced97088aabc62"
+    },
+    {
+      "path": "results/openmolcas_prototype/provenance/BUILD_MANIFEST.md",
+      "size_bytes": 1082,
+      "sha256": "c87f37c36872635b10cd355c24f8e0d4b2cfe5356f5145dd496171baff38d8ee"
+    },
+    {
+      "path": "results/openmolcas_prototype/provenance/INPUT_CHANGELOG.md",
+      "size_bytes": 602,
+      "sha256": "78e2b645ee397b33e3b0e4c49d36fb82b853d65ff1e53018700e27ea296be632"
+    },
+    {
+      "path": "results/openmolcas_prototype/raw_outputs/dy3_ricd_core_console.log",
+      "size_bytes": 372482,
+      "sha256": "a91933f36445c52700ee4a5d92386ca55ad0f09e95265e000daedc7ce03a43b6"
+    },
+    {
+      "path": "results/openmolcas_prototype/raw_outputs/dy3_ricd_repeat_console.log",
+      "size_bytes": 372499,
+      "sha256": "734cec6778cd4d3ff63435999344c5824293f8667062274301cc6b9ddca5ff87"
+    },
+    {
+      "path": "results/openmolcas_prototype/raw_outputs/dy3_xmldump.xml",
+      "size_bytes": 2616,
+      "sha256": "a5a59b6a07a7f20f7e5ae15b8b838e9adb7211705baa36f2352336da0d0a9d1f"
+    },
+    {
+      "path": "results/openmolcas_prototype/raw_outputs/h2_console.log",
+      "size_bytes": 100488,
+      "sha256": "5bf2f16508c16c004d5ef585ef605b44f26bf843cec9614ebf69fae1dce8854f"
+    },
+    {
+      "path": "results/openmolcas_prototype/raw_outputs/h2_xmldump.xml",
+      "size_bytes": 1662,
+      "sha256": "a8842d27af03e3bb5e078031a9ed3c3c4cc9d65d578422d9bcbfa9e015f504dd"
+    },
+    {
+      "path": "results/openmolcas_prototype/tables/dy3_ground_doublet_g_tensor.csv",
+      "size_bytes": 261,
+      "sha256": "ce3b333ec81e3a68e6e5991f1e75f755c2143a990aa79f096a934cdf412f840e"
+    },
+    {
+      "path": "results/openmolcas_prototype/tables/dy3_kramers_doublet_energies.csv",
+      "size_bytes": 1174,
+      "sha256": "d086d2db12d0eb6940db9c4ec54c5db62ad0015e9e83ec3e3161ca91704f5c04"
+    },
+    {
+      "path": "results/openmolcas_prototype/tables/dy3_natural_occupations_all_roots.csv",
+      "size_bytes": 967,
+      "sha256": "c9990741aed54e546898ab7366ff5ecfcf38c4ac66ee840c2c4ea82de0404bd8"
+    },
+    {
+      "path": "results/openmolcas_prototype/tables/dy3_rasscf_root_energies.csv",
+      "size_bytes": 343,
+      "sha256": "2f9753c78a56ef81a27fc830e3daa44226d422bbe79321d8a4c1d3791b1ddb21"
+    },
+    {
+      "path": "results/openmolcas_prototype/tables/dy3_repeat_reproducibility.csv",
+      "size_bytes": 224,
+      "sha256": "9a75e3bec18faa700bdb14bbcdd7b539a9556de03b326deb27071396c0913a01"
+    },
+    {
+      "path": "results/openmolcas_prototype/tables/dy3_spin_orbit_states.csv",
+      "size_bytes": 1210,
+      "sha256": "d850adc3c38d5e8473f36ee050f418ca5d4963b00b2494cfc9640686d9ce7336"
+    },
+    {
+      "path": "results/openmolcas_prototype/tables/extraction_summary.json",
+      "size_bytes": 469,
+      "sha256": "c70f286cf751ba7d701ed0d8dd3d817ce751ad78caed955b4263f07121d07c66"
+    },
+    {
+      "path": "results/openmolcas_prototype/tables/h2_reference_validation.csv",
+      "size_bytes": 239,
+      "sha256": "e5b23e49064b577dfa69be90d5b209bc0655c9477d1cdecbc36b0a044fdb3fc7"
+    },
+    {
+      "path": "results/openmolcas_prototype/tables/run_stage_validation.csv",
+      "size_bytes": 431,
+      "sha256": "2a1ea91776a03b86afa361fb1d0d6f6d0f284cc05981af68b0bca7d721a83ba9"
+    },
+    {
+      "path": "results/technical_corrections/tables/quantum_evidence_status_updated.csv",
+      "size_bytes": 1403,
+      "sha256": "a6d22b455f97dfab025902d80e4fa816006f7af00becfe6e60c674c93fa4c6a6"
+    },
+    {
+      "path": "results/technical_corrections/tables/reviewer_response_matrix_updated.csv",
+      "size_bytes": 5270,
+      "sha256": "0c58f593c5f35bb14b7886b5c9b03b5877eb8579ff4742aee2a7e23f294e25ac"
+    },
+    {
+      "path": "scripts/openmolcas_prototype/RUN_PROTOTYPE.sh",
+      "size_bytes": 1082,
+      "sha256": "bfd651aeeb700d6c5c8133acfc19169b7108dba4e6fe5cb7a313d61e2b414982"
+    },
+    {
+      "path": "scripts/openmolcas_prototype/extract_prototype_results.py",
+      "size_bytes": 9650,
+      "sha256": "ee602f635cf87760c153f9d2f1b11253b6d89bd06fd59216e6334a5e203632aa"
+    },
+    {
+      "path": "scripts/openmolcas_prototype/make_prototype_plots.py",
+      "size_bytes": 4174,
+      "sha256": "e7667693d664088eada95f73f0cf07c9998c62d13fc03b4501aae7c2189b8fec"
+    }
+  ]
+}

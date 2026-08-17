@@ -1,0 +1,17 @@
+{
+  "prototype_only": true,
+  "not_manuscript_evidence": true,
+  "h2_happy_landing": true,
+  "dy_happy_landing": true,
+  "dy_rasscf_roots": 11,
+  "dy_active_orbitals": 7,
+  "dy_spin_orbit_states": 66,
+  "dy_kramers_doublets": 33,
+  "repeat_max_differences": {
+    "RASSCF root energies (Eh)": 0.0,
+    "natural occupations": 0.0,
+    "spin-orbit relative energies (cm-1)": 0.0,
+    "ground-doublet g values": 0.0
+  },
+  "hartree_to_wavenumber_factor": 219474.6313705
+}

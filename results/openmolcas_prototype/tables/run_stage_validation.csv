@@ -1,0 +1,7 @@
+run,stage,status,evidence
+H2 reference,RASSCF,PASS,_RC_ALL_IS_WELL_ and Happy landing
+H2 reference,CASPT2,PASS,_RC_ALL_IS_WELL_ and energy reference check
+Dy3+ RICD,Seward/RICD,PASS,_RC_ALL_IS_WELL_
+Dy3+ RICD,"RASSCF CAS(9,7), 11 roots",PASS,11 roots and _RC_ALL_IS_WELL_
+Dy3+ RICD,RASSI spin-orbit,PASS,66 states and _RC_ALL_IS_WELL_
+Dy3+ RICD,SINGLE_ANISO,PASS,"g tensor, magnetic tables, _RC_ALL_IS_WELL_, Happy landing"
